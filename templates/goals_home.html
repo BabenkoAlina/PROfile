@@ -20,7 +20,9 @@
       <p><a href=per_week ><button>Goals per week</button></a></p>
       <p><a href=per_month ><button>Goals per month</button></a></p>
       <p><a href=per_year ><button>Goals per year</button></a></p>
-      <p><a href=new ><button>{{content}}</button></a></p>
+      {% if content%}
+        <p><button>{{content}}</button></p>
+      {%endif%}
       
       <form action = "" method = "post">
         <div class="folder">

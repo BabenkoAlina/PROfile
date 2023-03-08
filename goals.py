@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -30,5 +30,11 @@ def goals_year():
     """
     return render_template('goals_per_year.html')
 
+@app.post('/')
+def add_folder():
+    folder_name = request.form.get('folder')
+    if request.method == "POST":
+        return render_template("goals_home.html", content = folder_name)
+    
 if __name__ == "__main__":
     app.run()
