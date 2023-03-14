@@ -18,25 +18,53 @@ auth = firebase.auth()
 app.secret_key = 'secret'
 
 @app.route('/', methods=['GET', 'POST'])
-
-def index():
-    if ('user' in session):
-        return "Logged in as " + session['user']
+def main():
+    print(session)
+    if "email" not in session:
+        return redirect('/login')
+    else:
+        return render_template('main.html')
+    
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if "email" in session:
+        return "Logged in as " + session['email']
     if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
+        email = request.json["email"]
+        password = request.json["password"]
         try:
             user = auth.sign_in_with_email_and_password(email, password)
             session['email'] = email
-            return redirect('/home')
+            return "", 302
         except:
-            return "Failed to login"
-    return render_template('home.html')
+            return '{"error": "Failed to login"}'
+    return render_template('login.html')
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if ('email' in session):
+        return "Logged in as " + session['email']
+    if request.method == 'POST':
+        email = request.json["email"]
+        password = request.json["password"]
+
+        try:
+            user = auth.create_user_with_email_and_password(email, password)
+            session['email'] = email
+            write_csv(user['localId'], email)
+            return "", 302
+        except Exception as e:
+            return '{"error": "Failed to login"}', 200  
+    return render_template('signup.html')
+
+def write_csv(localId, email):
+    with open('users.csv', 'a') as f:
+        f.write(localId + ',' + email +'\n')
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
+    session.pop('email', None)
     return redirect('/')
 
+
 if __name__ == '__main__':
-    app.run(port=1111)
+    app.run(port=1111, debug=True)

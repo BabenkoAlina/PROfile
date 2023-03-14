@@ -29,16 +29,6 @@ body {
     align-items: flex-end;
 }
 
-.wrapper {
-    width: 100%;
-    min-height: 75vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 30px;
-}
-
 .container {
     max-width: 500px;
     height: 100%;
@@ -103,12 +93,10 @@ input:focus {
     background-color: #D81A1A;
     font-weight: 600;
     color: #191414;
-
     display: flex;
     align-items: center;
     justify-content: center;
     min-width: 85px;
-
     transition: all 0.1s ease-in-out;
 }
 
@@ -154,17 +142,3 @@ input:focus {
     }
 }
 
-.description {
-    font-size: 13px;
-    font-weight: 500;
-    width: 100%;
-
-    text-align: center;
-    color: #888888;
-    padding: 10px;
-}
-
-.description .special {
-    color: #1db954;
-    font-weight: 600;
-}
