@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Habits List</title>
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+    <h1>Habits List</h1>
+    
+    <div id="add-habit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="add-habit-form" method="POST">
+                <label for="name">Add new habit:</label>
+                <input type="text" id="name" name="name">
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </div>
+    
+    <button id="add-button">+</button>
+    
+    <ul id="habits-list">
+        <!-- Habit items will be dynamically added here -->
+    </ul>
+
+    <script>
+        // Open the add habit modal when the user clicks the add button
+        var addModal = document.getElementById("add-habit-modal");
+        var addButton = document.getElementById("add-button");
+        var closeButton = document.getElementsByClassName("close")[0];
+        addButton.onclick = function() {
+            addModal.style.display = "block";
+        }
+        closeButton.onclick = function() {
+            addModal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == addModal) {
+                addModal.style.display = "none";
+            }
+        }
+        
+        // Add a new habit to the list when the user submits the add habit form
+        var habitsList = document.getElementById("habits-list");
+        var addHabitForm = document.getElementById("add-habit-form");
+        addHabitForm.onsubmit = function(event) {
+            event.preventDefault();
+            var habitName = document.getElementById("name").value;
+            var newHabit = document.createElement("li");
+            newHabit.innerHTML = '<input type="checkbox" name="habit" value="' + habitName + '"><span>' + habitName + '</span><button class="delete-button">X</button><input type="hidden" name="count" value="0">';
+            habitsList.appendChild(newHabit);
+            addModal.style.display = "none";
+            addHabitForm.reset();
+        }
+        
+        // Increment the count of the habit when its checkbox is checked
+        habitsList.onchange = function(event) {
+            if (event.target.type === "checkbox") {
+                var countInput = event.target.nextElementSibling.nextElementSibling;
+                if (event.target.checked) {
+                    countInput.value = parseInt(countInput.value) + 1;
+                } else {
+                    countInput.value = 0;
+                }
+            }
+        }
+        
+        // Delete a habit when its delete button is clicked
+        habitsList.onclick = function(event) {
+            if (event.target.classList.contains("delete-button")) {
+                event.target.parentNode.remove();
+            }
+        }
+    </script>
+
+
+    <div class="fixed">
+        <div class="btn-group">
+            <a href="link1">
+                <button class="button">Home</button>
+            </a>
+            <a href="link2">
+                <button class="button">Diary</button>
+            </a>
+            <a href="link3">
+                <button class="button">Goals</button>
+            </a>
+            <a href="link4 - same link">
+                <button class="button">Habits</button>
+            </a>
+        </div>
+    </div>
+ 
+</body>
+</html>
