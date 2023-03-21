@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Goals for {{list_name}} list</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <ul>
+        <li style="float:right"><a class="active" href="#about">About</a></li>
+        <li><a href="#habits">Habits</a></li>
+        <li><a href="#goals">Goals</a></li>
+        <li><a href="#diary">Diary</a></li>
+        <li><a href="#home">Home</a></li>
+        </ul>
+<h2>Goals for {{list_name}} list</h2>
+
+<ul class="goalsList">
+    {% for goal in goals %}
+        <li class="goal">
+            <span>
+                <button><img src="#" alt="complete"></button>
+            </span>
+            <div class="description">{{ goal.description }}</div>
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
