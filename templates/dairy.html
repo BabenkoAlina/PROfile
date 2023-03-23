@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  </head>
+  <body>
+    <header style="background-color:gray">
+       <a href='#'>Home</a>
+       <a href='#'>Diary</a>
+       <a href='#'>Goals</a>
+       <a href='#'>Habits</a>
+    </header>
+    <body>
+        <h1>My dairy</h1>
+        <form method='POST' action='/write_csv'>
+            <table>
+                <tr>
+                    <td>
+                        <label for='module'>Module</label><br>
+                        <input type='text' id='module' name='module'><br>
+                    </td>
+                    <td>
+                        <label for='value'>Value</label><br>
+                        <input type='text' id='value' name='value'><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for='body'>Body</label><br>
+                        <input type='text' id='body' name='body'><br>
+                    </td>
+                    <td>
+                        <label for='km'>Km</label><br>
+                        <input type='text' id='km' name='km'><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for='heart'>Heart</label><br>
+                        <input type='text' id='heart' name='heart'><br>
+                    </td>
+                    <td>
+                        <label for='emotion'>Emotion</label><br>
+                        <input type='text' id='emotion' name='emotion'><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for='intelegance'>Intelegance</label><br>
+                        <input type='text' id='intelegance' name='intelegance'><br>
+                    </td>
+                    <td>
+                        <label for='action'>Action</label><br>
+                        <input type='text' id='action' name='action'><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>АПД дня по цінності</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type='text' id='good' name='good' placeholder='Що добре?'><br>
+                    </td>
+                    <td>
+                        <input type='text' id='bad' name='bad' placeholder='Що погано?'><br>
+                    </td>
+                    <td>
+                        <input type='text' id='improve' name='improve' placeholder='Що покращити?'><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type='text' id='day' name='day' placeholder='Звір дня'><br>
+                    </td>
+                    <td>
+                        <input type='text' id='rival' name='rival' placeholder='Противник дня'><br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>    
+                        <input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    </body>
+    <footer style="background-color:gray">
+    </footer>
+  </body>
+</html>
