@@ -33,6 +33,12 @@ def index():
     habits = read_csv()
     return render_template('habits_phone.html', habits=habits, today_str=today_str, **context)
 
+def write_new_habit(habitName):
+    with open("habits.csv", mode="w", newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
+        writer.writeheader()
+        writer.writerow(habitName)
+
 @app.route('/add_habit', methods=['POST'])
 def add_habit():
     if request.method == 'POST':
