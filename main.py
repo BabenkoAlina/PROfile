@@ -5,6 +5,7 @@ from services.goal import *
 from datetime import datetime
 import calendar
 from csv import writer
+import pandas as pd
 
 app = Flask(__name__)
 # TODO: get id dynamically
@@ -31,7 +32,7 @@ def main():
         return redirect('/login')
     else:
         return render_template('goals_home.html')
-    
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if "email" in session:
@@ -111,7 +112,7 @@ def page():
 
 @app.route('/write_csv', methods=['POST'])
 def write_csv():
-    day_info = [datetime.today().strftime('%Y-%m-%d'), request.form['module'], request.form['value'], \
+    day_info = [session['localId'], datetime.today().strftime('%Y-%m-%d'), request.form['module'], request.form['value'], \
         request.form['body'], request.form['km'], request.form['heart'], \
         request.form['emotion'], request.form['intelegance'], \
         request.form['action'], request.form['good'], request.form['bad'], \
@@ -120,6 +121,13 @@ def write_csv():
         writer_object = writer(file)
         writer_object.writerow(day_info)
     return render_template('response.html')
+
+def get_emotion():
+    content = pd.read_csv("user_info.csv")
+    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(f'{datetime.now().year}-{("0" + str(datetime.now().month)) if len(str(datetime.now().month))==1 else str(datetime.now().month)}'))]
+    emotion = content['emotion'].value_counts().idxmax()
+    session['emotion'] = emotion
+    print(session['emotion'])
 
 if __name__ == '__main__':
     app.run(port=1111, debug=True)
