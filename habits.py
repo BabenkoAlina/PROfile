@@ -34,10 +34,10 @@ def index():
     return render_template('habits_phone.html', habits=habits, today_str=today_str, **context)
 
 def write_new_habit(habitName):
+    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name': habitName, 'Count': 10}
     with open("habits.csv", mode="w", newline='') as file:
         writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
-        writer.writeheader()
-        writer.writerow(habitName)
+        writer.writerow(dict_habit)
 
 @app.route('/add_habit', methods=['POST'])
 def add_habit():
