@@ -58,15 +58,16 @@ def signup():
         try:
             user = auth.create_user_with_email_and_password(email, password)
             session['email'] = email
-            write_csv(user['localId'], email)
+            session['localId'] = user['localId']
+            # write_csv(user['localId'], email)
             return "", 302
         except Exception as e:
             return '{"error": "Failed to login"}', 200  
     return render_template('signup.html')
 
-def write_csv(localId, email):
-    with open('users.csv', 'a') as f:
-        f.write(localId + ',' + email +'\n')
+# def write_csv(localId, email):
+#     with open('users.csv', 'a') as f:
+#         f.write(localId + ',' + email +'\n')
 @app.route('/logout')
 def logout():
     session.pop('email', None)
