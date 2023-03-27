@@ -37,11 +37,11 @@ def index():
     habits = read_csv()
     return render_template('habits_phone.html', habits=habits, today_str=today_str, **context)
 
-# def write_new_habit(habitName):
-#     dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name': habitName, 'Count': 10}
-#     with open("habits.csv", mode="a", newline='\n') as file:
-#         writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
-#         writer.writerow(dict_habit)
+def write_new_habit(habitName):
+    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name': habitName, 'Count': 10}
+    with open("habits.csv", mode="a", newline='\n') as file:
+        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
+        writer.writerow(dict_habit)
 
 @app.route('/add_habit', methods=['POST'])
 def add_habit():
@@ -93,5 +93,5 @@ def delete_habit():
     return redirect('/')
 
 if __name__ == '__main__':
-    # write_new_habit("Diving")
+    write_new_habit("Diving")
     app.run(debug=True)
