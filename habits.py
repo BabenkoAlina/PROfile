@@ -10,8 +10,12 @@ app = Flask(__name__, template_folder="templates")
 # function to read the habit data from CSV file
 def read_csv():
     filename = "habits.csv"
+    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name':'Drinking water', 'Count': 10}
     if not os.path.isfile(filename) or os.path.getsize(filename) == 0:
-        df = pd.DataFrame({"Name": ["Drinking water"], "Count": 0})
+        writer = csv.DictWriter(filename, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
+        df = pd.DataFrame(dict_habit)
+        writer.writeheader()
+        writer.writerow(dict_habit)
         # save dataframe to csv
         df["Count"] = df["Count"].astype(int)
         df.to_csv(filename, index=False)
@@ -33,17 +37,17 @@ def index():
     habits = read_csv()
     return render_template('habits_phone.html', habits=habits, today_str=today_str, **context)
 
-def write_new_habit(habitName):
-    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name': habitName, 'Count': 10}
-    with open("habits.csv", mode="w", newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
-        writer.writerow(dict_habit)
+# def write_new_habit(habitName):
+#     dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name': habitName, 'Count': 10}
+#     with open("habits.csv", mode="a", newline='\n') as file:
+#         writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
+#         writer.writerow(dict_habit)
 
 @app.route('/add_habit', methods=['POST'])
 def add_habit():
     if request.method == 'POST':
         name = request.form['name']
-        habit_df = pd.DataFrame({"Name": [name], "Count": [0]})
+        habit_df = pd.DataFrame({'User ID': 1, 'Habit ID': 1, 'Name': name, 'Count': 0})
         if os.path.isfile("habits.csv"):
             habits_df = pd.read_csv("habits.csv")
             habits_df = habits_df.append(habit_df, ignore_index=True)
@@ -59,7 +63,7 @@ def add_habit():
 def write_csv():
     habits = read_csv()
     with open('habits.csv', 'w', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=['Name', 'Count'])
+        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
         writer.writeheader()
         for habit in habits:
             writer.writerow(habit)
@@ -89,4 +93,5 @@ def delete_habit():
     return redirect('/')
 
 if __name__ == '__main__':
+    # write_new_habit("Diving")
     app.run(debug=True)
