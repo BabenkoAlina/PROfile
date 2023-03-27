@@ -38,12 +38,9 @@ def change_goal_status(user_id, goal_id, new_status):
     goals_data = pd.read_csv(GOALS_PATH, delimiter=',')
 
     if new_status == 'deleted':
-        # goals_data.drop(goals_data.loc[(goals_data['user_id'] == user_id) & (goals_data['goal_id'] == goal_id)].index, inplace=True)
-        # TODO: remove from csv
-        if goals_data.loc[(goals_data['user_id'] != user_id) & (goals_data['goal_id'] != goal_id)]:
-            goals_data = goals_data.to_dict('records')
-            print(goals_data)
-            goals_data.to_csv(GOALS_PATH, index=False, header=True)
+        indexes = goals_data[ (goals_data['user_id'] == user_id) & (goals_data['goal_id'] == goal_id) ].index
+        goals_data.drop(indexes, inplace=True)
+        goals_data.to_csv(GOALS_PATH, index=False, header=True)
 
     elif new_status == 'completed':
         goals_data.at[goal_id,'status']='completed'
