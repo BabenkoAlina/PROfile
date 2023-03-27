@@ -37,7 +37,7 @@ def add_list():
     except ValueError as error:
         flash(str(error), 'error')
     finally:
-        redirect('/')
+        return redirect('/')
 
 @app.post('/goal')
 def add_goal():
