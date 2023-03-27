@@ -13,23 +13,34 @@
       <li><a href="#goals">Goals</a></li>
       <li><a href="#diary">Diary</a></li>
       <li><a href="#home">Home</a></li>
-      </ul>
+    </ul>
+  
+    <div class="messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
 
-      <h2>Goals</h2>
-      <p>Progress bar here</p>
-      {% if lists%}
-        {% for list in lists %}
-        <p><a href="/{{ list.list_url }}" ><button>{{list.list_name}}</button></a></p>
-        {% endfor %}
-      {%endif%}
+    <h2>Goals</h2>
+    {% if lists%}
+      {% for list in lists %}
+      <p><a href="/{{ list.list_url }}" ><button>{{list.list_name}}</button></a></p>
+      {% endfor %}
+    {%endif%}
 
-      <form action = "" method = "post">
-        <div class="folder">
-          <label for="list">Enter new folder name for your goals.</label>
-          <input type="text" name="list">
+    <form action = "" method = "post">
+      <div class="folder">
+        <label for="list">Enter new folder name for your goals.</label>
+        <input type="text" name="list">
       </div>
-        <input type="submit" value="Create new folder.">
-      </form>
+      <input type="submit" value="Create new folder.">
+    </form>
 
 </body>
 </html>
