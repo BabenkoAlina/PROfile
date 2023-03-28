@@ -11,6 +11,12 @@ def get_lists_by_user_id(user_id):
     results = list_data.loc[list_data['user_id'] == user_id].to_dict('records')
     return results
 
+def get_list_by_name(user_id, name):
+    list_data = pd.read_csv(LISTS_PATH, delimiter=',')
+    list = list_data.loc[(list_data['list_url'] == name) & (list_data['user_id'] == user_id)].to_dict('records')
+    # TODO: if no list or len == 0 => error
+    return list[0]
+
 def create_list_by_user_id(user_id, name):
     list_data = pd.read_csv(LISTS_PATH, delimiter=',')
     last_id = list_data['list_id'].max()
@@ -26,7 +32,6 @@ def create_list_by_user_id(user_id, name):
         })
         df.to_csv(LISTS_PATH, mode='a', index=False, header=False)
     else:
-        #TODO: throw error
         print('ERROR!')
  
 def slugify(value, allow_unicode=False):

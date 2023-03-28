@@ -1,101 +1,31 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
 
-h1 {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#add-habit-modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 10;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: #fffefe00; 
-}
-
-.modal-content {
-  background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
-  border: none;
-  width: 80%;
-}
-
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #ffffff;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-#add-habit-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-}
-
-#add-habit-form label {
-  margin-top: 10px;
-  margin-bottom: 5px;
-  color: #000;
-}
-
-#add-habit-form input[type="text"] {
-  padding: 5px;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: #f2f2f2;
-}
-
-#add-habit-form input[type="submit"] {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
-  background-color: #f44336;
-  color: white;
-  cursor: pointer;
-}
-
-#add-habit-form input[type="submit"]:hover {
-  background-color: #f44336;
-}
-
-#habits-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.habit {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-.habit .name {
-  flex-grow: 1;
-  margin-left: 10px;
-}
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+    
+    li {
+        float: right;
+    }
+    
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    
+    li a:hover:not(.active) {
+        background-color: #111;
+    }
+    
+    .active {
+        background-color: #D81A1A;
+    }
 
 .habit .count {
   display: none;

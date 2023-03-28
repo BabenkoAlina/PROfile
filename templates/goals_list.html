@@ -12,19 +12,62 @@
         <li><a href="#goals">Goals</a></li>
         <li><a href="/diary">Diary</a></li>
         <li><a href="#home">Home</a></li>
+    </ul>
+
+<div class="messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
         </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+
 <h2>Goals for {{list_name}} list</h2>
+
+<h3>Completed goals</h3>
+<ul class="goalsList">
+    {% for goal in goals %}
+        {% if goal.status == 'completed' %}
+            <li class="goal">
+                <div class="description">{{ goal.description }}</div>
+                <span>
+                    <button class="delete" data-goal-id="{{goal.goal_id}}"><img src="#" alt="delete"></button>
+                </span>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<h3>Your goals in progress</h3>
 
 <ul class="goalsList">
     {% for goal in goals %}
-        <li class="goal">
-            <span>
-                <button><img src="#" alt="complete"></button>
-            </span>
-            <div class="description">{{ goal.description }}</div>
-        </li>
+        {% if goal.status != 'completed' %}
+            <li class="goal">
+                <span>
+                    <button class="update" data-goal-id="{{goal.goal_id}}"><img src="#" alt="complete"></button>
+                </span>
+                <div class="description">{{ goal.description }}</div>
+                <span>
+                    <button class="delete" data-goal-id="{{goal.goal_id}}"><img src="#" alt="delete"></button>
+                </span>
+            </li>
+        {% endif %}
     {% endfor %}
 </ul>
+
+<form action = "/goal" method = "post">
+    <div class="folder">
+      <input type="hidden" value="{{list_name}}" name="list_name">
+      <label for="goal">Type in the description for your goal.</label>
+      <input type="text" name="goal">
+    </div>
+    <input type="submit" value="Create new goal.">
+</form>
 
 </body>
 </html>
