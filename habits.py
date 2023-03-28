@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect
 import pandas as pd
 import os
 import csv
-import re
 import datetime
 
 app = Flask(__name__, template_folder="templates")
