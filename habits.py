@@ -42,6 +42,13 @@ def write_new_habit(habitName):
         writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
         writer.writerow(dict_habit)
 
+def delete_one_habit(habitName):
+    habits = read_csv()
+    for habit in habits:
+        if habit["Name"] == habitName:
+            habits.remove(habit)
+    return habits
+
 @app.route('/add_habit', methods=['POST'])
 def add_habit():
     if request.method == 'POST':
@@ -53,7 +60,7 @@ def add_habit():
 
 
 # function to write the habit data to CSV file
-def write_csv():
+def write_csv(habits):
     habits = read_csv()
     with open('habits.csv', 'w', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
@@ -62,27 +69,30 @@ def write_csv():
             writer.writerow(habit)
 
 # update habit route to update the count of a habit
+
 @app.route('/update_habit', methods=['POST'])
 def update_habit():
     name = request.form['name']
+    count = request.form['count']
     habits = read_csv()
     for habit in habits:
         if habit['Name'] == name:
-            if 'count' in request.form:
-                habit['Count'] = int(habit['Count']) + 1
+            if count == 1:
+                habit['Count'] = int(count) + 1
             else:
                 habit['Count'] = 0
             break
-    write_csv()
+    write_csv(habits)
     return redirect('/')
+
 
 # delete habit route to remove a habit from the list
 @app.route('/delete_habit', methods=['DELETE'])
-def delete_habit():
-    name = request.form['name']
+def delete_habit(habits):
     habits = read_csv()
-    habits = [habit for habit in habits if habit['Name'] != name]
-    write_csv()
+    name = request.form['name']
+    habits = delete_one_habit(name)
+    write_csv(habits)
     return redirect('/')
 
 if __name__ == '__main__':
