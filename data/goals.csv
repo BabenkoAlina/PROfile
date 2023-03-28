@@ -1,5 +1,6 @@
 goal_id,list_id,description,status,user_id
 1,3,Buy a present,in_progress,1
-2,3,Meet the deadlines,in_progress,1
 3,3,Meet the deadlines done,completed,1
-4,3,Turn in the essay,in_progress,1
+4,3,Turn in the essay,completed,1
+5,3,test,completed,1
+6,3,wow,in_progress,1

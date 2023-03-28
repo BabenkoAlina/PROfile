@@ -3,7 +3,9 @@
 <head>
     <title>Goals for {{list_name}} list</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="../static/style_goals.css">
+<script type="text/javascript" src="../static/goals_custom.js"></script>
 </head>
 <body>
     <ul style="background-color: white;">
@@ -35,7 +37,7 @@
             <li class="goal">
                 <div class="description">{{ goal.description }}</div>
                 <span>
-                    <button class="delete" data-goal-id="{{goal.goal_id}}"><img src="#" alt="delete"></button>
+                    <button class="delete" data-goal-id="{{goal.goal_id}}">Delete</button>
                 </span>
             </li>
         {% endif %}
@@ -49,11 +51,11 @@
         {% if goal.status != 'completed' %}
             <li class="goal">
                 <span>
-                    <button class="update" data-goal-id="{{goal.goal_id}}"><img src="#" alt="complete"></button>
+                    <button class="update" data-goal-id="{{goal.goal_id}}">Complete</button>
                 </span>
                 <div class="description">{{ goal.description }}</div>
                 <span>
-                    <button class="delete" data-goal-id="{{goal.goal_id}}"><img src="#" alt="delete"></button>
+                    <button class="delete" data-goal-id="{{goal.goal_id}}">Delete</button>
                 </span>
             </li>
         {% endif %}
