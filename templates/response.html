@@ -71,14 +71,23 @@
 <div class="container">
   <h1>Put in a date to look for</h1>
   <div class="form-container">
-      <form id='form' action = '/diary_info' method = "POST">
-      <input class="input" type ='text' id='date' name='date' placeholder = '2023-03-28' ><br>
-      <input type ='submit' class = 'submit' placeholder = 'Send'>
-      <p class='account'>Don't want to read your records? <a href = '/goals'>Go to homepage</a></p>
-      </form>             
+    <form id='form' action = '/diary_info' method = "POST">
+    <input class="input" type ='text' id='date' name='date' placeholder = '2023-03-28' ><br>
+    <input type ='submit' class = 'submit' placeholder = 'Send'>
+    <p class='account'>Don't want to read your records? <a href = '/goals'>Go to homepage</a></p>
+    </form>             
   </div>
 </div>
 
+<div class='container'>
+  <button id="myButton" class="float-left submit-button btn btn-danger" >Add info about today</button>
+</div>
+
+<script type="text/javascript">
+  document.getElementById("myButton").onclick = function () {
+      location.href = "/diary";
+  };
+</script>
 
 </body>
 </html>
