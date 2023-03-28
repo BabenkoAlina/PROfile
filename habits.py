@@ -47,14 +47,8 @@ def write_new_habit(habitName):
 def add_habit():
     if request.method == 'POST':
         name = request.form['name']
-        habit_df = pd.DataFrame({'User ID': 1, 'Habit ID': 1, 'Name': name, 'Count': 0})
-        if os.path.isfile("habits.csv"):
-            habits_df = pd.read_csv("habits.csv")
-            habits_df = habits_df.append(habit_df, ignore_index=True)
-        else:
-            habits_df = habit_df
-        habits_df.to_csv("habits.csv", index=False)
-        return "Habit added successfully!"
+        if len(name) != 0:
+            write_new_habit(name)
     else:
         return "Method Not Allowed"
 
@@ -71,7 +65,7 @@ def write_csv():
 # update habit route to update the count of a habit
 @app.route('/update_habit', methods=['POST'])
 def update_habit():
-    name = request.args.get('habitName')
+    name = request.form['name']
     habits = read_csv()
     for habit in habits:
         if habit['Name'] == name:
@@ -86,12 +80,11 @@ def update_habit():
 # delete habit route to remove a habit from the list
 @app.route('/delete_habit', methods=['DELETE'])
 def delete_habit():
-    name = request.args.get('habitName')
+    name = request.form['name']
     habits = read_csv()
     habits = [habit for habit in habits if habit['Name'] != name]
     write_csv()
     return redirect('/')
 
 if __name__ == '__main__':
-    write_new_habit("Diving")
     app.run(debug=True)
