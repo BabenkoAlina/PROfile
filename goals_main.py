@@ -1,7 +1,6 @@
-from flask import Flask, render_template, redirect, request, flash, url_for
+from flask import Flask, render_template, redirect, request, flash, url_for, jsonify
 from services.list import *
 from services.goal import *
-from werkzeug.urls import url_parse
 
 app = Flask(__name__)
 app.secret_key = b'session_key'
@@ -60,30 +59,22 @@ def add_goal():
 @app.delete('/goal/<goal_id>')
 def delete_goal(goal_id):
     try:
-        url = request.referrer
-        if url and url_parse(url).path:
-            list_name = url_parse(url).path
         if goal_id == '' or goal_id is None:
             raise ValueError('There is already no such goal in the list!')
-        change_goal_status(USER_ID, goal_id, 'deleted')
-    except ValueError as error:
-        flash(str(error), 'error')
-    finally:
-        return redirect(url_for('goals', name=list_name))
+        change_goal_status(USER_ID, int(goal_id), 'deleted')
+        return jsonify({"code": 200, "message": "Successfully deleted the goal!"})
+    except ValueError:
+        return jsonify({"code": 400, "message": "Failed to delete the goal!"})
 
 @app.put('/goal/<goal_id>')
 def complete_goal(goal_id):
     try:
-        url = request.referrer
-        if url and url_parse(url).path:
-            list_name = url_parse(url).path
         if goal_id == '' or goal_id is None:
             raise ValueError('There is no such goal in the list!')
-        change_goal_status(USER_ID, goal_id, 'completed')
-    except ValueError as error:
-        flash(str(error), 'error')
-    finally:
-        return redirect(url_for('goals', name=list_name))
+        change_goal_status(USER_ID, int(goal_id), 'completed')
+        return jsonify({"code": 200, "message": "Successfully completed the goal!"})
+    except ValueError:
+        return jsonify({"code": 400, "message": "Failed to update the goal!"})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug = True)
