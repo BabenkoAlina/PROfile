@@ -78,7 +78,7 @@
             event.preventDefault();
             var habitName = document.getElementById("name").value;
             var newHabit = document.createElement("li");
-            newHabit.innerHTML = '<span>' + habitName + '</span><input type="checkbox" id="' + habitName + '" name="' + habitName + '" class="habit-checkbox"><button class="delete-button">X</button><input type="hidden" name="count" value=0>';
+            newHabit.innerHTML = '<form id="' + habitName + '-form" name="' + habitName + '-form" onsubmit="return false;"><span>' + habitName + '</span><input type="checkbox" name="' + habitName + '" value="1" class="habit-checkbox" form="' + habitName + '-form"><button class="delete-button">X</button><input type="hidden" name="count" value="0" form="' + habitName + '-form"></form>';
             habitsList.appendChild(newHabit);
             addModal.style.display = "none";
             addHabitForm.reset();
@@ -91,13 +91,14 @@
                 console.log(data);
             });
         }
+
         // Get all habit items and iterate over them to get their names and call the function
         var habitItems = document.querySelectorAll("#habits-list li span");
         habitItems.forEach(function(item) {
             var habitName = item.textContent;
             callPythonFunction(habitName);
         });
-        
+
         var habitCheckboxes = document.querySelectorAll("#habits-list li input[type='checkbox']");
         habitCheckboxes.forEach(function(checkbox) {
             checkbox.addEventListener('change', function() {
@@ -109,6 +110,7 @@
                     upgradeHabit(habitName, newCount);
                 } else {
                     habitCountInput.value = 0;
+                    upgradeHabit(habitName, 0);
                 }
             });
         });
@@ -124,14 +126,6 @@
                 event.target.parentNode.remove();
             }
         }
-
-                
-                // Delete a habit when its delete button is clicked
-                habitsList.onclick = function(event) {
-                    if (event.target.classList.contains("delete-button")) {
-                        event.target.parentNode.remove();
-                    }
-                }
     </script>
 
 
