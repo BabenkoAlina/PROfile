@@ -4,12 +4,10 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: #333;
     }
     
     ul.flashes {
         background-color: none;
-        margin-top: 20px;
     }
 
     ul.flashes li {
@@ -43,7 +41,7 @@
     
     li a {
         display: block;
-        color: white;
+        color: black;
         text-align: center;
         padding: 14px 16px;
         text-decoration: none;
@@ -63,6 +61,21 @@
 
     body {
         font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(-45deg, #5e5e5e, #868686, #c9c9c9, #ffffff);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+    }
+    @keyframes gradient {
+        0% {
+        background-position: 0% 50%;
+        }
+        50% {
+        background-position: 100% 50%;
+        }
+        100% {
+        background-position: 0% 50%;
+        }
     }
 
     p {
@@ -79,9 +92,9 @@
 
     button {
         background-color: #555555;
-        color: white;
+        color: black;
         height: 60px;
-        width:140px;
+        width: 140px;
         border: none;
         padding: 15px 32px;
         text-align: center;
@@ -90,6 +103,7 @@
         font-size: 16px;
         margin: 4px 2px;
         cursor: pointer;
+        border-radius: 12px;
     }
 
     form {
@@ -98,7 +112,6 @@
         border: none;
         appearance: none;
         padding: 12px;
-        border-radius: 3px;
         font-size: 14px;
         color: black;
         z-index: 15;
@@ -113,14 +126,22 @@
     input {
         outline: none;
         display: block;
-        background: rgba(black, 0.1);
         width: 100%;
-        border: 0;
+        border: 5px;
         border-radius: 4px;
         box-sizing: border-box;
-        padding: 12px 20px;
+        padding: 12px;
         color: gray;
         font-family: inherit;
         font-size: inherit;
-        line-height: inherit;
+        line-height: 13px;
+    }
+
+    input[type=text]:focus {
+        background-color: white;
+    }
+    input[type=text]{
+        background: rgb(227, 227, 227);
+        margin-bottom: 5px;
+        margin-top: 5px;
     }

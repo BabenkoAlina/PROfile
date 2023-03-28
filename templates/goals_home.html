@@ -4,10 +4,10 @@
     <title>Goals</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="../static/style.css">
+<link rel="stylesheet" href="../static/style_goals.css">
 </head>
 <body>
-    <ul>
+    <ul style="background-color: white;">
       <li style="float:right"><a class="active" href="#about">About</a></li>
       <li><a href="#habits">Habits</a></li>
       <li><a href="#goals">Goals</a></li>
@@ -30,7 +30,7 @@
     <h2>Goals</h2>
     {% if lists%}
       {% for list in lists %}
-      <p><a href="/{{ list.list_url }}" ><button>{{list.list_name}}</button></a></p>
+      <a href="/{{ list.list_url }}" ><button>{{list.list_name}}</button></a>
       {% endfor %}
     {%endif%}
 

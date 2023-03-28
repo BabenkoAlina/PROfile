@@ -23,10 +23,10 @@ def get_goals_by_user_id(user_id, name):
 def create_goal_by_user_id(user_id, goal, list_name):
     goals_data = pd.read_csv(GOALS_PATH, delimiter=',')
     current_list = get_list_by_name(user_id, list_name)
-    last_id = goals_data['list_id'].max()
+    last_goal_id = goals_data['goal_id'].max()
 
     df = pd.DataFrame({
-        'goal_id': [last_id + 1],
+        'goal_id': [last_goal_id + 1],
         'list_id': [current_list['list_id']],
         'description': [goal],
         'status': ['in_progress'],
