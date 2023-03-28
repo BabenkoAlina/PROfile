@@ -1,0 +1,126 @@
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+    
+    ul.flashes {
+        background-color: none;
+        margin-top: 20px;
+    }
+
+    ul.flashes li {
+        float: none;
+        text-align: center;
+    }
+
+    ul.flashes li.error {
+        background-color: #D81A1A;
+        color: white;
+    }
+
+    ul.flashes li.info {
+        background-color: lightblue;
+        color: black;
+    }
+
+    ul.flashes li.warning {
+        background-color: orange;
+        color: white;
+    }
+
+    ul.flashes li.success {
+        background-color: greenyellow;
+        color: white;
+    }
+
+    li {
+        float: right;
+    }
+    
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+    
+    li a:hover:not(.active) {
+        background-color: #111;
+    }
+    
+    .active {
+        background-color: #D81A1A;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .progress{
+        text-align: center;
+    }
+
+    button {
+        background-color: #555555;
+        color: white;
+        height: 60px;
+        width:140px;
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    form {
+        width: 250px;
+        text-align: center;
+        border: none;
+        appearance: none;
+        padding: 12px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: black;
+        z-index: 15;
+        position: relative;
+        background: white;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin: 100px auto 10px;
+        overflow: hidden;
+    }
+
+    input {
+        outline: none;
+        display: block;
+        background: rgba(black, 0.1);
+        width: 100%;
+        border: 0;
+        border-radius: 4px;
+        box-sizing: border-box;
+        padding: 12px 20px;
+        color: gray;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+    }
