@@ -108,7 +108,7 @@ def page():
     dt = datetime.now()
     week = dt.strftime('%A')
     currentMonth = datetime.now().month
-    return render_template('try.html', month=calendar.month_name[currentMonth], year=datetime.now().year, week=week)
+    return render_template('diary.html', month=calendar.month_name[currentMonth], year=datetime.now().year, week=week)
 
 @app.route('/write_csv', methods=['POST'])
 def write_csv():
@@ -120,14 +120,24 @@ def write_csv():
     with open('user_info.csv', 'a', encoding='utf-8') as file:
         writer_object = writer(file)
         writer_object.writerow(day_info)
-    return render_template('response.html')
-
-def get_emotion():
     content = pd.read_csv("user_info.csv")
     content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(f'{datetime.now().year}-{("0" + str(datetime.now().month)) if len(str(datetime.now().month))==1 else str(datetime.now().month)}'))]
     emotion = content['emotion'].value_counts().idxmax()
     session['emotion'] = emotion
-    print(session['emotion'])
+    return render_template('response.html')
+
+@app.route('/diary_info', methods=['GET', 'POST'])
+def show_info():
+    data = request.form['date']
+    year = int(data[:4])
+    month = calendar.month_name[int(data[5:7])]
+    my_date = datetime(int(data[:4]), int(data[5:7]), int(data[-2:-1]))
+    weekday= pd.to_datetime(my_date).day_name()
+    content = pd.read_csv("user_info.csv")
+    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].iloc[0]
+    return render_template('diary_info.html', content=content, month=month, year=year, week=weekday)
+
+
 
 if __name__ == '__main__':
     app.run(port=1111, debug=True)

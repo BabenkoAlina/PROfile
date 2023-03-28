@@ -84,52 +84,47 @@
         <div class='col-7 text-center'>
             <h1>My diary</h1>
         </div>
-        <div class='container'>
-          <form method='POST' action='/write_csv'>  
+        <div class='container'>  
               <div class="table-responsive-md table-responsive-sm">
                   <table class='table'>
                       <tr>
                           <td>
                               <label for='module' class='form-label'>Module</label><br>
-                              <input type='text' id='module' name='module' class='form-control' required><br>
+                              <p>{{ content[2] }}<p><br>
                           </td>
                           <td>
                               <label for='value' class='form-label'>Value</label><br>
-                              <input type='number' id='value' name='value' class='form-control' required><br>
+                              <p>{{ content[3] }}<p><br>
                           </td>
                       </tr>
                       <tr>
                           <td>
                               <label for='body' class='form-label'>Body</label><br>
-                              <input type='text' id='body' name='body' class='form-control' required><br>
+                              <p>{{ content[4] }}<p><br>
                           </td>
                           <td>
                               <label for='km' class='form-label'>Km</label><br>
-                              <input type='number' id='km' name='km' class='form-control' required><br>
+                              <p>{{ content[5] }}<p><br>
                           </td>
                       </tr>
                       <tr>
                           <td>
                               <label for='heart' class='form-label'>Heart</label><br>
-                              <input type='text' id='heart' name='heart' class='form-control' required><br>
+                              <p>{{ content[6] }}<p><br>
                           </td>
                           <td>
                               <label for='emotion' class='form-label'>Emotion</label><br>
-                              <select name='emotion' id='emotion' class='form-select'>
-                                <option value='happy'>Happy</option>
-                                <option value='sad'>Sad</option>
-                                <option value='normal'>Normal</option>
-                              </selesct>
+                              <p>{{ content[7] }}<p><br>
                           </td>
                       </tr>
                       <tr>
                           <td>
                               <label for='intelegance' class='form-label'>Intelegance</label><br>
-                              <input type='text' id='intelegance' name='intelegance' class='form-control' required><br>
+                              <p>{{ content[8] }}<p><br>
                           </td>
                           <td>
                               <label for='action' class='form-label'>Action</label><br>
-                              <input type='text' id='action' name='action' class='form-control' required><br>
+                              <p>{{ content[9] }}<p><br>
                           </td>
                       </tr>
                     </table>
@@ -141,33 +136,27 @@
                       </tr>
                       <tr>
                           <td>
-                              <input type='text' id='good' name='good' placeholder='Що добре?' class='form-control'><br>
+                            <p>{{ content[10] }}<p><br>
                           </td>
                           <td>
-                              <input type='text' id='bad' name='bad' placeholder='Що погано?' class='form-control'><br>
+                            <p>{{ content[11] }}<p><br>
                           </td>
                       </tr>
                       <tr>
                           <td>
-                              <input type='text' id='day' name='day' placeholder='Звір дня' class='form-control'><br>
+                            <p>{{ content[13] }}<p><br>
                           </td>
                           <td>
-                              <input type='text' id='rival' name='rival' placeholder='Противник дня' class='form-control'><br>
+                            <p>{{ content[14] }}<p><br>
                           </td>
                       </tr>
                       <tr>
                         <td>
-                          <input type='text' id='improve' name='improve' placeholder='Що покращити?' class='form-control'><br>
+                          <p>{{ content[12] }}<p><br>
                         </td>
-                      </tr>
-                      <tr>
-                          <td>    
-                              <button type='submit' class='btn btn-danger'>Submit</button>
-                          </td>
                       </tr>
                   </table>
               </div>
-          </form>
         </div>
     </div>
     <div class="col-sm-3 sidenav">
@@ -189,9 +178,6 @@
   </div>
 </div>
 
-<footer class="container-fluid text-center">
-  <p>Footer Text</p>
-</footer>
 
 </body>
 </html>
