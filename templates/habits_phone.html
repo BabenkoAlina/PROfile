@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Habits List</title>
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+    <script src="javascript/jquery-3.6.4.js"></script>
+</head>
+<body>
+    <h1>Habits List</h1>
+    <p><span id="current-date"></span></p>
+    <div class="button-container">
+        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 0 else '' }}">M</button>
+        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 1 else '' }}">T</button>
+        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 2 else '' }}">W</button>
+        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 3 else '' }}">T</button>
+        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 4 else '' }}">F</button>
+        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 5 else '' }}">S</button>
+        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 6 else '' }}">S</button>
+    </div>
+    <div id="habits-container">
+        <h2>Habits</h2>
+        <ul id="habits-list">
+            {% for habit in habits %}
+            <li>
+                <span>{{ habit.name }}</span>
+                <input type="hidden" name="count" value="{{ habit.count }}">
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+
+      
+    <div id="add-habit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="add-habit-form" method="POST" action='/add_habit'>
+                <label for="name">Add new habit:</label>
+                <input type="text" id="name" name="name">
+                <input type="submit" value="Add">
+            </form>           
+        </div>
+    </div>
+    
+    <button id="add-button">+</button>
+    
+    <script>
+        //Set a current date
+        var today = new Date();
+        var currentDate = "{{ today_str }}";
+        // Set date in HTML element
+        document.getElementById("current-date").innerHTML = currentDate;
+
+        document.getElementById("current-date").innerHTML = currentDate;
+
+        var addModal = document.getElementById("add-habit-modal");
+        var addButton = document.getElementById("add-button");
+        var closeButton = document.getElementsByClassName("close")[0];
+
+        addButton.onclick = function() {
+            addModal.style.display = "block";
+        }
+
+        closeButton.onclick = function() {
+            addModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == addModal) {
+                addModal.style.display = "none";
+            }
+        }
+
+        var habitsList = document.getElementById("habits-list");
+        var addHabitForm = document.getElementById("add-habit-form");
+
+        addHabitForm.onsubmit = function(event) {
+            event.preventDefault();
+            var habitName = document.getElementById("name").value;
+            var newHabit = document.createElement("li");
+            newHabit.innerHTML = '<span>' + habitName + '</span><input type="checkbox" id="' + habitName + '" name="' + habitName + '" class="habit-checkbox"><button class="delete-button">X</button><input type="hidden" name="count" value=0>';
+            habitsList.appendChild(newHabit);
+            addModal.style.display = "none";
+            addHabitForm.reset();
+
+            callPythonFunction(habitName);
+        };
+
+        function callPythonFunction(habitName) {
+            $.post("/add_habit", { name: habitName }, function(data) {
+                console.log(data);
+            });
+        }
+        // Get all habit items and iterate over them to get their names and call the function
+        var habitItems = document.querySelectorAll("#habits-list li span");
+        habitItems.forEach(function(item) {
+            var habitName = item.textContent;
+            callPythonFunction(habitName);
+        });
+        
+        var habitCheckboxes = document.querySelectorAll("#habits-list li input[type='checkbox']");
+        habitCheckboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                var habitName = this.name;
+                var habitCountInput = this.nextElementSibling.nextElementSibling;
+                if (this.checked) {
+                    var newCount = parseInt(habitCountInput.value) + 1;
+                    habitCountInput.value = newCount;
+                    upgradeHabit(habitName, newCount);
+                } else {
+                    habitCountInput.value = 0;
+                }
+            });
+        });
+
+        function upgradeHabit(habitName, newCount) {
+            $.post("/upgrade_habit", { name: habitName, count: newCount }, function(data) {
+                console.log(data);
+            });
+        }
+
+        habitsList.onclick = function(event) {
+            if (event.target.classList.contains("delete-button")) {
+                event.target.parentNode.remove();
+            }
+        }
+
+                
+                // Delete a habit when its delete button is clicked
+                habitsList.onclick = function(event) {
+                    if (event.target.classList.contains("delete-button")) {
+                        event.target.parentNode.remove();
+                    }
+                }
+    </script>
+
+
+    <div class="fixed">
+        <div class="btn-group">
+            <a href="link1">
+                <button class="button">Home</button>
+            </a>
+            <a href="link2">
+                <button class="button">Diary</button>
+            </a>
+            <a href="link3">
+                <button class="button">Goals</button>
+            </a>
+            <a href="link4 - same link">
+                <button class="button">Habits</button>
+            </a>
+        </div>
+    </div>
+ 
+</body>
+</html>
