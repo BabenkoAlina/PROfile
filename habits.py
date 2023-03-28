@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect
 import pandas as pd
 import os
 import csv
-import re
 import datetime
 
 app = Flask(__name__, template_folder="templates")
@@ -35,7 +34,7 @@ def index():
     today = datetime.datetime.now()
     today_str = today.strftime("%B %d, %Y")
     habits = read_csv()
-    return render_template('habits_phone.html', habits=habits, today_str=today_str, **context)
+    return render_template('habits.html', habits=habits, today_str=today_str, **context)
 
 def write_new_habit(habitName):
     dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name': habitName, 'Count': 0}
