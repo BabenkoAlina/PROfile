@@ -114,7 +114,7 @@
         });
 
         function upgradeHabit(habitName, newCount) {
-            $.post("/upgrade_habit", { name: habitName, count: newCount }, function(data) {
+            $.post("/update_habit", { name: habitName, count: newCount }, function(data) {
                 console.log(data);
             });
         }
