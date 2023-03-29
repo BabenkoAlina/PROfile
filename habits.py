@@ -6,10 +6,12 @@ import datetime
 
 app = Flask(__name__, template_folder="templates")
 
+userID = session["localID"]
+
 # function to read the habit data from CSV file
 def read_csv():
     filename = "habits.csv"
-    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name':'Drinking water', 'Count': 0}
+    dict_habit = {'User ID': userID, 'Habit ID': 1, 'Name':'Drinking water', 'Count': 0}
     if not os.path.isfile(filename) or os.path.getsize(filename) == 0:
         writer = csv.DictWriter(filename, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
         df = pd.DataFrame(dict_habit)
@@ -37,7 +39,7 @@ def index():
     return render_template('habits.html', habits=habits, today_str=today_str, **context)
 
 def write_new_habit(habitName):
-    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name': habitName, 'Count': 0}
+    dict_habit = {'User ID': userID, 'Habit ID': 1, 'Name': habitName, 'Count': 0}
     with open("habits.csv", mode="a", newline='\n') as file:
         writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
         writer.writerow(dict_habit)
