@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+
+    .row.content{
+        height: auto;
+    }
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Name</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Diary</a></li>
+        <li><a href="/goals">Goals</a></li>
+        <li><a href="#">Habits</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 text-right">
+      <h3>{{ month }}<br>{{ year }}</h3>
+      <div class='box' style='margin:auto; margin-right:0px; margin-top:100px; writing-mode: vertical-lr; text-orientation: upright;'>
+        <h1>{{ week }}</h1>
+      </div>
+    </div>
+    <div class="col-sm-7 text-left">
+        <div class='col-7 text-center'>
+            <h1>My diary</h1>
+        </div>
+        <div class='container'>  
+              <div class="table-responsive-md table-responsive-sm">
+                  <table class='table'>
+                      <tr>
+                          <td>
+                              <label for='module' class='form-label'>Module</label><br>
+                              <p>{{ content[2] }}<p><br>
+                          </td>
+                          <td>
+                              <label for='value' class='form-label'>Value</label><br>
+                              <p>{{ content[3] }}<p><br>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label for='body' class='form-label'>Body</label><br>
+                              <p>{{ content[4] }}<p><br>
+                          </td>
+                          <td>
+                              <label for='km' class='form-label'>Km</label><br>
+                              <p>{{ content[5] }}<p><br>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label for='heart' class='form-label'>Heart</label><br>
+                              <p>{{ content[6] }}<p><br>
+                          </td>
+                          <td>
+                              <label for='emotion' class='form-label'>Emotion</label><br>
+                              <p>{{ content[7] }}<p><br>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label for='intelegance' class='form-label'>Intelegance</label><br>
+                              <p>{{ content[8] }}<p><br>
+                          </td>
+                          <td>
+                              <label for='action' class='form-label'>Action</label><br>
+                              <p>{{ content[9] }}<p><br>
+                          </td>
+                      </tr>
+                    </table>
+                    <table class='table'>
+                      <tr>
+                          <td>
+                              <h3>АПД дня по цінності</h3>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                            <p>{{ content[10] }}<p><br>
+                          </td>
+                          <td>
+                            <p>{{ content[11] }}<p><br>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                            <p>{{ content[13] }}<p><br>
+                          </td>
+                          <td>
+                            <p>{{ content[14] }}<p><br>
+                          </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <p>{{ content[12] }}<p><br>
+                        </td>
+                      </tr>
+                  </table>
+              </div>
+        </div>
+    </div>
+    <div class="col-sm-3 sidenav">
+      <div class="well">
+        <h3>Explanation</h3>
+        <h4>Body</h4>
+        <div style="background-color:#D7D6D6">
+            <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+        </div>
+        <h4>Heart</h4>
+        <div style="background-color:#D7D6D6">
+            <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+        </div>
+        <h4>Intelligence</h4>
+        <div style="background-color:#D7D6D6">
+            <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
