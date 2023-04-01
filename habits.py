@@ -4,10 +4,12 @@ import os
 import csv
 import datetime
 
+
 app = Flask(__name__, template_folder="templates")
 
 # userID = session["localID"]
 # userID = 123
+
 
 # function to read the habit data from CSV file
 def read_csv():
