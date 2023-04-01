@@ -14,7 +14,7 @@
     {{ habit_form.csrf_token }}
     <ul>
       {% for habit in habit_form.habits %}
-      <li>{{ habit.name }} <input type="checkbox" name="completed" value="true"></li>
+      <li>{{ habit.name }} <input type="checkbox" name="completed-{{ habit.habitid }}" value="{{ habit.name }}"></li>
       {% endfor %}
     </ul>
     <input type="submit" name="update" value="Update Habits">
