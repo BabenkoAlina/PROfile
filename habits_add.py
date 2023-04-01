@@ -35,7 +35,7 @@ def index():
         return redirect(url_for('index'))
 
     if request.method == 'POST':
-        # Handle the "Update Habits" button
+    # Handle the "Update Habits" button
         if 'update' in request.form:
             # Read the CSV file
             with open("habits.csv", mode="r") as file:
@@ -44,7 +44,8 @@ def index():
 
             # Update the count for completed habits
             for habit in habit_form.habits:
-                if habit['completed']:
+                habitid = str(habit['habitid'])
+                if 'completed-' + habitid in request.form:
                     for row in habits:
                         if row['Name'] == habit['name']:
                             row['Count'] = int(row['Count']) + 1
@@ -54,6 +55,7 @@ def index():
                 writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
                 writer.writeheader()
                 writer.writerows(habits)
+
 
     return render_template('habits_form.html', task_form=task_form, habit_form=habit_form)
 
