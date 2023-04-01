@@ -6,12 +6,13 @@ import datetime
 
 app = Flask(__name__, template_folder="templates")
 
-userID = session["localID"]
+# userID = session["localID"]
+# userID = 123
 
 # function to read the habit data from CSV file
 def read_csv():
     filename = "habits.csv"
-    dict_habit = {'User ID': userID, 'Habit ID': 1, 'Name':'Drinking water', 'Count': 0}
+    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name':'Drinking water', 'Count': 0}
     if not os.path.isfile(filename) or os.path.getsize(filename) == 0:
         writer = csv.DictWriter(filename, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
         df = pd.DataFrame(dict_habit)
@@ -39,7 +40,8 @@ def index():
     return render_template('habits.html', habits=habits, today_str=today_str, **context)
 
 def write_new_habit(habitName):
-    dict_habit = {'User ID': userID, 'Habit ID': 1, 'Name': habitName, 'Count': 0}
+    # count = request.form.get
+    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name': habitName, 'Count': 0}
     with open("habits.csv", mode="a", newline='\n') as file:
         writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
         writer.writerow(dict_habit)
@@ -64,7 +66,7 @@ def add_habit():
 # function to write the habit data to CSV file
 def write_csv(habits):
     habits = read_csv()
-    with open('habits.csv', 'w', newline='') as file:
+    with open('habits.csv', 'w', newline='\n') as file:
         writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
         writer.writeheader()
         for habit in habits:
@@ -79,7 +81,7 @@ def update_habit():
     habits = read_csv()
     for habit in habits:
         if habit['Name'] == name:
-            if count == 1:
+            if count == "1":
                 habit['Count'] = int(count) + 1
             else:
                 habit['Count'] = 0
