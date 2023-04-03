@@ -1,46 +1,14 @@
-from flask import Flask, render_template, request, redirect, session
-import pandas as pd
-import os
-import csv
+from flask import render_template
 import datetime
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
-import csv
+import habits_add as ha
 
-app = Flask(__name__, template_folder="templates")
+app = ha.Flask(__name__, template_folder="templates")
 app.config['SECRET_KEY'] = 'secret'
 # userID = session["localID"]
 # userID = 123
 
-
-# function to read the habit data from CSV file
-def read_csv():
-    filename = "habits.csv"
-    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name':'Drinking water', 'Count': 0}
-    if not os.path.isfile(filename) or os.path.getsize(filename) == 0:
-        writer = csv.DictWriter(filename, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
-        df = pd.DataFrame(dict_habit)
-        writer.writeheader()
-        writer.writerow(dict_habit)
-        # save dataframe to csv
-        df["Count"] = df["Count"].astype(int)
-        df.to_csv(filename, index=False)
-        habits = list(df["Name"])
-        return habits
-    df = pd.read_csv(filename)
-    habits = list(df["Name"])
-    return habits
-
-class TaskForm(FlaskForm):
-    task = StringField('Habit', validators=[DataRequired()])
-    submit = SubmitField('Add Habit')
-
-class HabitForm(FlaskForm):
-    habits = []
-
 # home page route to display the habits list
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     context = {
         'datetime': datetime,
@@ -48,68 +16,28 @@ def index():
     }
     today = datetime.datetime.now()
     today_str = today.strftime("%B %d, %Y")
-    habits = read_csv()
+    habits = ha.read_habits()
     return render_template('habits.html', habits=habits, today_str=today_str, **context)
 
-def write_new_habit(habitName):
-    # count = request.form.get
-    dict_habit = {'User ID': 1, 'Habit ID': 1, 'Name': habitName, 'Count': 0}
-    with open("habits.csv", mode="a", newline='\n') as file:
-        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
-        writer.writerow(dict_habit)
-
-def delete_one_habit(habitName):
-    habits = read_csv()
-    for habit in habits:
-        if habit["Name"] == habitName:
-            habits.remove(habit)
-    return habits
 
 @app.route('/add_habit', methods=['POST'])
 def add_habit():
-    if request.method == 'POST':
-        name = request.form['name']
-        if len(name) != 0:
-            write_new_habit(name)
-    else:
-        return "Method Not Allowed"
+    task_form = ha.TaskForm()
+    habit_name = task_form.task.data
+    ha.write_new_habit(habit_name)
 
 
 # function to write the habit data to CSV file
-def write_csv(habits):
-    habits = read_csv()
-    with open('habits.csv', 'w', newline='\n') as file:
-        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
-        writer.writeheader()
-        for habit in habits:
-            writer.writerow(habit)
+def write_csv():
+    habits = ha.read_habits()
+    ha.write_habits(habits)
 
 # update habit route to update the count of a habit
 
-@app.route('/update_habit', methods=['POST'])
+@app.route('/update_habit', methods=['GET', 'POST'])
 def update_habit():
-    name = request.form['name']
-    count = request.form['count']
-    habits = read_csv()
-    for habit in habits:
-        if habit['Name'] == name:
-            if count == "1":
-                habit['Count'] = int(count) + 1
-            else:
-                habit['Count'] = 0
-            break
-    write_csv(habits)
-    return redirect('/')
+    return ha.update_habit()
 
-
-# delete habit route to remove a habit from the list
-@app.route('/delete_habit', methods=['DELETE'])
-def delete_habit(habits):
-    habits = read_csv()
-    name = request.form['name']
-    habits = delete_one_habit(name)
-    write_csv(habits)
-    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True)

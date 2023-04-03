@@ -4,9 +4,6 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import csv
 
-app = Flask(__name__, template_folder='templates')
-app.config['SECRET_KEY'] = 'secret'
-
 class TaskForm(FlaskForm):
     task = StringField('Habit', validators=[DataRequired()])
     submit = SubmitField('Add Habit')
@@ -14,6 +11,17 @@ class TaskForm(FlaskForm):
 class HabitForm(FlaskForm):
     habits = []
 
+def read_habits():
+    with open("habits.csv", mode="r") as file:
+        reader = csv.DictReader(file)
+        habits = [row for row in reader]
+        return habits
+
+def write_habits(habits):
+    with open("habits.csv", mode="w", newline='\n') as file:
+        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
+        writer.writeheader()
+        writer.writerows(habits)
 
 def write_new_habit(habitName):
     with open("habits.csv", mode="r+", newline='\n') as file:
@@ -35,61 +43,42 @@ def write_new_habit(habitName):
         dict_habit = {'User ID': 1, 'Habit ID': habitid, 'Name': habitName, 'Count': 0}
         writer.writerow(dict_habit)
 
+        return habitid
 
-
-@app.route('/', methods=['GET', 'POST'])
-def index():
+def update_habit():
     task_form = TaskForm()
     habit_form = HabitForm()
 
     if task_form.validate_on_submit():
-        habit = {'userid': 1, 'habitid': 1, 'name': task_form.task.data, 'completed': False}
+        habit_name = task_form.task.data
+        habitid = write_new_habit(habit_name)
+        habit = {'userid': 1, 'habitid': habitid, 'name': habit_name, 'completed': False, 'count': 0}
         habit_form.habits.append(habit)
-        # Write the new habit to CSV
-        write_new_habit(task_form.task.data)
 
         return redirect(url_for('index'))
 
     if request.method == 'POST':
-        print(request.form)
-    # Handle the "Update Habits" button
+        # Handle the "Update Habits" button
         if 'update' in request.form:
-            # Read the CSV file
-            with open("habits.csv", mode="r") as file:
-                reader = csv.DictReader(file)
-                habits = [row for row in reader]
+        # Read the CSV file
+            habits = read_habits()
 
             # Update the count for completed habits
-            counter = []
             for habit in habit_form.habits:
                 habitid = str(habit['habitid'])
-                habit_name = 'completed-' + habitid
+                habit_name = 'completed-' + habitid # Define habit_name here
                 if habit_name in request.form:
                     for row in habits:
-                        value = request.form[habit_name]
-                        if row['Name'] == value and not habit in counter:
+                        if row['Habit ID'] == habitid:
                             row['Count'] = int(row['Count']) + 1
-                            counter.append(habit)
-
-                           
-
-            # for habit in habit_form.habits:
-            #     i = 0
-            #     habitid = str(habit['habitid'])
-            #     habit_name = 'completed-' + habitid
-            #     if habit_name in request.form[habit_name]:
-            #         habits[i]['Count'] += 1
-            #         i += 1
-
+                            # Update the habit count in the habit_form.habits list
+                            habit['completed'] = True
+                            habit['count'] = int(row['Count'])
+                            break # Exit the inner loop
 
             # Write the updated data back to the CSV file
-            with open("habits.csv", mode="w", newline='\n') as file:
-                writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
-                writer.writeheader()
-                writer.writerows(habits)
+            write_habits(habits)
 
 
     return render_template('habits_form.html', task_form=task_form, habit_form=habit_form)
 
-if __name__ == '__main__':
-    app.run(debug=True)

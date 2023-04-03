@@ -30,21 +30,7 @@
     </div>
     
     
-    <button id="add-button">+</button>
-    <form method="POST" action="{{ url_for('index') }}">
-        {{ task_form.csrf_token }}
-        {{ task_form.task.label }} {{ task_form.task(size=30) }}
-        {{ task_form.submit }}
-      </form>
-      <form method="POST" action="{{ url_for('index') }}">
-        {{ habit_form.csrf_token }}
-        <ul>
-          {% for habit in habit_form.habits %}
-          <li>{{ habit.name }} <input type="checkbox" name="completed-{{ habit.habitid }}" value="{{ habit.name }}"></li>
-          {% endfor %}
-        </ul>
-        <input type="submit" name="update" value="Update Habits">
-      </form>
+    <button id="add-button" onclick="window.location.href='/update_habit'">+</button>
     <script>
         //Set a current date
         var today = new Date();
