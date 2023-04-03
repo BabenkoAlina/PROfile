@@ -3,10 +3,13 @@ import pandas as pd
 import os
 import csv
 import datetime
-
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+import csv
 
 app = Flask(__name__, template_folder="templates")
-
+app.config['SECRET_KEY'] = 'secret'
 # userID = session["localID"]
 # userID = 123
 
@@ -28,6 +31,13 @@ def read_csv():
     df = pd.read_csv(filename)
     habits = list(df["Name"])
     return habits
+
+class TaskForm(FlaskForm):
+    task = StringField('Habit', validators=[DataRequired()])
+    submit = SubmitField('Add Habit')
+
+class HabitForm(FlaskForm):
+    habits = []
 
 # home page route to display the habits list
 @app.route('/', methods=['GET'])
