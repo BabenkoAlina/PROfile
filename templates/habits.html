@@ -34,9 +34,11 @@
         </ul>
     </div>
     
-    
-    
-    <button id="add-button" onclick="window.location.href='/add_habit'">+</button>
+    <button id="add-button" onclick="displayHabitForm()">+</button>
+    <div class="habit-form" id="hab-id"></div>
+
+
+    <div id="add-habit-form-container"></div>  
     <script>
         //Set a current date
         var today = new Date();
@@ -45,8 +47,21 @@
         document.getElementById("current-date").innerHTML = currentDate;
 
         document.getElementById("current-date").innerHTML = currentDate;
+        const addHabitBtn = document.getElementById("add-habit-btn");
+        const addHabitFormContainer = document.getElementById("add-habit-form-container");
+        
+        addHabitBtn.addEventListener("click", function() {
+          const xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              addHabitFormContainer.innerHTML = xhr.responseText;
+            }
+          };
+          xhr.open("GET", "templates/habits.html", true);
+          xhr.send();
+        });
     </script>
-
+     
 
     <div class="fixed">
         <div class="btn-group">
