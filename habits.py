@@ -29,6 +29,10 @@ def add_habit():
     habit_name = task_form.task.data
     habits = ha.write_new_habit(habit_name)
     ha.write_habits(habits)
+    habit_id = ha.write_new_habit(habit_name)
+    new_habit = {'User ID': 1, 'Habit ID': habit_id, 'Name': habit_name, 'Count': 0}
+    habits.append(new_habit)
+
     return redirect(url_for('index'))
 
 
