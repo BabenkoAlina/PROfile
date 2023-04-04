@@ -22,15 +22,21 @@
         <ul id="habits-list">
             {% for habit in habits %}
             <li>
-                <span>{{ habit.name }}</span>
-                <input type="hidden" name="count" value="{{ habit.count }}">
+                <span>{{ habit['Name'] }}</span>
+                <input type="hidden" name="count" value="{{ habit['count'] }}">
             </li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for habit in habits %}
+                <li>{{ habit['Name'] }}</li>
             {% endfor %}
         </ul>
     </div>
     
     
-    <button id="add-button" onclick="window.location.href='/update_habit'">+</button>
+    
+    <button id="add-button" onclick="window.location.href='/add_habit'">+</button>
     <script>
         //Set a current date
         var today = new Date();

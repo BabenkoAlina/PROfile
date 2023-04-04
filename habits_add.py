@@ -43,7 +43,10 @@ def write_new_habit(habitName):
         dict_habit = {'User ID': 1, 'Habit ID': habitid, 'Name': habitName, 'Count': 0}
         writer.writerow(dict_habit)
 
-        return habitid
+        habits = read_habits()
+        habits.append(dict_habit)
+        return habits
+
 
 def update_habit():
     task_form = TaskForm()
@@ -81,4 +84,3 @@ def update_habit():
 
 
     return render_template('habits_form.html', task_form=task_form, habit_form=habit_form)
-
