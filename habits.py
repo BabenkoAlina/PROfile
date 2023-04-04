@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, redirect, url_for
 import datetime
 import habits_add as ha
 
@@ -6,6 +6,10 @@ app = ha.Flask(__name__, template_folder="templates")
 app.config['SECRET_KEY'] = 'secret'
 # userID = session["localID"]
 # userID = 123
+
+def show_habits():
+    habits = ha.read_habits()
+    return render_template('habits.html', habits=habits)
 
 # home page route to display the habits list
 @app.route('/', methods=['GET', 'POST'])
@@ -19,12 +23,13 @@ def index():
     habits = ha.read_habits()
     return render_template('habits.html', habits=habits, today_str=today_str, **context)
 
-
-@app.route('/add_habit', methods=['POST'])
+@app.route('/add_habit', methods=['GET', 'POST'])
 def add_habit():
     task_form = ha.TaskForm()
     habit_name = task_form.task.data
-    ha.write_new_habit(habit_name)
+    habits = ha.write_new_habit(habit_name)
+    ha.write_habits(habits)
+    return redirect(url_for('index'))
 
 
 # function to write the habit data to CSV file
@@ -36,8 +41,8 @@ def write_csv():
 
 @app.route('/update_habit', methods=['GET', 'POST'])
 def update_habit():
-    return ha.update_habit()
-
+    ha.update_habit()
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
