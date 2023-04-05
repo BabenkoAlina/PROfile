@@ -17,35 +17,22 @@
         <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 5 else '' }}">S</button>
         <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 6 else '' }}">S</button>
     </div>
-    <div id="habits-container">
-        <h2>Habits</h2>
-        <ul id="habits-list">
-            {% for habit in habits %}
-            <li>
-                <span>{{ habit.name }}</span>
-                <input type="hidden" name="count" value="{{ habit.count }}">
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-
-    <button id="add-button">+</button>
-    <form method="POST" action="{{ url_for('index') }}">
+    <h1>Habits List</h1>
+    <form method="POST" action="{{ url_for('add_habit') }}">
         {{ task_form.csrf_token }}
         {{ task_form.task.label }} {{ task_form.task(size=30) }}
         {{ task_form.submit }}
-      </form>
-      <form method="POST" action="{{ url_for('index') }}">
+    </form>
+    <form method="POST" action="{{ url_for('add_habit') }}">
         {{ habit_form.csrf_token }}
         <ul>
-          {% for habit in habit_form.habits %}
-          <li>{{ habit.name }} <input type="checkbox" name="completed-{{ habit.habitid }}" value="{{ habit.name }}"></li>
-          {% endfor %}
+        {% for habit in habit_form.habits %}
+        <li>{{ habit.name }} <input type="checkbox" name="completed-{{ habit.habitid }}" value="{{ habit.name }}"></li>
+        {% endfor %}
         </ul>
         <input type="submit" name="update" value="Update Habits">
-      </form>
-    <button id="add-button" onclick="window.location.href='/update_habit'">+</button>
+    </form>
+
     <script>
         //Set a current date
         var today = new Date();
@@ -54,6 +41,7 @@
         document.getElementById("current-date").innerHTML = currentDate;
         document.getElementById("current-date").innerHTML = currentDate;
     </script>
+
     <div class="fixed">
         <div class="btn-group">
             <a href="link1">
