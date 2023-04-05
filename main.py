@@ -6,6 +6,7 @@ from datetime import datetime
 import calendar
 from csv import writer
 import pandas as pd
+import os
 
 app = Flask(__name__)
 
@@ -21,7 +22,7 @@ firebaseConfig = {
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
-app.secret_key = 'secret'
+app.secret_key = os.urandom(24)
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
@@ -29,7 +30,7 @@ def main():
     if "email" not in session:
         return redirect('/login')
     else:
-        return render_template('goals_home.html')
+        return render_template('goals_home.html', lists=get_lists_by_user_id(session['localId']))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -41,6 +42,7 @@ def login():
         try:
             user = auth.sign_in_with_email_and_password(email, password)
             session['email'] = email
+            session['localId'] = user['localId']
             return "", 302
         except:
             return '{"error": "Failed to login"}'
@@ -67,6 +69,13 @@ def signup():
 def logout():
     session.pop('email', None)
     return redirect('/')
+
+@app.get('/about')
+def index_about():
+    """
+    Get the "about" page from templates.
+    """
+    return render_template("about.html")
 
 @app.get('/goals')
 def index_goals():

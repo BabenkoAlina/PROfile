@@ -59,8 +59,9 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             <li><a href="/diary">Diary</a></li>
-            <li><a href="">Goals</a></li>
+            <li><a href="#">Goals</a></li>
             <li><a href="#">Habits</a></li>
+            <li><a href="/about">About</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
@@ -91,7 +92,7 @@
       <form action = "/goals" method = "post">
         <div class="folder">
           <label for="list">Enter new folder name for your goals.</label>
-          <input type="text" name="list">
+          <input type='text' onkeydown="return /[a-zA-Z]/i.test(event.key)" name="list">
         </div>
         <input type="submit" value="Create new folder.">
       </form>
