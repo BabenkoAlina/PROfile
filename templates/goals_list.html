@@ -51,9 +51,7 @@
                 {% if goal.status == 'completed' %}
                     <li class="goal">
                         <div class="description">{{ goal.description }}</div>
-                        <span>
-                            <button class="delete" data-goal-id="{{goal.goal_id}}">Delete</button>
-                        </span>
+                        <button class="delete" data-goal-id="{{goal.goal_id}}">Delete</button>
                     </li>
                 {% endif %}
             {% endfor %}
@@ -65,13 +63,9 @@
             {% for goal in goals %}
                 {% if goal.status != 'completed' %}
                     <li class="goal">
-                        <span>
-                            <button class="update" data-goal-id="{{goal.goal_id}}">Complete</button>
-                        </span>
+                        <button class="update" data-goal-id="{{goal.goal_id}}">Complete</button>
                         <div class="description">{{ goal.description }}</div>
-                        <span>
-                            <button class="delete" data-list-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
-                        </span>
+                        <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
                     </li>
                 {% endif %}
             {% endfor %}

@@ -64,7 +64,7 @@ h2 {
 
 button {
     background-color: #555555;
-    color: black;
+    color: white;
     height: 60px;
     width: 140px;
     border: none;
@@ -121,47 +121,47 @@ input[type=text]{
 .navbar {
     margin-bottom: 0;
     border-radius: 0;
-  }
-  
-  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-  .row.content {height: 450px}
-  
-  /* Set gray background color and 100% height */
-  .sidenav {
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
+
+/* Set gray background color and 100% height */
+.sidenav {
     padding-top: 20px;
     background-color: #f1f1f1;
     height: 100%;
-  }
-  
-  /* Set black background color, white text and some padding */
-  footer {
+}
+
+/* Set black background color, white text and some padding */
+footer {
     background-color: #555;
     color: white;
     padding: 15px;
-  }
-  
-  /* On small screens, set height to 'auto' for sidenav and grid */
-  @media screen and (max-width: 767px) {
-    .sidenav {
-      height: auto;
-      padding: 15px;
-    }
-    .row.content {height:auto;} 
-  }
+}
 
-  .row.content{
-      height: auto;
-  }
-  .round-button {
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+.sidenav {
+    height: auto;
+    padding: 15px;
+}
+.row.content {height:auto;} 
+}
+
+.row.content{
+    height: auto;
+}
+.round-button {
     bottom: 23px;
     right: 28px;
     width: 120px;
     position: fixed;
-  }
-  .round-button:hover {
+}
+.round-button:hover {
     cursor: pointer
-  }
-  .round-button-circle {
+}
+.round-button-circle {
     width: 100%;
     height: 120px;
     border-radius: 50%;
@@ -169,14 +169,14 @@ input[type=text]{
     overflow: hidden;
     display: flex;
     background: #828080; 
-  }
-  .round-button-circle:hover {
+}
+.round-button-circle:hover {
     background:#555555;
-  }
-  .round-button .button i {
+}
+.round-button .button i {
     color: #FFF;
-  }
-  .round-button .button {
+}
+.round-button .button {
     display: flex;
     width: 100%;
     padding-top: 50%;
@@ -189,41 +189,41 @@ input[type=text]{
     font-size: 50px;
     font-weight: bold;
     justify-content: center;
-  }
+}
 
-  /* The popup form - hidden by default */
-  .form-popup {
+/* The popup form - hidden by default */
+.form-popup {
     display: none;
     position: fixed;
     bottom: 0;
     right: 15px;
     z-index: 9;
-  }
+}
 
-  /* Add styles to the form container */
-  .form-container {
+/* Add styles to the form container */
+.form-container {
     max-width: 280px;
     padding: 10px;
     background-color: white;
-  }
+}
 
-  /* Full-width input fields */
-  .form-container input[type=text]{
+/* Full-width input fields */
+.form-container input[type=text]{
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
     border: none;
     background: #f1f1f1;
-  }
+}
 
-  /* When the inputs get focus, do something */
-  .form-container input[type=text]:focus{
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus{
     background-color: #ddd;
     outline: none;
-  }
+}
 
-  /* Set a style for the submit/login button */
-  .form-container .btn {
+/* Set a style for the submit/login button */
+.form-container .btn {
     background-color: #f1f1f1;
     color: black;
     padding: 16px 20px;
@@ -231,12 +231,46 @@ input[type=text]{
     cursor: pointer;
     width: 100%;
     margin-bottom:10px;
-  }
+}
 
-  /* Add a red background color to the cancel button */
-  .form-container .cancel {
+/* Add a red background color to the cancel button */
+.form-container .cancel {
     background-color: #D81A1A;
-  }
-    .delete i {
-    color: #FFF;
-  }
+}
+.delete i {
+    color: #FFF;  
+    text-align: center;  
+}
+
+.goalsList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.goal {
+    flex: 0 0 33%;
+}
+
+.lists {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list {
+    flex: 0 0 33%;
+}
+.delete_list{
+    background-color: #555555;
+    color: white;
+    height: 24px;
+    width: 24px;
+    border: none;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+}
