@@ -14,6 +14,22 @@ function deleteGoal(goalId) {
     .then(() => window.location.reload() );
 }
 
+function deleteList(listId) {
+    fetch('/goals/' + listId, {
+      method: 'delete'
+    })
+    .then(response => response.json())
+    .then(() => window.location.reload() );
+}
+
+function openForm() {
+    document.getElementById("createForm").style.display = "block";
+}
+  
+function closeForm() {
+    document.getElementById("createForm").style.display = "none";
+}
+
 window.onload = function () {
     document.querySelectorAll('.goalsList .goal button.delete').forEach(item => {
         item.addEventListener('click', event => {
@@ -32,23 +48,23 @@ window.onload = function () {
             completeGoal(goalId);
         });
     });
-}
 
-function deleteList(listId) {
-    fetch('/goals/' + listlId, {
-      method: 'delete'
-    })
-    .then(response => response.json())
-    .then(() => window.location.reload() );
-}
-
-window.onload = function () {
-    document.querySelectorAll('.Lists button.delete').forEach(item => {
+    document.querySelectorAll('.lists button.delete').forEach(item => {
         item.addEventListener('click', event => {
             event.preventDefault();
-            const goalId = item.getAttribute('data-list-id');
+            const listId = item.getAttribute('data-list-id');
             
-            deleteGoal(goalId);
+            deleteList(listId);
         });
+    });
+
+    document.getElementById('createFormCloseButton').addEventListener('click', event => {
+        event.preventDefault();
+        closeForm()
+    });
+
+    document.getElementById('createFormOpenButton').addEventListener('click', event => {
+        event.preventDefault();
+        openForm()
     });
 }

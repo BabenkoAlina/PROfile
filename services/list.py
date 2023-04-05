@@ -19,6 +19,7 @@ def get_list_by_name(user_id, name):
 
 def delete_particular_list(user_id, list_id):
     # delete all goals in the list to be deleted
+    print('deleting', user_id, list_id)
     goals_data = pd.read_csv(GOALS_PATH, delimiter=',')
     goals_in_list = goals_data[(goals_data['user_id'] == user_id) & (goals_data['list_id'] == list_id)].index
     goals_data.drop(goals_in_list, inplace=True)
@@ -26,7 +27,7 @@ def delete_particular_list(user_id, list_id):
 
     # delete the desired list
     lists_data = pd.read_csv(LISTS_PATH, delimiter=',')
-    list_to_be_deleted = lists_data[(lists_data['user_id'] == user_id) & (lists_data['goal_id'] == list_id)].index
+    list_to_be_deleted = lists_data[(lists_data['user_id'] == user_id) & (lists_data['list_id'] == list_id)].index
     lists_data.drop(list_to_be_deleted, inplace=True)
     lists_data.to_csv(LISTS_PATH, mode='w', index=False, header=True)
 
