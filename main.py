@@ -7,6 +7,8 @@ import calendar
 from csv import writer
 import pandas as pd
 import os
+import numpy as np
+import datetime as datet
 
 app = Flask(__name__)
 
@@ -26,7 +28,6 @@ app.secret_key = os.urandom(24)
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
-    print(session)
     if "email" not in session:
         return redirect('/login')
     else:
@@ -178,6 +179,51 @@ def show_info():
     content = pd.read_csv("user_info.csv")
     content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].fillna('Info not given').iloc[0]
     return render_template('diary_info.html', content=content, month=month, year=year, week=weekday)
+
+
+@app.route('/progress', methods=['GET'])
+def progress():
+    if 'localId' not in session:
+        return redirect('/login')
+    df = pd.read_csv('user_info.csv')
+    df = df[df.user_id == session['localId']]
+    df = df[['date', 'km' ,'emotion', 'action']]
+    df.date = np.vectorize(datet.date.fromisoformat)(df.date)
+    today = datet.date.today()
+    last_month_df = df[df.date > today - datet.timedelta(30)]
+    last_week_df = df[df.date > today - datet.timedelta(7)]
+    last_month_km = last_month_df.km.sum()
+    last_week_km = last_week_df.km.sum()
+    try:
+        last_month_emotion = last_month_df.emotion.value_counts().idxmax()
+    except ValueError:
+        last_month_emotion = ''
+    try:
+        last_week_emotion = last_week_df.emotion.value_counts().idxmax()
+    except ValueError:
+        last_week_emotion = ''
+    try:
+        last_month_action = last_month_df.action.value_counts().idxmax()
+    except ValueError:
+        last_month_action = ''
+    try:
+        last_week_action = last_week_df.action.value_counts().idxmax()
+    except ValueError:
+        last_week_action = ''
+    
+    goals = pd.read_csv('data/goals.csv')
+    goals = goals[goals.user_id == session['localId']]
+    goals = goals.status.value_counts().sort_index()
+
+    return render_template(
+        'progress.html',
+        last_month_km=last_month_km,
+        last_month_emotion=last_month_emotion,
+        last_month_action=last_month_action,
+        last_week_km=last_week_km,
+        last_week_emotion=last_week_emotion,
+        last_week_action=last_week_action,
+    )
 
 
 
