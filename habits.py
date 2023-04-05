@@ -5,10 +5,8 @@ from wtforms.validators import DataRequired
 import csv
 import datetime
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__, template_folder='templates')
 app.config['SECRET_KEY'] = 'secret'
-# userID = session["localID"]
-# userID = 123
 
 class TaskForm(FlaskForm):
     task = StringField('Habit', validators=[DataRequired()])
@@ -17,8 +15,7 @@ class TaskForm(FlaskForm):
 class HabitForm(FlaskForm):
     habits = []
 
-# function to read the habit data from CSV file
-def read_csv():
+def read_habits():
     with open("habits.csv", mode="r") as file:
         reader = csv.DictReader(file)
         habits = [row for row in reader]
@@ -50,7 +47,7 @@ def write_new_habit(habitName):
 
         return habitid
 
-# home page route to display the habits list
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     context = {
@@ -59,23 +56,7 @@ def index():
     }
     today = datetime.datetime.now()
     today_str = today.strftime("%B %d, %Y")
-    habits = read_csv()
-    return render_template('habits.html', habits=habits, today_str=today_str, **context)
-
-
-@app.route('/add_habit', methods=['GET', 'POST'])
-def add_habit():
-    task_form = TaskForm()
-    habit_name = task_form.task.data
-    write_new_habit(habit_name)
-
-def write_csv():
-    habits = read_csv()
-    write_habits(habits)
-
-# update habit route to update the count of a habit
-@app.route('/update_habit', methods=['GET', 'POST'])
-def update_habit():
+    habits = read_habits()
     task_form = TaskForm()
     habit_form = HabitForm()
 
@@ -91,7 +72,7 @@ def update_habit():
         # Handle the "Update Habits" button
         if 'update' in request.form:
         # Read the CSV file
-            habits = read_csv()
+            habits = read_habits()
             # Update the count for completed habits
             for habit in habit_form.habits:
                 habitid = str(habit['habitid'])
@@ -107,7 +88,6 @@ def update_habit():
             # Write the updated data back to the CSV file
             write_habits(habits)
 
-    return render_template('habits.html', habit_form=habit_form)
-
+    return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
 if __name__ == '__main__':
     app.run(debug=True)
