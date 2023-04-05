@@ -107,6 +107,16 @@ def add_list():
         flash(str(error), 'error')
     finally:
         return redirect('/goals')
+    
+@app.delete('/goals/<list_id>')
+def delete_list(list_id):
+    try:
+        if list_id == '' or list_id is None:
+            raise ValueError('There is already no such list!')
+        delete_particular_list(session['localId'], int(list_id))
+        return jsonify({"code": 200, "message": "Successfully deleted the list!"})
+    except ValueError:
+        return jsonify({"code": 400, "message": "Failed to delete the list!"})
 
 @app.post('/goals/goal')
 def add_goal():

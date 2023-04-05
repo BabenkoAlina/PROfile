@@ -33,3 +33,22 @@ window.onload = function () {
         });
     });
 }
+
+function deleteList(listId) {
+    fetch('/goals/' + listlId, {
+      method: 'delete'
+    })
+    .then(response => response.json())
+    .then(() => window.location.reload() );
+}
+
+window.onload = function () {
+    document.querySelectorAll('.Lists button.delete').forEach(item => {
+        item.addEventListener('click', event => {
+            event.preventDefault();
+            const goalId = item.getAttribute('data-list-id');
+            
+            deleteGoal(goalId);
+        });
+    });
+}

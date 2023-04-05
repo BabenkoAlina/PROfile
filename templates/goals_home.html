@@ -57,9 +57,8 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
             <li><a href="/diary">Diary</a></li>
-            <li><a href="#">Goals</a></li>
+            <li><a href="/goals">Goals</a></li>
             <li><a href="#">Habits</a></li>
             <li><a href="/about">About</a></li>
           </ul>
@@ -83,11 +82,16 @@
       </div>
 
       <h2>Goals</h2>
-      {% if lists%}
-        {% for list in lists %}
-        <a href="/goals/{{ list.list_url }}" ><button>{{list.list_name}}</button></a>
-        {% endfor %}
-      {%endif%}
+      <ul class="Lists"
+        {% if lists%}
+          {% for list in lists %}
+            <a href="/goals/{{ list.list_url }}" ><button>{{list.list_name}}</button></a>
+            <span>
+              <button class="delete" data-list-id="{{list.list_id}}">Delete</button>
+            </span>
+          {% endfor %}
+        {%endif%}
+      </ul>
 
       <form action = "/goals" method = "post">
         <div class="folder">
