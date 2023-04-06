@@ -103,14 +103,14 @@ def add_folder():
 
     return redirect('/goals')
 
-@app.route('/diary')
+@app.route('/diary', methods=["GET", 'POST'])
 def page():
     dt = datetime.now()
     week = dt.strftime('%A')
     currentMonth = datetime.now().month
     return render_template('diary.html', month=calendar.month_name[currentMonth], year=datetime.now().year, week=week)
 
-@app.route('/write_csv', methods=['POST'])
+@app.route('/write_csv', methods=['POST', 'GET'])
 def write_csv():
     day_info = [session['localId'], datetime.today().strftime('%Y-%m-%d'), request.form['module'], request.form['value'], \
         request.form['body'], request.form['km'], request.form['heart'], \
@@ -124,20 +124,22 @@ def write_csv():
     content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(f'{datetime.now().year}-{("0" + str(datetime.now().month)) if len(str(datetime.now().month))==1 else str(datetime.now().month)}'))]
     emotion = content['emotion'].value_counts().idxmax()
     session['emotion'] = emotion
-    return render_template('response.html')
+    return redirect("/diary_home") #render_template('response.html')
 
 @app.route('/diary_info', methods=['GET', 'POST'])
 def show_info():
     data = request.form['date']
     year = int(data[:4])
     month = calendar.month_name[int(data[5:7])]
-    my_date = datetime(int(data[:4]), int(data[5:7]), int(data[-2:-1]))
+    my_date = datetime(int(data[:4]), int(data[5:7]), int(data[-2:]))
     weekday= pd.to_datetime(my_date).day_name()
     content = pd.read_csv("user_info.csv")
     content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].iloc[0]
     return render_template('diary_info.html', content=content, month=month, year=year, week=weekday)
 
-
+@app.route('/diary_home', methods=['GET', 'POST'])
+def choice():
+    return render_template('response.html')
 
 if __name__ == '__main__':
     app.run(port=1111, debug=True)
