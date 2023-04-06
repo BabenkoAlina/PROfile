@@ -4,14 +4,15 @@ from services.list import *
 from services.goal import *
 from datetime import datetime
 import calendar
+import csv
 from csv import writer
 import pandas as pd
 import os
 import numpy as np
 import datetime as datet
-from matplotlib import pyplot as plt
-import io
-import base64
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 
@@ -34,7 +35,7 @@ def main():
     if "email" not in session:
         return redirect('/login')
     else:
-        return render_template('about.html')
+        return render_template('goals_home.html', lists=get_lists_by_user_id(session['localId']))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -184,24 +185,14 @@ def write_csv():
 
 @app.route('/diary_info', methods=['GET', 'POST'])
 def show_info():
-    try:
-        data = request.form['date']
-        if '-' not in data:
-            raise ValueError('Enter date in the right form, such as: "2023-04-06"')
-        year = int(data[:4])
-        month = calendar.month_name[int(data[5:7])]
-        my_date = datetime(int(data[:4]), int(data[5:7]), int(data[-2:]))
-        weekday= pd.to_datetime(my_date).day_name()
-        content = pd.read_csv("user_info.csv")
-        content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].iloc[0]
-        return render_template('diary_info.html', content=content, month=month, year=year, week=weekday)
-    except (IndexError, NameError, KeyError):
-        flash("There's no info about this data in your diary", 'error')
-        return redirect('/diary_home')
-    except ValueError as error:
-        flash(str(error), 'error')
-        return redirect('/diary_home')
-
+    data = request.form['date']
+    year = int(data[:4])
+    month = calendar.month_name[int(data[5:7])]
+    my_date = datetime(int(data[:4]), int(data[5:7]), int(data[-2:]))
+    weekday= pd.to_datetime(my_date).day_name()
+    content = pd.read_csv("user_info.csv")
+    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].iloc[0]
+    return render_template('diary_info.html', content=content, month=month, year=year, week=weekday)
 
 @app.route('/diary_home', methods=['GET', 'POST'])
 def choice():
@@ -214,9 +205,7 @@ def progress():
     df = pd.read_csv('user_info.csv')
     df = df[df.user_id == session['localId']]
     df = df[['date', 'km' ,'emotion', 'action']]
-    if not df.empty:
-        df.date = np.vectorize(datet.date.fromisoformat)(df.date)
-    days = len(set(df.date))
+    df.date = np.vectorize(datet.date.fromisoformat)(df.date)
     today = datet.date.today()
     last_month_df = df[df.date > today - datet.timedelta(30)]
     last_week_df = df[df.date > today - datet.timedelta(7)]
@@ -238,6 +227,10 @@ def progress():
         last_week_action = last_week_df.action.value_counts().idxmax()
     except ValueError:
         last_week_action = ''
+    
+    goals = pd.read_csv('data/goals.csv')
+    goals = goals[goals.user_id == session['localId']]
+    goals = goals.status.value_counts().sort_index()
 
     return render_template(
         'progress.html',
@@ -247,8 +240,145 @@ def progress():
         last_week_km=last_week_km,
         last_week_emotion=last_week_emotion,
         last_week_action=last_week_action,
-        days=days
     )
+
+@app.route('/habits', methods=['GET', 'POST'])
+def habits_main():
+    print(session)
+    if "email" not in session:
+        return redirect('/login')
+    else:
+        # Тут треба зарендити свій основний шаблон
+        context = {
+        'datetime': datetime,
+        }
+        today = datetime.datetime.now()
+        today_str = today.strftime("%B %d, %Y")
+        habits = read_habits()
+        task_form = TaskForm()
+        habit_form = HabitForm()
+        return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
+
+    
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if "email" in session:
+#         return "Logged in as " + session['email']
+#     if request.method == 'POST':
+#         email = request.json["email"]
+#         password = request.json["password"]
+#         try:
+#             user = auth.sign_in_with_email_and_password(email, password)
+#             session['email'] = email
+#             return "", 302
+#         except:
+#             return '{"error": "Failed to login"}'
+#     return render_template('login.html')
+
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     if ('email' in session):
+#         return "Logged in as " + session['email']
+#     if request.method == 'POST':
+#         email = request.json["email"]
+#         password = request.json["password"]
+#         try:
+#             user = auth.create_user_with_email_and_password(email, password)
+#             session['email'] = email
+#             # session['localId'] - це і є токен
+#             session['localId'] = user['localId']
+#             return "", 302
+#         except Exception as e:
+#             return '{"error": "Failed to login"}', 200  
+#     return render_template('signup.html')
+
+# @app.route('/logout')
+# def logout():
+#     session.pop('email', None)
+#     return redirect('/')
+
+class TaskForm(FlaskForm):
+    task = StringField('Habit', validators=[DataRequired()])
+    submit = SubmitField('Add Habit')
+
+class HabitForm(FlaskForm):
+    habits = []
+
+def read_habits():
+    with open("habits.csv", mode="r") as file:
+        reader = csv.DictReader(file)
+        habits = [row for row in reader]
+        return habits
+
+def write_habits(habits):
+    with open("habits.csv", mode="w", newline='\n') as file:
+        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
+        writer.writeheader()
+        writer.writerows(habits)
+
+def write_new_habit(habitName):
+    userid = session['localId']
+    with open("habits.csv", mode="r+", newline='\n') as file:
+        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
+        # Check if the file is empty
+        next(file)
+        first_char = file.read(1)
+        if not first_char:
+            # File is empty, start habitid at 1
+            habitid = 1
+        else:
+            # Read the file to find the maximum habitid
+            file.seek(0)
+            reader = csv.DictReader(file)
+            habitid_list = [int(row['Habit ID']) for row in reader]
+            habitid = max(habitid_list) + 1 if habitid_list else 1
+        dict_habit = {'User ID': userid, 'Habit ID': habitid, 'Name': habitName, 'Count': 0}
+        writer.writerow(dict_habit)
+
+        return habitid
+
+
+@app.route('/habits', methods=['GET', 'POST'])
+def index():
+    habits = read_habits()
+    task_form = TaskForm()
+    habit_form = HabitForm()
+    userid = session['localId']
+    context = {
+        'datetime': datetime,
+        }
+    today = datetime.datetime.now()
+    today_str = today.strftime("%B %d, %Y")
+
+    if task_form.validate_on_submit():
+        habit_name = task_form.task.data
+        habitid = write_new_habit(habit_name)
+        habit = {'userid': userid, 'habitid': habitid, 'name': habit_name, 'completed': False, 'count': 0}
+        habit_form.habits.append(habit)
+        
+        return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
+
+    if request.method == 'POST':
+        # Handle the "Update Habits" button
+        if 'update' in request.form:
+        # Read the CSV file
+            habits = read_habits()
+            # Update the count for completed habits
+            for habit in habit_form.habits:
+                habitid = str(habit['habitid'])
+                habit_name = 'completed-' + habitid # Define habit_name here
+                if habit_name in request.form:
+                    for row in habits:
+                        if row['Habit ID'] == habitid:
+                            row['Count'] = int(row['Count']) + 1
+                            # Update the habit count in the habit_form.habits list
+                            habit['completed'] = True
+                            habit['count'] = int(row['Count'])
+                            break # Exit the inner loop
+            # Write the updated data back to the CSV file
+            write_habits(habits)
+        return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
+
 
 if __name__ == '__main__':
     app.run(port=1111, debug=True)
