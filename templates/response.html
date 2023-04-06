@@ -44,29 +44,29 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="/progress">Your progress</a>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="/progress">Your progress</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="/diary_home">Diary</a></li>
+          <li><a href="/goals">Goals</a></li>
+          <li><a href="#">Habits</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li><a href="/diary">Diary</a></li>
-        <li><a href="/goals">Goals</a></li>
-        <li><a href="#">Habits</a></li>
-        <li><a href="/about">About</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+  </nav>
   
 <div class="container">
   <h1>Put in a date to look for</h1>
@@ -74,20 +74,14 @@
     <form id='form' action = '/diary_info' method = "POST">
     <input class="input" type ='text' id='date' name='date' placeholder = '2023-03-28' ><br>
     <input type ='submit' class = 'submit' placeholder = 'Send'>
-    <p class='account'>Don't want to read your records? <a href = '/goals'>Go to homepage</a></p>
+    <p class='account'>Don't want to read your records? <a href = '/progress'>Go to homepage</a></p>
     </form>             
   </div>
 </div>
 
 <div class='container'>
-  <button id="myButton" class="float-left submit-button btn btn-danger" >Add info about today</button>
+  <button onclick="location.href = '\diary';" class="float-left submit-button btn btn-danger" >Add info about today</button>
 </div>
-
-<script type="text/javascript">
-  document.getElementById("myButton").onclick = function () {
-      location.href = "/diary";
-  };
-</script>
 
 </body>
 </html>
