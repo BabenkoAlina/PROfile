@@ -1,107 +1,108 @@
-<html>
-    <head>
-        <title>Goals for {{list_name}} list</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Goals for {{list_name}} list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/style_goals.css">
     <script type="text/javascript" src="../static/goals_custom.js"></script>
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>                        
-                </button>
-                <a class="navbar-brand" href="/progress">Your progress</a>
-              </div>
-              <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                  <li><a href="/diary_home">Diary</a></li>
-                  <li><a href="/goals">Goals</a></li>
-                  <li><a href="#">Habits</a></li>
-                  <li><a href="/about">About</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <a class="navbar-brand" href="/progress">Your progress</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li><a href="/diary_home">Diary</a></li>
+              <li><a href="/goals">Goals</a></li>
+              <li><a href="#">Habits</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-        <div class="messages">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                <ul class=flashes>
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-                </ul>
+      <div class="messages">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+              <ul class=flashes>
+              {% for category, message in messages %}
+                  <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+          {% endwith %}
+      </div>
+      
+      <div style="margin:70px;" class="columns">
+        <h1 style="font-size: 70px; text-decoration: underline;">Goals for {{list_name}} list</h1>
+        <p style="text-align: left; font-size: 25px;">Want to see a different list of goals? <a href = '/goals'>Go to all lists</a></p>
+        <h2 class="goals">Completed goals</h2>
+
+        <ul class="goalsList">
+          {%if goals%}
+            {% for goal in goals %}
+                {% if goal.status == 'completed' %}
+                    <li class="goal">
+                        <div class="description">{{ goal.description }}</div>
+                        <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
+                    </li>
                 {% endif %}
-            {% endwith %}
-        </div>
+            {% endfor %}
+          {%else%}
+            <p class='warning' style="margin: auto; padding: 10px;color: white; font-size: 20px; text-align: center; width: 300px; height: 150px; background-color: #D81A1A; border-radius: 25% 10%; display: block; padding: 20px 0;"> You haven’t completed any of your goals yet!</p>
+          {%endif%}
+        </ul>
         
-        <div style="margin:70px;" class="columns">
-          <h1 style="font-size: 70px; text-decoration: underline;">Goals for {{list_name}} list</h1>
-          <p style="text-align: left; font-size: 25px;">Want to see a different list of goals? <a href = '/goals'>Go to all lists</a></p>
-          <h2 class="goals">Completed goals</h2>
+        <h2 class="goals">Your goals in progress</h2>
+        
+        <ul class="goalsList">
+          {%if goals%}
+            {% for goal in goals %}
+                {% if goal.status != 'completed' %}
+                    <li class="goal">
+                        <button class="update" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-check"></i></button>
+                        <div class="description">{{ goal.description }}</div>
+                        <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
+                    </li>
+                {% endif %}
+            {% endfor %}
+          {% else%}
+            <p class='warning' style="margin: auto; padding: 10px;color: white; font-size: 20px; text-align: center; width: 300px; height: 150px; background-color: #D81A1A; border-radius: 25% 10%; display: block; padding: 20px 0;"> You don’t have any goals right now. Let's create some!</p>
+          {%endif%}
+        </ul>
 
-          <ul class="goalsList">
-            {%if goals%}
-              {% for goal in goals %}
-                  {% if goal.status == 'completed' %}
-                      <li class="goal">
-                          <div class="description">{{ goal.description }}</div>
-                          <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
-                      </li>
-                  {% endif %}
-              {% endfor %}
-            {%else%}
-              <p> You haven’t completed any of your goals yet!</p>
-            {%endif%}
-          </ul>
-          
-          <h2 class="goals">Your goals in progress</h2>
-          
-          <ul class="goalsList">
-            {%if goals%}
-              {% for goal in goals %}
-                  {% if goal.status != 'completed' %}
-                      <li class="goal">
-                          <button class="update" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-check"></i></button>
-                          <div class="description">{{ goal.description }}</div>
-                          <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
-                      </li>
-                  {% endif %}
-              {% endfor %}
-            {% else%}
-              <p> You don’t have any goals right now. Let's create some!</p>
-            {%endif%}
-          </ul>
-
-          <div class="buttonContainer">
-            <div class="round-button">
-              <div class="round-button-circle">
-                <div id="createFormOpenButton" class="button"><i class="fa-regular fa-plus"></i></div>
-              </div>
+        <div class="buttonContainer">
+          <div class="round-button">
+            <div class="round-button-circle">
+              <div id="createFormOpenButton" class="button"><i class="fa-regular fa-plus"></i></div>
             </div>
           </div>
-
-          <div class="form-popup" id="createForm">
-            <form action="/goals/goal" class="form-container" method="post">
-              <h1>Create new goal</h1>
-              <label for="list"><b>Type in the description for your goal.</b></label>
-              <input type="text" name="goal">
-              <input type="hidden" value="{{list_name}}" name="list_name">
-
-              <input type="submit" value="Create new goal">
-              <button id="createFormCloseButton" type="button" class="btn cancel">Close</button>
-            </form>
-          </div>
         </div>
-    </body>
+
+        <div class="form-popup" id="createForm">
+          <form action="/goals/goal" class="form-container" method="post">
+            <h1>Create new goal</h1>
+            <label for="list"><b>Type in the description for your goal.</b></label>
+            <input type="text" name="goal">
+            <input type="hidden" value="{{list_name}}" name="list_name">
+
+            <input type="submit" value="Create new goal">
+            <button id="createFormCloseButton" type="button" class="btn cancel">Close</button>
+          </form>
+        </div>
+      </div>
+  </body>
 </html>
     
