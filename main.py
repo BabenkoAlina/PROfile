@@ -33,7 +33,6 @@ def main():
         # Тут треба зарендити свій основний шаблон
         context = {
         'datetime': datetime,
-        # Other context variables...
         }
         today = datetime.datetime.now()
         today_str = today.strftime("%B %d, %Y")
@@ -123,12 +122,6 @@ def write_new_habit(habitName):
 
 @app.route('/habits', methods=['GET', 'POST'])
 def index():
-    context = {
-        'datetime': datetime,
-        # Other context variables...
-    }
-    today = datetime.datetime.now()
-    today_str = today.strftime("%B %d, %Y")
     habits = read_habits()
     task_form = TaskForm()
     habit_form = HabitForm()
@@ -161,8 +154,8 @@ def index():
                             break # Exit the inner loop
             # Write the updated data back to the CSV file
             write_habits(habits)
+        return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits)
 
-    # return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
 
 if __name__ == '__main__':
     app.run(port=1111, debug=True)
