@@ -254,7 +254,7 @@ input[type=text]{
     flex: 0 0 33%;
 }
 
-.delete{
+.delete {
     background-color: #555555;
     color: white;
     height: 24px;
@@ -268,4 +268,29 @@ input[type=text]{
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 50%;
+}
+
+.update {
+    background-color: #555555;
+    color: white;
+    height: 24px;
+    width: 24px;
+    border: none;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.description{
+    background-color: #acacac;
+    font-size: 25px;
+    border-radius: 5%;
+    margin: 4px 2px;
+    padding: 7px;
+    display: inline-block;
 }
