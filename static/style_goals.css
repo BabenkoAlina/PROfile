@@ -54,12 +54,16 @@ h2 {
     text-align: center;
 }
 
+.goals{
+    text-align: left;
+}
+
 .progress{
     text-align: center;
 }
 
 button {
-    background-color: #555555;
+    background-color: #8a8a8a;
     color: white;
     height: 60px;
     width: 140px;
@@ -127,13 +131,6 @@ input[type=text]{
     padding-top: 20px;
     background-color: #f1f1f1;
     height: 100%;
-}
-
-/* Set black background color, white text and some padding */
-footer {
-    background-color: #555;
-    color: white;
-    padding: 15px;
 }
 
 /* On small screens, set height to 'auto' for sidenav and grid */
@@ -233,6 +230,7 @@ footer {
 .form-container .cancel {
     background-color: #D81A1A;
 }
+
 .delete i {
     color: #FFF;  
     text-align: center;  
@@ -255,6 +253,7 @@ footer {
 .list {
     flex: 0 0 33%;
 }
+
 .delete{
     background-color: #555555;
     color: white;

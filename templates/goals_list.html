@@ -45,9 +45,10 @@
         </div>
         
         <div style="margin:70px;" class="columns">
-          <h1 style="font-size: 70px; margin-left:100px;text-decoration: underline;">Goals for {{list_name}} list</h1>
-          <p class='account'>Want to see a different list of goals? <a href = '/goals'>Go to all lists</a></p>
-          <h3>Completed goals</h3>
+          <h1 style="font-size: 70px; text-decoration: underline;">Goals for {{list_name}} list</h1>
+          <p style="text-align: left; font-size: 25px;">Want to see a different list of goals? <a href = '/goals'>Go to all lists</a></p>
+          <h2 class="goals">Completed goals</h2>
+
           <ul class="goalsList">
               {% for goal in goals %}
                   {% if goal.status == 'completed' %}
@@ -59,7 +60,7 @@
               {% endfor %}
           </ul>
           
-          <h3>Your goals in progress</h3>
+          <h2 class="goals">Your goals in progress</h2>
           
           <ul class="goalsList">
               {% for goal in goals %}
