@@ -126,6 +126,11 @@ def index():
     task_form = TaskForm()
     habit_form = HabitForm()
     userid = session['localId']
+    context = {
+        'datetime': datetime,
+        }
+    today = datetime.datetime.now()
+    today_str = today.strftime("%B %d, %Y")
 
     if task_form.validate_on_submit():
         habit_name = task_form.task.data
@@ -133,7 +138,7 @@ def index():
         habit = {'userid': userid, 'habitid': habitid, 'name': habit_name, 'completed': False, 'count': 0}
         habit_form.habits.append(habit)
 
-        return redirect(url_for('index'))
+        return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
 
     if request.method == 'POST':
         # Handle the "Update Habits" button
@@ -154,7 +159,7 @@ def index():
                             break # Exit the inner loop
             # Write the updated data back to the CSV file
             write_habits(habits)
-        return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits)
+        return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
 
 
 if __name__ == '__main__':

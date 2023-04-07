@@ -4,19 +4,47 @@
   <title>Habits List</title>
   <link rel="stylesheet" type="text/css" href="static/habits.css">
   <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <p><span id="current-date"></span></p>
-    <div class="button-container">
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 0 else '' }}">M</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 1 else '' }}">T</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 2 else '' }}">W</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 3 else '' }}">T</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 4 else '' }}">F</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 5 else '' }}">S</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 6 else '' }}">S</button>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="/progress">Your progress</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="/diary_home">Diary</a></li>
+          <li><a href="/goals">Goals</a></li>
+          <li><a href="#">Habits</a></li>
+          <li><a href="/about">About</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+      </div>
     </div>
+  </nav>
   <h1>Habits List</h1>
+  <p><span id="current-date"></span></p>
+  <div class="button-container">
+    <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 0 else '' }}">M</button>
+    <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 1 else '' }}">T</button>
+    <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 2 else '' }}">W</button>
+    <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 3 else '' }}">T</button>
+    <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 4 else '' }}">F</button>
+    <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 5 else '' }}">S</button>
+    <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 6 else '' }}">S</button>
+</div>
+
   <form method="POST" action="{{ url_for('index') }}">
     {{ task_form.csrf_token }}
     {{ task_form.task.label }} {{ task_form.task(size=30) }}
@@ -32,32 +60,14 @@
     <input type="submit" name="update" value="Update Habits">
   </form>
 
-  <button onclick="window.location.href='/logout'">Logout</button>
   
   <script>
-    //Set a current date
+    // Get current date and format it as a string
     var today = new Date();
-    var currentDate = "{{ today_str }}";
+    var currentDate = today.toLocaleDateString();
+  
     // Set date in HTML element
     document.getElementById("current-date").innerHTML = currentDate;
-    document.getElementById("current-date").innerHTML = currentDate;
-</script>
-
-<div class="fixed">
-  <div class="btn-group">
-      <a href="link1">
-          <button class="button">Home</button>
-      </a>
-      <a href="link2">
-          <button class="button">Diary</button>
-      </a>
-      <a href="link3">
-          <button class="button">Goals</button>
-      </a>
-      <a href="link4 - same link">
-          <button class="button">Habits</button>
-      </a>
-  </div>
-</div>
+  </script>  
 </body>
 </html>
