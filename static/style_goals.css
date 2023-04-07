@@ -241,8 +241,39 @@ input[type=text]{
     flex-wrap: wrap;
 }
 
-.goal {
+.header {
+    margin: 70px;
+}
+
+.goalsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 70px;
+}
+
+.columns {
+    flex: 0 0 67%;
+}
+
+.columns p {
+    text-align: left;
+}
+
+.columns.completed {
     flex: 0 0 33%;
+}
+
+.goal {
+    flex: 0 0 50%;
+}
+
+.completed .goal {
+    flex: 0 0 100%;
+}
+
+.completed .goal .description {
+    background-color: #66FF99;
+    color: #FFF;
 }
 
 .lists {
@@ -286,11 +317,15 @@ input[type=text]{
     border-radius: 50%;
 }
 
-.description{
+.description {
     background-color: #acacac;
     font-size: 25px;
     border-radius: 5%;
     margin: 4px 2px;
     padding: 7px;
     display: inline-block;
+    max-width: 50%;
+    min-width: 25%;
+    color: white;
+    text-align: center;
 }
