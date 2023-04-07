@@ -31,7 +31,7 @@ def main():
     if "email" not in session:
         return redirect('/login')
     else:
-        return render_template('goals_home.html', lists=get_lists_by_user_id(session['localId']))
+        return render_template('about.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -247,8 +247,6 @@ def progress():
         last_week_emotion=last_week_emotion,
         last_week_action=last_week_action,
     )
-
-
 
 if __name__ == '__main__':
     app.run(port=1111, debug=True)

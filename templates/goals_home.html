@@ -51,7 +51,7 @@
             {% for list in lists %}
               <li class="list">
                 <a href="/goals/{{ list.list_url }}" ><button>{{list.list_name}}</button></a>
-                <button class="delete_list" data-list-id="{{list.list_id}}"><i class="fa-solid fa-xmark"></i></button>
+                <button class="delete" data-list-id="{{list.list_id}}"><i class="fa-solid fa-xmark"></i></button>
               </li>
             {% endfor %}
           {%endif%}
