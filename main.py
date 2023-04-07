@@ -181,14 +181,24 @@ def write_csv():
 
 @app.route('/diary_info', methods=['GET', 'POST'])
 def show_info():
-    data = request.form['date']
-    year = int(data[:4])
-    month = calendar.month_name[int(data[5:7])]
-    my_date = datetime(int(data[:4]), int(data[5:7]), int(data[-2:]))
-    weekday= pd.to_datetime(my_date).day_name()
-    content = pd.read_csv("user_info.csv")
-    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].iloc[0]
-    return render_template('diary_info.html', content=content, month=month, year=year, week=weekday)
+    try:
+        data = request.form['date']
+        if '-' not in data:
+            raise ValueError('Enter date in the right form, such as: "2023-04-06"')
+        year = int(data[:4])
+        month = calendar.month_name[int(data[5:7])]
+        my_date = datetime(int(data[:4]), int(data[5:7]), int(data[-2:]))
+        weekday= pd.to_datetime(my_date).day_name()
+        content = pd.read_csv("user_info.csv")
+        content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].iloc[0]
+        return render_template('diary_info.html', content=content, month=month, year=year, week=weekday)
+    except (IndexError, NameError, KeyError):
+        flash("There's no info about this data in your diary", 'error')
+        return redirect('/diary_home')
+    except ValueError as error:
+        flash(str(error), 'error')
+        return redirect('/diary_home')
+
 
 @app.route('/diary_home', methods=['GET', 'POST'])
 def choice():

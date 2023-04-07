@@ -21,7 +21,7 @@
     .sidenav {
       padding-top: 20px;
       background-color: #f1f1f1;
-      height: 100%;
+      height: auto;
     }
     
     /* Set black background color, white text and some padding */
@@ -82,18 +82,18 @@
     </div>
     <div class="col-sm-7 text-left">
         <div class='col-7 text-center'>
-            <h1>My diary</h1>
+            <h1 style="font-size: 70px; margin-left:100px;text-decoration: underline;">My diary</h1>
         </div>
-        <div class='container'>
+        <div class='container-fluid'>
           <form method='POST' action='/write_csv'>  
               <div class="table-responsive-md table-responsive-sm">
                   <table class='table'>
                       <tr>
-                          <td>
+                          <td style='width:auto;'>
                               <label for='module' class='form-label'>Module</label><br>
                               <input type='text' id='module' name='module' class='form-control' required><br>
                           </td>
-                          <td>
+                          <td style='width:auto;'>
                               <label for='value' class='form-label'>Value</label><br>
                               <input type='number' id='value' name='value' class='form-control' required><br>
                           </td>
@@ -136,28 +136,28 @@
                     <table class='table'>
                       <tr>
                           <td>
-                              <h3>АПД дня по цінності</h3>
+                              <h3>Analysis of the day's actions by value</h3>
                           </td>
                       </tr>
                       <tr>
                           <td>
-                              <input type='text' id='good' name='good' placeholder='Що добре?' class='form-control'><br>
+                              <input type='text' id='good' name='good' placeholder='What was good?' class='form-control'><br>
                           </td>
                           <td>
-                              <input type='text' id='bad' name='bad' placeholder='Що погано?' class='form-control'><br>
+                              <input type='text' id='bad' name='bad' placeholder='What was bad?' class='form-control'><br>
                           </td>
                       </tr>
                       <tr>
                           <td>
-                              <input type='text' id='day' name='day' placeholder='Звір дня' class='form-control'><br>
+                              <input type='text' id='day' name='day' placeholder='Rival of the day' class='form-control'><br>
                           </td>
                           <td>
-                              <input type='text' id='rival' name='rival' placeholder='Противник дня' class='form-control'><br>
+                              <input type='text' id='rival' name='rival' placeholder='Victory of the day' class='form-control'><br>
                           </td>
                       </tr>
                       <tr>
                         <td>
-                          <input type='text' id='improve' name='improve' placeholder='Що покращити?' class='form-control'><br>
+                          <input type='text' id='improve' name='improve' placeholder='What to improve?' class='form-control'><br>
                         </td>
                       </tr>
                       <tr>
@@ -170,22 +170,22 @@
           </form>
         </div>
     </div>
-    <div class="col-sm-3 sidenav">
-      <div class="well">
-        <h3>Explanation</h3>
-        <h4>Body</h4>
-        <div style="background-color:#D7D6D6">
-            <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
-        </div>
-        <h4>Heart</h4>
-        <div style="background-color:#D7D6D6">
-            <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
-        </div>
-        <h4>Intelligence</h4>
-        <div style="background-color:#D7D6D6">
-            <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
-        </div>
-    </div>
+      <div class="col-sm-3 sidenav">
+        <div class="well">
+          <h3>Explanation</h3>
+          <h4 style='margin: 20px;'>Body</h4>
+          <div style="background-color:#D7D6D6">
+              <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+          </div>
+          <h4 style='margin: 20px;'>Heart</h4>
+          <div style="background-color:#D7D6D6">
+              <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+          </div>
+          <h4 style='margin: 20px;'>Intelligence</h4>
+          <div style="background-color:#D7D6D6">
+              <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+          </div>
+      </div>
   </div>
 </div>
 

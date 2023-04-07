@@ -67,20 +67,35 @@
       </div>
     </div>
   </nav>
-  
-<div class="container">
+
+  <div class="messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+  </div>
+
+<div class="container col-8">
+  <h1 style="font-size: 70px; margin-bottom:100px;text-decoration: underline;">My diary</h1>
   <h1>Put in a date to look for</h1>
   <div class="form-container">
     <form id='form' action = '/diary_info' method = "POST">
     <input class="input" type ='text' id='date' name='date' placeholder = '2023-03-28' ><br>
     <input type ='submit' class = 'submit' placeholder = 'Send'>
-    <p class='account'>Don't want to read your records? <a href = '/progress'>Go to homepage</a></p>
+    <p class='account'>Don't want to read your records? <a href = '/about'>Go to homepage</a></p>
     </form>             
   </div>
 </div>
-
-<div class='container'>
-  <button onclick="location.href = '\diary';" class="float-left submit-button btn btn-danger" >Add info about today</button>
+<div class="container">
+  <h1>Or</h1>
+</div>
+<div class='container' style = 'color: #D81A1A;'>
+  <button onclick="location.href = '\diary';" class="float-left submit-button btn btn-danger">Add info about today</button>
 </div>
 
 </body>
