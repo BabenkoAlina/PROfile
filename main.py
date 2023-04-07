@@ -1,10 +1,11 @@
+import datetime
 from flask import Flask, session, render_template, request, redirect, url_for
 import pyrebase
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import csv
-import datetime
+
 
 
 app = Flask(__name__)
@@ -30,7 +31,7 @@ def main():
         return redirect('/login')
     else:
         # Тут треба зарендити свій основний шаблон
-        return render_template('hab.html')
+        return render_template('habits.html')
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
