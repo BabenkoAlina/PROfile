@@ -31,7 +31,17 @@ def main():
         return redirect('/login')
     else:
         # Тут треба зарендити свій основний шаблон
-        return render_template('habits.html')
+        context = {
+        'datetime': datetime,
+        # Other context variables...
+        }
+        today = datetime.datetime.now()
+        today_str = today.strftime("%B %d, %Y")
+        habits = read_habits()
+        task_form = TaskForm()
+        habit_form = HabitForm()
+        return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
+
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -90,6 +100,7 @@ def write_habits(habits):
         writer.writerows(habits)
 
 def write_new_habit(habitName):
+    userid = session['localId']
     with open("habits.csv", mode="r+", newline='\n') as file:
         writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
         # Check if the file is empty
@@ -104,7 +115,7 @@ def write_new_habit(habitName):
             reader = csv.DictReader(file)
             habitid_list = [int(row['Habit ID']) for row in reader]
             habitid = max(habitid_list) + 1 if habitid_list else 1
-        dict_habit = {'User ID': 1, 'Habit ID': habitid, 'Name': habitName, 'Count': 0}
+        dict_habit = {'User ID': userid, 'Habit ID': habitid, 'Name': habitName, 'Count': 0}
         writer.writerow(dict_habit)
 
         return habitid
@@ -121,11 +132,12 @@ def index():
     habits = read_habits()
     task_form = TaskForm()
     habit_form = HabitForm()
+    userid = session['localId']
 
     if task_form.validate_on_submit():
         habit_name = task_form.task.data
         habitid = write_new_habit(habit_name)
-        habit = {'userid': 1, 'habitid': habitid, 'name': habit_name, 'completed': False, 'count': 0}
+        habit = {'userid': userid, 'habitid': habitid, 'name': habit_name, 'completed': False, 'count': 0}
         habit_form.habits.append(habit)
 
         return redirect(url_for('index'))
@@ -150,7 +162,7 @@ def index():
             # Write the updated data back to the CSV file
             write_habits(habits)
 
-    return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
+    # return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
 
 if __name__ == '__main__':
     app.run(port=1111, debug=True)
