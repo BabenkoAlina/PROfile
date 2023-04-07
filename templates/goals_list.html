@@ -50,6 +50,7 @@
           <h2 class="goals">Completed goals</h2>
 
           <ul class="goalsList">
+            {%if goals%}
               {% for goal in goals %}
                   {% if goal.status == 'completed' %}
                       <li class="goal">
@@ -58,11 +59,15 @@
                       </li>
                   {% endif %}
               {% endfor %}
+            {%else%}
+              <p> You haven’t completed any of your goals yet!</p>
+            {%endif%}
           </ul>
           
           <h2 class="goals">Your goals in progress</h2>
           
           <ul class="goalsList">
+            {%if goals%}
               {% for goal in goals %}
                   {% if goal.status != 'completed' %}
                       <li class="goal">
@@ -72,6 +77,9 @@
                       </li>
                   {% endif %}
               {% endfor %}
+            {% else%}
+              <p> You don’t have any goals right now. Let's create some!</p>
+            {%endif%}
           </ul>
 
           <div class="buttonContainer">

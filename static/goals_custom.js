@@ -49,7 +49,7 @@ window.onload = function () {
         });
     });
 
-    document.querySelectorAll('.lists button.delete_list').forEach(item => {
+    document.querySelectorAll('.lists button.delete').forEach(item => {
         item.addEventListener('click', event => {
             event.preventDefault();
             const listId = item.getAttribute('data-list-id');
