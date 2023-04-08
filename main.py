@@ -6,7 +6,6 @@ import calendar
 import csv
 from csv import writer
 import pandas as pd
-import os
 import numpy as np
 import datetime
 from flask_wtf import FlaskForm
@@ -14,6 +13,11 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
 app = Flask(__name__, template_folder='templates')
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['SECRET_KEY'] = 'secret'
+app.config["SESSION_PERMANENT"] = True
+app.config["SESSION_TYPE"] = "filesystem"
+app.config['SESSION_COOKIE_NAME'] = "session_id"
 
 firebaseConfig = {
     'apiKey': "AIzaSyAXoO8gg9C8_osWeI3YgUoOZ5Y3_QndNiI",
@@ -27,7 +31,12 @@ firebaseConfig = {
 
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
-app.secret_key = os.urandom(24)
+app.secret_key = 'secret'
+
+@app.after_request
+def add_header(r):
+    r.headers["Cache-Control"]  = "no-store max-age=0"
+    return r
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
