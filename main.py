@@ -162,14 +162,14 @@ def complete_goal(goal_id):
 
 @app.route('/diary', methods=["GET", 'POST'])
 def page():
-    dt = datetime.now()
+    dt = datetime.datetime.now()
     week = dt.strftime('%A')
-    currentMonth = datetime.now().month
-    return render_template('diary.html', month=calendar.month_name[currentMonth], year=datetime.now().year, week=week)
+    currentMonth = datetime.datetime.now().month
+    return render_template('diary.html', month=calendar.month_name[currentMonth], year=datetime.datetime.now().year, week=week)
 
 @app.route('/write_csv', methods=['POST', 'GET'])
 def write_csv():
-    day_info = [session['localId'], datetime.today().strftime('%Y-%m-%d'), request.form['module'], request.form['value'], \
+    day_info = [session['localId'], datetime.datetime.today().strftime('%Y-%m-%d'), request.form['module'], request.form['value'], \
         request.form['body'], request.form['km'], request.form['heart'], \
         request.form['emotion'], request.form['intelegance'], \
         request.form['action'], request.form['good'], request.form['bad'], \
@@ -178,7 +178,7 @@ def write_csv():
         writer_object = writer(file)
         writer_object.writerow(day_info)
     content = pd.read_csv("user_info.csv")
-    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(f'{datetime.now().year}-{("0" + str(datetime.now().month)) if len(str(datetime.now().month))==1 else str(datetime.now().month)}'))]
+    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(f'{datetime.datetime.now().year}-{("0" + str(datetime.datetime.now().month)) if len(str(datetime.datetime.now().month))==1 else str(datetime.datetime.now().month)}'))]
     emotion = content['emotion'].value_counts().idxmax()
     session['emotion'] = emotion
     return redirect("/diary_home")
