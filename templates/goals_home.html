@@ -46,9 +46,9 @@
     </div>
 
     <div class="header">
-        <h1 style="font-size: 70px;text-decoration: underline;">Goals lists</h1>
+        <h1 style="font-size: 70px;border-bottom: 5px solid black;">Goals lists</h1>
+        <img style="width:50%; float:right;" src="../static/images/goals.jpeg">
     </div>
-
     <div class="goalsWrapper">
       <div class="columns">
         {% if lists %}
@@ -61,7 +61,7 @@
               {% endfor %}
           </ul>
         {% else %}
-          <p style="margin: auto; padding: 10px;color: white; font-size: 20px; text-align: center; width: 300px; height: 130px; background-color: #D81A1A; border-radius: 25% 10%; display: block; padding: 20px 0;"> You haven’t created any lists yet. Let's create some to store goals for a specific period!</p>
+          <p style="float:left; color: white; font-size: 20px; text-align: center; width: 300px; height: 120px; background-color: #D81A1A; border-radius: 25% 10%; display: block; padding: 20px 0;"> You haven’t created any lists yet. Let's create some to store goals for a specific period!</p>
         {% endif %}
 
         <div class="buttonContainer">
