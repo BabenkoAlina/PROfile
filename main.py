@@ -9,7 +9,7 @@ from csv import writer
 import pandas as pd
 import os
 import numpy as np
-import datetime as datet
+import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -206,11 +206,11 @@ def progress():
     df = df[df.user_id == session['localId']]
     df = df[['date', 'km' ,'emotion', 'action']]
     if not df.empty:
-        df.date = np.vectorize(datet.date.fromisoformat)(df.date)
+        df.date = np.vectorize(datetime.date.fromisoformat)(df.date)
     days = len(set(df.date))
-    today = datet.date.today()
-    last_month_df = df[df.date > today - datet.timedelta(30)]
-    last_week_df = df[df.date > today - datet.timedelta(7)]
+    today = datetime.date.today()
+    last_month_df = df[df.date > today - datetime.timedelta(30)]
+    last_week_df = df[df.date > today - datetime.timedelta(7)]
     last_month_km = last_month_df.km.sum()
     last_week_km = last_week_df.km.sum()
     try:
@@ -246,11 +246,9 @@ def progress():
 
 @app.route('/habits', methods=['GET', 'POST'])
 def habits_main():
-    print(session)
     if "email" not in session:
         return redirect('/login')
     else:
-        # Тут треба зарендити свій основний шаблон
         context = {
         'datetime': datetime,
         }
