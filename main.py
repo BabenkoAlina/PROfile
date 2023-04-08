@@ -205,7 +205,9 @@ def progress():
     df = pd.read_csv('user_info.csv')
     df = df[df.user_id == session['localId']]
     df = df[['date', 'km' ,'emotion', 'action']]
-    df.date = np.vectorize(datet.date.fromisoformat)(df.date)
+    if not df.empty:
+        df.date = np.vectorize(datet.date.fromisoformat)(df.date)
+    days = len(set(df.date))
     today = datet.date.today()
     last_month_df = df[df.date > today - datet.timedelta(30)]
     last_week_df = df[df.date > today - datet.timedelta(7)]
@@ -258,44 +260,6 @@ def habits_main():
         task_form = TaskForm()
         habit_form = HabitForm()
         return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
-
-    
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     if "email" in session:
-#         return "Logged in as " + session['email']
-#     if request.method == 'POST':
-#         email = request.json["email"]
-#         password = request.json["password"]
-#         try:
-#             user = auth.sign_in_with_email_and_password(email, password)
-#             session['email'] = email
-#             return "", 302
-#         except:
-#             return '{"error": "Failed to login"}'
-#     return render_template('login.html')
-
-# @app.route('/signup', methods=['GET', 'POST'])
-# def signup():
-#     if ('email' in session):
-#         return "Logged in as " + session['email']
-#     if request.method == 'POST':
-#         email = request.json["email"]
-#         password = request.json["password"]
-#         try:
-#             user = auth.create_user_with_email_and_password(email, password)
-#             session['email'] = email
-#             # session['localId'] - це і є токен
-#             session['localId'] = user['localId']
-#             return "", 302
-#         except Exception as e:
-#             return '{"error": "Failed to login"}', 200  
-#     return render_template('signup.html')
-
-# @app.route('/logout')
-# def logout():
-#     session.pop('email', None)
-#     return redirect('/')
 
 class TaskForm(FlaskForm):
     task = StringField('Habit', validators=[DataRequired()])
