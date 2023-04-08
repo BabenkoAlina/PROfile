@@ -35,7 +35,7 @@ def main():
     if "email" not in session:
         return redirect('/login')
     else:
-        return render_template('goals_home.html', lists=get_lists_by_user_id(session['localId']))
+        return render_template('about.html', lists=get_lists_by_user_id(session['localId']))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
