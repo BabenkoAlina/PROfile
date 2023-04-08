@@ -9,6 +9,9 @@ import pandas as pd
 import os
 import numpy as np
 import datetime as datet
+from matplotlib import pyplot as plt
+import io
+import base64
 
 app = Flask(__name__)
 
@@ -211,7 +214,9 @@ def progress():
     df = pd.read_csv('user_info.csv')
     df = df[df.user_id == session['localId']]
     df = df[['date', 'km' ,'emotion', 'action']]
-    df.date = np.vectorize(datet.date.fromisoformat)(df.date)
+    if not df.empty:
+        df.date = np.vectorize(datet.date.fromisoformat)(df.date)
+    days = len(set(df.date))
     today = datet.date.today()
     last_month_df = df[df.date > today - datet.timedelta(30)]
     last_week_df = df[df.date > today - datet.timedelta(7)]
@@ -233,10 +238,6 @@ def progress():
         last_week_action = last_week_df.action.value_counts().idxmax()
     except ValueError:
         last_week_action = ''
-    
-    goals = pd.read_csv('data/goals.csv')
-    goals = goals[goals.user_id == session['localId']]
-    goals = goals.status.value_counts().sort_index()
 
     return render_template(
         'progress.html',
@@ -246,6 +247,7 @@ def progress():
         last_week_km=last_week_km,
         last_week_emotion=last_week_emotion,
         last_week_action=last_week_action,
+        days=days
     )
 
 if __name__ == '__main__':
