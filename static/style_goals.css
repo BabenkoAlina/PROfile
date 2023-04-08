@@ -133,6 +133,7 @@ input[type=text]{
     height: 100%;
 }
 
+
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
 .sidenav {
@@ -167,7 +168,7 @@ input[type=text]{
     background:#555555;
 }
 .round-button .button i {
-    color: #FFF;
+    color: #D81A1A;
 }
 .round-button .button {
     display: flex;
