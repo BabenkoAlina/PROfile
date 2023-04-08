@@ -1,114 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
-    <head>
-        <title>Progress</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link href="../static/style_progress.css" rel="stylesheet">
-        <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */ 
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-        
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {height: 450px}
-        
-        /* Set gray background color and 100% height */
+<head>
+    <title>Progress</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="../static/style_progress.css" rel="stylesheet">
+    <style>
+      /* Remove the navbar's default margin-bottom and rounded borders */ 
+      .navbar {
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+      
+      /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+      .row.content {height: 450px}
+      
+      /* Set gray background color and 100% height */
+      .sidenav {
+        padding-top: 20px;
+        background-color: #f1f1f1;
+        height: 100%;
+      }
+      
+      /* Set black background color, white text and some padding */
+      footer {
+        background-color: #555;
+        color: white;
+        padding: 15px;
+      }
+      
+      /* On small screens, set height to 'auto' for sidenav and grid */
+      @media screen and (max-width: 767px) {
         .sidenav {
-            padding-top: 20px;
-            background-color: #f1f1f1;
-            height: 100%;
+          height: auto;
+          padding: 15px;
         }
-        
-        /* Set black background color, white text and some padding */
-        footer {
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
-        
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-            height: auto;
-            padding: 15px;
-            }
-            .row.content {height:auto;} 
-        }
-    
-        .row.content{
-            height: auto;
-        }
-    
-        </style>
-    </head>
+        .row.content {height:auto;} 
+      }
+  
+      .row.content{
+          height: auto;
+      }
+  
+    </style>
+</head>
 
-    <body>
+<body>
 
-        <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>                        
-            </button>
-            <a class="navbar-brand" href="/progress">Your progress</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li><a href="/diary_home">Diary</a></li>
-                <li><a href="/goals">Goals</a></li>
-                <li><a href="#">Habits</a></li>
-                <li><a href="/about">About</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-            </ul>
-            </div>
+    <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="/progress">Your progress</a>
         </div>
-        </nav>
-            
-        <div class="wrapper">
-            <div class="content">
-                <div class="diagram_header">
-                    <h1 class="pagename">Your progress</h1>
-                </div>
-                <div class="table">
-                    <div class="column">
-                        <div class="row">
-                            <div class="annotation">Km</div>
-                            <div class="data">{{ last_month_km }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="annotation">Emotion</div>
-                            <div class="data">{{ last_month_emotion }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="annotation">Action</div>
-                            <div class="data">{{ last_month_action }}</div>
-                        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+            <li><a href="/diary_home">Diary</a></li>
+            <li><a href="/goals">Goals</a></li>
+            <li><a href="#">Habits</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+    
+    <div class="wrapper_special">
+        <div class="content_special">
+            <div class="content_header">
+                <h1 class="pagename_special">Your progress</h1>
+                <div class="email_info">
+                    <p class="email_special">{{ session["email"] }}</p>
+                    <div class="row_special">
+                        <div class="annotation_special">Days in diary</div>
+                        <div class="data_special">{{ days }}</div>
                     </div>
-                    <div class="column">
-                        <div class="row">
-                            <div class="annotation">Km</div>
-                            <div class="data">{{ last_week_km }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="annotation">Emotion</div>
-                            <div class="data">{{ last_week_emotion }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="annotation">Action</div>
-                            <div class="data">{{ last_week_action }}</div>
-                        </div>
+                </div>
+            </div>
+            <div class="table_special">
+                <div class="column_special">
+                    <div class="row_special">
+                        <div class="annotation_special">Km</div>
+                        <div class="data_special">{{ last_month_km }}</div>
+                    </div>
+                    <div class="row_special">
+                        <div class="annotation_special">Emotion</div>
+                        <div class="data_special">{{ last_month_emotion }}</div>
+                    </div>
+                    <div class="row_special">
+                        <div class="annotation_special">Action</div>
+                        <div class="data_special">{{ last_month_action }}</div>
+                    </div>
+                </div>
+                <div class="column_special">
+                    <div class="row_special">
+                        <div class="annotation_special">Km</div>
+                        <div class="data_special">{{ last_week_km }}</div>
+                    </div>
+                    <div class="row_special">
+                        <div class="annotation_special">Emotion</div>
+                        <div class="data_special">{{ last_week_emotion }}</div>
+                    </div>
+                    <div class="row_special">
+                        <div class="annotation_special">Action</div>
+                        <div class="data_special">{{ last_week_action }}</div>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 
 </html>
