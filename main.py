@@ -8,7 +8,7 @@ from csv import writer
 import pandas as pd
 import os
 import numpy as np
-import datetime as datet
+import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -34,7 +34,7 @@ def main():
     if "email" not in session:
         return redirect('/login')
     else:
-        return render_template('goals_home.html', lists=get_lists_by_user_id(session['localId']))
+        return render_template('about.html', lists=get_lists_by_user_id(session['localId']))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -161,14 +161,14 @@ def complete_goal(goal_id):
 
 @app.route('/diary', methods=["GET", 'POST'])
 def page():
-    dt = datet.datetime.now()
+    dt = datetime.datetime.now()
     week = dt.strftime('%A')
-    currentMonth = datet.datetime.now().month
-    return render_template('diary.html', month=calendar.month_name[currentMonth], year=datet.datetime.now().year, week=week)
+    currentMonth = datetime.datetime.now().month
+    return render_template('diary.html', month=calendar.month_name[currentMonth], year=datetime.datetime.now().year, week=week)
 
 @app.route('/write_csv', methods=['POST', 'GET'])
 def write_csv():
-    day_info = [session['localId'], datet.datetime.today().strftime('%Y-%m-%d'), request.form['module'], request.form['value'], \
+    day_info = [session['localId'], datetime.datetime.today().strftime('%Y-%m-%d'), request.form['module'], request.form['value'], \
         request.form['body'], request.form['km'], request.form['heart'], \
         request.form['emotion'], request.form['intelegance'], \
         request.form['action'], request.form['good'], request.form['bad'], \
@@ -177,7 +177,7 @@ def write_csv():
         writer_object = writer(file)
         writer_object.writerow(day_info)
     content = pd.read_csv("user_info.csv")
-    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(f'{datet.datetime.now().year}-{("0" + str(datet.datetime.now().month)) if len(str(datet.datetime.now().month))==1 else str(datet.datetime.now().month)}'))]
+    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(f'{datetime.datetime.now().year}-{("0" + str(datetime.datetime.now().month)) if len(str(datetime.datetime.now().month))==1 else str(datetime.datetime.now().month)}'))]
     emotion = content['emotion'].value_counts().idxmax()
     session['emotion'] = emotion
     return redirect("/diary_home")
@@ -187,7 +187,7 @@ def show_info():
     data = request.form['date']
     year = int(data[:4])
     month = calendar.month_name[int(data[5:7])]
-    my_date = datet.datetime(int(data[:4]), int(data[5:7]), int(data[-2:]))
+    my_date = datetime.datetime(int(data[:4]), int(data[5:7]), int(data[-2:]))
     weekday= pd.to_datetime(my_date).day_name()
     content = pd.read_csv("user_info.csv")
     content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].iloc[0]
@@ -204,10 +204,12 @@ def progress():
     df = pd.read_csv('user_info.csv')
     df = df[df.user_id == session['localId']]
     df = df[['date', 'km' ,'emotion', 'action']]
-    df.date = np.vectorize(datet.date.fromisoformat)(df.date)
-    today = datet.date.today()
-    last_month_df = df[df.date > today - datet.timedelta(30)]
-    last_week_df = df[df.date > today - datet.timedelta(7)]
+    if not df.empty:
+        df.date = np.vectorize(datetime.datetime.date.fromisoformat)(df.date)
+    days = len(set(df.date))
+    today = datetime.date.today()
+    last_month_df = df[df.date > today - datetime.timedelta(30)]
+    last_week_df = df[df.date > today - datetime.timedelta(7)]
     last_month_km = last_month_df.km.sum()
     last_week_km = last_week_df.km.sum()
     try:
@@ -239,19 +241,18 @@ def progress():
         last_week_km=last_week_km,
         last_week_emotion=last_week_emotion,
         last_week_action=last_week_action,
+        days=days
     )
 
 @app.route('/habits', methods=['GET', 'POST'])
 def habits_main():
-    print(session)
     if "email" not in session:
         return redirect('/login')
     else:
-        # Тут треба зарендити свій основний шаблон
         context = {
-        'datetime': datet.datetime,
+        'datetime': datetime.datetime,
         }
-        today = datet.datetime.now()
+        today = datetime.datetime.now()
         today_str = today.strftime("%B %d, %Y")
         habits = read_habits()
         task_form = TaskForm()
@@ -306,9 +307,9 @@ def index_habit():
     habit_form = HabitForm()
     userid = session['localId']
     context = {
-        'datetime': datet.datetime,
+        'datetime': datetime.datetime,
         }
-    today = datet.datetime.now()
+    today = datetime.datetime.now()
     today_str = today.strftime("%B %d, %Y")
     if task_form.validate_on_submit():
         habit_name = task_form.task.data
