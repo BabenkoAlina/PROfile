@@ -137,7 +137,7 @@ def index():
         habitid = write_new_habit(habit_name)
         habit = {'userid': userid, 'habitid': habitid, 'name': habit_name, 'completed': False, 'count': 0}
         habit_form.habits.append(habit)
-
+        
         return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
 
     if request.method == 'POST':
