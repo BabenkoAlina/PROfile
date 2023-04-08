@@ -185,13 +185,13 @@ def write_csv():
 
 @app.route('/diary_info', methods=['GET', 'POST'])
 def show_info():
-    data = request.form['date']
-    year = int(data[:4])
-    month = calendar.month_name[int(data[5:7])]
-    my_date = datetime(int(data[:4]), int(data[5:7]), int(data[-2:]))
+    some_data = request.form['date']
+    year = int(some_data[:4])
+    month = calendar.month_name[int(some_data[5:7])]
+    my_date = datetime.datetime(int(some_data[:4]), int(some_data[5:7]), int(some_data[-2:]))
     weekday= pd.to_datetime(my_date).day_name()
     content = pd.read_csv("user_info.csv")
-    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].iloc[0]
+    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(some_data))].iloc[0]
     return render_template('diary_info.html', content=content, month=month, year=year, week=weekday)
 
 @app.route('/diary_home', methods=['GET', 'POST'])
