@@ -242,6 +242,7 @@ def progress():
         last_week_km=last_week_km,
         last_week_emotion=last_week_emotion,
         last_week_action=last_week_action,
+        days=days
     )
 
 @app.route('/habits', methods=['GET', 'POST'])
