@@ -2,19 +2,18 @@ from flask import Flask, session, render_template, request, redirect, url_for, f
 import pyrebase
 from services.list import *
 from services.goal import *
-from datetime import datetime
 import calendar
 import csv
 from csv import writer
 import pandas as pd
 import os
 import numpy as np
-import datetime
+import datetime as datet
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 firebaseConfig = {
     'apiKey': "AIzaSyAXoO8gg9C8_osWeI3YgUoOZ5Y3_QndNiI",
@@ -35,7 +34,7 @@ def main():
     if "email" not in session:
         return redirect('/login')
     else:
-        return render_template('about.html', lists=get_lists_by_user_id(session['localId']))
+        return render_template('goals_home.html', lists=get_lists_by_user_id(session['localId']))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -162,41 +161,41 @@ def complete_goal(goal_id):
 
 @app.route('/diary', methods=["GET", 'POST'])
 def page():
-    dt = datetime.datetime.now()
+    dt = datet.datetime.now()
     week = dt.strftime('%A')
-    currentMonth = datetime.datetime.now().month
-    return render_template('diary.html', month=calendar.month_name[currentMonth], year=datetime.datetime.now().year, week=week)
+    currentMonth = datet.datetime.now().month
+    return render_template('diary.html', month=calendar.month_name[currentMonth], year=datet.datetime.now().year, week=week)
 
 @app.route('/write_csv', methods=['POST', 'GET'])
 def write_csv():
-    day_info = [session['localId'], datetime.datetime.today().strftime('%Y-%m-%d'), request.form['module'], request.form['value'], \
+    day_info = [session['localId'], datet.datetime.today().strftime('%Y-%m-%d'), request.form['module'], request.form['value'], \
         request.form['body'], request.form['km'], request.form['heart'], \
         request.form['emotion'], request.form['intelegance'], \
         request.form['action'], request.form['good'], request.form['bad'], \
-        request.form['improve'], request.form['rival'], request.form['victory']]
+        request.form['improve'], request.form['day'], request.form['rival']]
     with open('user_info.csv', 'a', encoding='utf-8') as file:
         writer_object = writer(file)
         writer_object.writerow(day_info)
     content = pd.read_csv("user_info.csv")
-    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(f'{datetime.datetime.now().year}-{("0" + str(datetime.datetime.now().month)) if len(str(datetime.datetime.now().month))==1 else str(datetime.datetime.now().month)}'))]
+    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(f'{datet.datetime.now().year}-{("0" + str(datet.datetime.now().month)) if len(str(datet.datetime.now().month))==1 else str(datet.datetime.now().month)}'))]
     emotion = content['emotion'].value_counts().idxmax()
     session['emotion'] = emotion
     return redirect("/diary_home")
 
 @app.route('/diary_info', methods=['GET', 'POST'])
 def show_info():
-    some_data = request.form['date']
-    year = int(some_data[:4])
-    month = calendar.month_name[int(some_data[5:7])]
-    my_date = datetime.datetime(int(some_data[:4]), int(some_data[5:7]), int(some_data[-2:]))
+    data = request.form['date']
+    year = int(data[:4])
+    month = calendar.month_name[int(data[5:7])]
+    my_date = datet.datetime(int(data[:4]), int(data[5:7]), int(data[-2:]))
     weekday= pd.to_datetime(my_date).day_name()
     content = pd.read_csv("user_info.csv")
-    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(some_data))].iloc[0]
+    content = content.loc[(content.user_id == session['localId']) & (content['date'].str.contains(data))].iloc[0]
     return render_template('diary_info.html', content=content, month=month, year=year, week=weekday)
 
 @app.route('/diary_home', methods=['GET', 'POST'])
 def choice():
-    return render_template('response3.html')
+    return render_template('response.html')
 
 @app.route('/progress', methods=['GET'])
 def progress():
@@ -205,12 +204,10 @@ def progress():
     df = pd.read_csv('user_info.csv')
     df = df[df.user_id == session['localId']]
     df = df[['date', 'km' ,'emotion', 'action']]
-    if not df.empty:
-        df.date = np.vectorize(datetime.date.fromisoformat)(df.date)
-    days = len(set(df.date))
-    today = datetime.date.today()
-    last_month_df = df[df.date > today - datetime.timedelta(30)]
-    last_week_df = df[df.date > today - datetime.timedelta(7)]
+    df.date = np.vectorize(datet.date.fromisoformat)(df.date)
+    today = datet.date.today()
+    last_month_df = df[df.date > today - datet.timedelta(30)]
+    last_week_df = df[df.date > today - datet.timedelta(7)]
     last_month_km = last_month_df.km.sum()
     last_week_km = last_week_df.km.sum()
     try:
@@ -242,18 +239,19 @@ def progress():
         last_week_km=last_week_km,
         last_week_emotion=last_week_emotion,
         last_week_action=last_week_action,
-        days=days
     )
 
 @app.route('/habits', methods=['GET', 'POST'])
 def habits_main():
+    print(session)
     if "email" not in session:
         return redirect('/login')
     else:
+        # Тут треба зарендити свій основний шаблон
         context = {
-        'datetime': datetime,
+        'datetime': datet.datetime,
         }
-        today = datetime.datetime.now()
+        today = datet.datetime.now()
         today_str = today.strftime("%B %d, %Y")
         habits = read_habits()
         task_form = TaskForm()
@@ -275,14 +273,14 @@ def read_habits():
 
 def write_habits(habits):
     with open("habits.csv", mode="w", newline='\n') as file:
-        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
-        writer.writeheader()
-        writer.writerows(habits)
+        writer_hab= csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
+        writer_hab.writeheader()
+        writer_hab.writerows(habits)
 
 def write_new_habit(habitName):
     userid = session['localId']
     with open("habits.csv", mode="r+", newline='\n') as file:
-        writer = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
+        writer_hab = csv.DictWriter(file, fieldnames=['User ID', 'Habit ID', 'Name', 'Count'])
         # Check if the file is empty
         next(file)
         first_char = file.read(1)
@@ -296,29 +294,27 @@ def write_new_habit(habitName):
             habitid_list = [int(row['Habit ID']) for row in reader]
             habitid = max(habitid_list) + 1 if habitid_list else 1
         dict_habit = {'User ID': userid, 'Habit ID': habitid, 'Name': habitName, 'Count': 0}
-        writer.writerow(dict_habit)
+        writer_hab.writerow(dict_habit)
 
         return habitid
 
 
 @app.route('/habits', methods=['GET', 'POST'])
-def index():
+def index_habit():
     habits = read_habits()
     task_form = TaskForm()
     habit_form = HabitForm()
     userid = session['localId']
     context = {
-        'datetime': datetime,
+        'datetime': datet.datetime,
         }
-    today = datetime.datetime.now()
+    today = datet.datetime.now()
     today_str = today.strftime("%B %d, %Y")
-
     if task_form.validate_on_submit():
         habit_name = task_form.task.data
         habitid = write_new_habit(habit_name)
         habit = {'userid': userid, 'habitid': habitid, 'name': habit_name, 'completed': False, 'count': 0}
         habit_form.habits.append(habit)
-        
         return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
 
     if request.method == 'POST':
@@ -339,8 +335,8 @@ def index():
                             habit['count'] = int(row['Count'])
                             break # Exit the inner loop
             # Write the updated data back to the CSV file
-            write_habits(habits)
-        return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
+        write_habits(habits)
+    return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
 
 
 if __name__ == '__main__':

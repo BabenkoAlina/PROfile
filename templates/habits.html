@@ -34,40 +34,56 @@
       </div>
     </div>
   </nav>
-  <p><span id="current-date"></span></p>
-    <div class="button-container">
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 0 else '' }}">M</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 1 else '' }}">T</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 2 else '' }}">W</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 3 else '' }}">T</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 4 else '' }}">F</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 5 else '' }}">S</button>
-        <button class="day-button {{ 'active' if datetime.datetime.today().weekday() == 6 else '' }}">S</button>
-    </div>
   <h1>Habits List</h1>
-  <form method="POST" action="{{ url_for('index') }}">
+  <p><span id="current-date"></span></p>
+  <div class="button-container">
+    <button class="day-button {{ 'active' if datetime.today().weekday() == 0 else '' }}">M</button>
+    <button class="day-button {{ 'active' if datetime.today().weekday() == 1 else '' }}">T</button>
+    <button class="day-button {{ 'active' if datetime.today().weekday() == 2 else '' }}">W</button>
+    <button class="day-button {{ 'active' if datetime.today().weekday() == 3 else '' }}">T</button>
+    <button class="day-button {{ 'active' if datetime.today().weekday() == 4 else '' }}">F</button>
+    <button class="day-button {{ 'active' if datetime.today().weekday() == 5 else '' }}">S</button>
+    <button class="day-button {{ 'active' if datetime.today().weekday() == 6 else '' }}">S</button>
+  </div>
+  
+  <form method="POST" action="{{ url_for('index_habit') }}">
     {{ task_form.csrf_token }}
     {{ task_form.task.label }} {{ task_form.task(size=30) }}
     {{ task_form.submit }}
   </form>
-  <form method="POST" action="{{ url_for('index') }}">
+  <form method="POST" action="{{ url_for('index_habit') }}">
     {{ habit_form.csrf_token }}
     <ul>
       {% for habit in habit_form.habits %}
-      <li>{{ habit.name }} <input type="checkbox" name="completed-{{ habit.habitid }}" value="{{ habit.name }}"></li>
+      <li><label for="completed-{{ habit.habitid }}">{{ habit.name }}</label> 
+      <input type="checkbox" id="completed-{{ habit.habitid }}" name="completed-{{ habit.habitid }}" value="{{ habit.name }}"></li>
       {% endfor %}
+      
     </ul>
     <input type="submit" name="update" value="Update Habits">
   </form>
 
+  
   <script>
-    //Set a current date
+    // Get current date and format it as a string
     var today = new Date();
-    var currentDate = "{{ today_str }}";
+    var currentDate = today.toLocaleDateString();
+
     // Set date in HTML element
     document.getElementById("current-date").innerHTML = currentDate;
-    document.getElementById("current-date").innerHTML = currentDate;
-  </script>
 
+document.addEventListener("DOMContentLoaded", function() {
+var checkboxes = document.querySelectorAll(".check");
+document.getElementById("update").addEventListener("click", updateCheck)
+
+function updateCheck(e) {
+for (var i = 0; i < checkboxes.length; i++) {
+  if (checkboxes[i].children[0].checked) {
+    checkboxes[i].children[0].style.display = "none"
+  }
+}
+}
+})
+</script>  
 </body>
 </html>

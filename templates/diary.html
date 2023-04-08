@@ -46,149 +46,146 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>                        
-        </button>
-        <a class="navbar-brand" href="/progress">Your progress</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li><a href="/diary_home">Diary</a></li>
-          <li><a href="/goals">Goals</a></li>
-          <li><a href="/habits">Habits</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
-<div class="container-fluid text-center">    
-  <div class="row content">
-    <div class="col-sm-2 text-right">
-      <h3>{{ month }}<br>{{ year }}</h3>
-      <div class='box' style='margin:auto; margin-right:0px; margin-top:100px; writing-mode: vertical-lr; text-orientation: upright;'>
-        <h1>{{ week }}</h1>
-      </div>
-    </div>
-    <div class="col-sm-7 text-left">
-        <div class='col-7 text-center'>
-            <h1 style="font-size: 70px; margin-left:100px;text-decoration: underline;">My diary</h1>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="/progress">Your progress</a>
         </div>
-        <div class='container-fluid'>
-          <form class = 'form-container' method='POST' action='/write_csv'>  
-              <div class="table-responsive-md table-responsive-sm">
-                  <table class='table'>
-                      <tr>
-                          <td style='width:auto;'>
-                              <label for='module' class='form-label'>Module</label><br>
-                              <input class='input' type='text' id='module' name='module' class='form-control' placeholder='Enter your data' required><br>
-                          </td>
-                          <td style='width:auto;'>
-                              <label for='value' class='form-label'>Value</label><br>
-                              <input class='input' type='number' id='value' name='value' class='form-control' placeholder='Enter your data' required><br>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <label for='body' class='form-label'>Body</label><br>
-                              <input class='input' type='text' id='body' name='body' class='form-control' placeholder='Enter your data' required><br>
-                          </td>
-                          <td>
-                              <label for='km' class='form-label'>Km</label><br>
-                              <input class='input' type='number' id='km' name='km' class='form-control' placeholder='Enter your data' required><br>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <label for='heart' class='form-label'>Heart</label><br>
-                              <input class='input' type='text' id='heart' name='heart' class='form-control' placeholder='Enter your data' required><br>
-                          </td>
-                          <td>
-                              <label for='emotion' class='form-label'>Emotion</label><br>
-                              <select name='emotion' id='emotion' class='form-select'>
-                                <option value='happy'>Happy</option>
-                                <option value='sad'>Sad</option>
-                                <option value='normal'>Normal</option>
-                              </selesct>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <label for='intelegance' class='form-label'>Intelegance</label><br>
-                              <input class='input' type='text' id='intelegance' name='intelegance' class='form-control' placeholder='Enter your data' required><br>
-                          </td>
-                          <td>
-                              <label for='action' class='form-label'>Action</label><br>
-                              <input class='input' type='text' id='action' name='action' class='form-control' placeholder='Enter your data' required><br>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <h3>Analysis of the day's actions by value</h3>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <label for='good' class='form-label'>What was good?</label><br>
-                              <input class='input' type='text' id='good' name='good' placeholder='Enter your data' class='form-control'><br>
-                          </td>
-                          <td>
-                              <label for='bad' class='form-label'>What was bad?</label><br>
-                              <input class='input' type='text' id='bad' name='bad' placeholder='Enter your data' class='form-control'><br>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                             <label for='rival' class='form-label'>Rival of the day</label><br>
-                              <input class='input' type='text' id='rival' name='rival' placeholder='Enter your data' class='form-control'><br>
-                          </td>
-                          <td>
-                              <label for='victory' class='form-label'>Victory of the day</label><br>
-                              <input class='input' type='text' id='victory' name='victory' placeholder='Enter your data' class='form-control'><br>
-                          </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <label for='improve' class='form-label'>What to improve?</label><br>
-                          <input class='input' type='text' id='improve' name='improve' placeholder='Enter your data' class='form-control'><br>
-                        </td>
-                      </tr>
-                      <tr>
-                          <td>    
-                              <button type='submit' class='submit'>Submit</button>
-                          </td>
-                      </tr>
-                  </table>
-              </div>
-          </form>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="/diary_home">Diary</a></li>
+            <li><a href="/goals">Goals</a></li>
+            <li><a href="#">Habits</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </ul>
         </div>
-    </div>
-      <div class="col-sm-3 sidenav">
-        <div class="well">
-          <h3>Explanation</h3>
-          <h4>Body</h4>
-          <div style="background-color:#D7D6D6">
-            <p class='explanation'>In a few words (at least 10 characters), describe how you contributed to your physical development today?<br><br>For example: I worked hard on my running speed and abs during the morning exercise.</p>
+      </div>
+    </nav>
+    
+  <div class="container-fluid text-center">    
+    <div class="row content">
+      <div class="col-sm-2 text-right">
+        <h3>{{ month }}<br>{{ year }}</h3>
+        <div class='box' style='margin:auto; margin-right:0px; margin-top:100px; writing-mode: vertical-lr; text-orientation: upright;'>
+          <h1>{{ week }}</h1>
+        </div>
+      </div>
+      <div class="col-sm-7 text-left">
+          <div class='col-7 text-center'>
+              <h1 style="font-size: 70px; margin-left:100px;text-decoration: underline;">My diary</h1>
           </div>
-          <h4>Heart</h4>
-          <div style="background-color:#D7D6D6">
-            <p class='explanation'>In a few words (minimum 10 characters), describe how you contributed to your emotional development today?<br><br>For example: I spoke well at the reflection and several people thanked me for my reflection.</p>
-          </div>
-          <h4>Intelligence</h4>
-          <div style="background-color:#D7D6D6">
-            <p class='explanation'>In a few words (minimum 10 characters), describe what contribution you made to your intellectual development today?<br><br>For example: I was active in the lecture, asked a lot of questions and learned new information.</p>
+          <div class='container-fluid'>
+            <form method='POST' action='/write_csv'>  
+                <div class="table-responsive-md table-responsive-sm">
+                    <table class='table'>
+                        <tr>
+                            <td style='width:auto;'>
+                                <label for='module' class='form-label'>Module</label><br>
+                                <input type='text' id='module' name='module' class='form-control' required><br>
+                            </td>
+                            <td style='width:auto;'>
+                                <label for='value' class='form-label'>Value</label><br>
+                                <input type='number' id='value' name='value' class='form-control' required><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for='body' class='form-label'>Body</label><br>
+                                <input type='text' id='body' name='body' class='form-control' required><br>
+                            </td>
+                            <td>
+                                <label for='km' class='form-label'>Km</label><br>
+                                <input type='number' id='km' name='km' class='form-control' required><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for='heart' class='form-label'>Heart</label><br>
+                                <input type='text' id='heart' name='heart' class='form-control' required><br>
+                            </td>
+                            <td>
+                                <label for='emotion' class='form-label'>Emotion</label><br>
+                                <select name='emotion' id='emotion' class='form-select'>
+                                  <option value='happy'>Happy</option>
+                                  <option value='sad'>Sad</option>
+                                  <option value='normal'>Normal</option>
+                                </selesct>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for='intelegance' class='form-label'>Intelegance</label><br>
+                                <input type='text' id='intelegance' name='intelegance' class='form-control' required><br>
+                            </td>
+                            <td>
+                                <label for='action' class='form-label'>Action</label><br>
+                                <input type='text' id='action' name='action' class='form-control' required><br>
+                            </td>
+                        </tr>
+                      </table>
+                      <table class='table'>
+                        <tr>
+                            <td>
+                                <h3>Analysis of the day's actions by value</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type='text' id='good' name='good' placeholder='What was good?' class='form-control'><br>
+                            </td>
+                            <td>
+                                <input type='text' id='bad' name='bad' placeholder='What was bad?' class='form-control'><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type='text' id='day' name='day' placeholder='Rival of the day' class='form-control'><br>
+                            </td>
+                            <td>
+                                <input type='text' id='rival' name='rival' placeholder='Victory of the day' class='form-control'><br>
+                            </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <input type='text' id='improve' name='improve' placeholder='What to improve?' class='form-control'><br>
+                          </td>
+                        </tr>
+                        <tr>
+                            <td>    
+                                <button type='submit' class='btn btn-danger'>Submit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
           </div>
       </div>
+        <div class="col-sm-3 sidenav">
+          <div class="well">
+            <h3>Explanation</h3>
+            <h4 style='margin: 20px;'>Body</h4>
+            <div style="background-color:#D7D6D6">
+                <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+            </div>
+            <h4 style='margin: 20px;'>Heart</h4>
+            <div style="background-color:#D7D6D6">
+                <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+            </div>
+            <h4 style='margin: 20px;'>Intelligence</h4>
+            <div style="background-color:#D7D6D6">
+                <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
 
 
 </body>
