@@ -1,0 +1,81 @@
+<html>
+  <head>
+      <title>Goals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/style_goals.css">
+  <script type="text/javascript" src="../static/goals_custom.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="/progress">Your progress</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="/diary_home">Diary</a></li>
+            <li><a href="/goals">Goals</a></li>
+            <li><a href="#">Habits</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+      <div class="messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      </div>
+
+      <div style="margin:70px;" class="columns">
+        <h1 style="font-size: 70px; margin-left:100px;text-decoration: underline;">Goals lists</h1>
+        <ul class="lists">
+          {% if lists%}
+            {% for list in lists %}
+              <li class="list">
+                <a href="/goals/{{ list.list_url }}" ><button>{{list.list_name}}</button></a>
+                <button class="delete_list" data-list-id="{{list.list_id}}"><i class="fa-solid fa-xmark"></i></button>
+              </li>
+            {% endfor %}
+          {%endif%}
+        </ul>
+
+        <div class="buttonContainer">
+          <div class="round-button">
+            <div class="round-button-circle">
+              <div id="createFormOpenButton" class="button"><i class="fa-regular fa-plus"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-popup" id="createForm">
+          <form action="/goals" class="form-container" method="post">
+            <h1>Create new list</h1>
+        
+            <label for="list"><b>Enter the name for your list</b></label>
+            <input type="text" onkeydown="return /[a-zA-Z]/i.test(event.key)" name="list">
+        
+            <input type="submit" value="Create new list">
+            <button id="createFormCloseButton" type="button" class="btn cancel">Close</button>
+          </form>
+        </div>
+    </div>
+  </body>
+</html>
