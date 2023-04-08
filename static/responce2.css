@@ -4,14 +4,20 @@
     box-sizing: border-box;
 }
 
-h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: #191414;
+p {
+    font-size: 17.5px;
 }
 
 h1 span {
     color: #D81A1A;
+}
+
+.box{
+    margin:auto;
+    margin-right:10px;
+    margin-top:100px;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
 }
 
 html {
@@ -20,7 +26,6 @@ html {
 
 body {
     min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
     /* display: flex; */
     flex-direction: column;
@@ -37,6 +42,13 @@ body {
     padding: 50px ;
 }
 
+.form-select {
+    border: none;
+    width: 80%;
+    border-radius: 8px;
+    padding: 12px 20px;
+    background-color: #cac9c9;  
+}
 
 .form-container {
     width: 100%;
@@ -60,7 +72,6 @@ input:focus {
     border-radius: 8px;
     padding: 12px 20px;
     background-color: #cac9c9;
-    font-weight: 600;
 }
 
 .form-container .input:focus {
@@ -72,13 +83,12 @@ input:focus {
     opacity: 1;
 }
 
-.form-container .submit {
+.submit {
     border: none;
     border-radius: 8px;
     padding: 12px 20px;
     margin: 10px 70px;
     background-color: #D81A1A;
-    font-weight: 600;
     color: #191414;
     display: flex;
     align-items: center;
@@ -87,25 +97,25 @@ input:focus {
     transition: all 0.1s ease-in-out;
 }
 
-.form-container .submit:hover {
+.submit:hover {
     background-color: #620000;
     cursor: pointer;
 }
 
-.form-container .submit:focus {
+.submit:focus {
     outline: none;
 }
 
-.form-container .submit.loading {
+.submit.loading {
     background-color: #620000;;
     cursor: default;
 }
 
-.form-container .submit.loading .text {
+.submit.loading .text {
     display: none;
 }
     
-.form-container .submit.loading .loader {
+.submit.loading .loader {
     display: initial;
 }
 
@@ -136,4 +146,14 @@ ul.flashes li.warning {
 ul.flashes li.success {
     background-color: greenyellow;
     color: white;
+}
+
+.explanation {
+    padding: 30px;
+}
+
+h4 {
+    padding-top: 40px;
+    margin: 30px;
+
 }

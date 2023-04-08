@@ -169,7 +169,7 @@ def write_csv():
         request.form['body'], request.form['km'], request.form['heart'], \
         request.form['emotion'], request.form['intelegance'], \
         request.form['action'], request.form['good'], request.form['bad'], \
-        request.form['improve'], request.form['day'], request.form['rival']]
+        request.form['improve'], request.form['rival'], request.form['victory']]
     with open('user_info.csv', 'a', encoding='utf-8') as file:
         writer_object = writer(file)
         writer_object.writerow(day_info)
@@ -202,7 +202,7 @@ def show_info():
 
 @app.route('/diary_home', methods=['GET', 'POST'])
 def choice():
-    return render_template('response.html')
+    return render_template('response3.html')
 
 @app.route('/progress', methods=['GET'])
 def progress():

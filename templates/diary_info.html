@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/responce2.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
@@ -19,16 +20,7 @@
     
     /* Set gray background color and 100% height */
     .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
       height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
     }
     
     /* On small screens, set height to 'auto' for sidenav and grid */
@@ -43,6 +35,7 @@
     .row.content{
         height: auto;
     }
+
 
   </style>
 </head>
@@ -76,13 +69,13 @@
   <div class="row content">
     <div class="col-sm-2 text-right">
       <h3>{{ month }}<br>{{ year }}</h3>
-      <div class='box' style='margin:auto; margin-right:0px; margin-top:100px; writing-mode: vertical-lr; text-orientation: upright;'>
+      <div class='box'>
         <h1>{{ week }}</h1>
       </div>
     </div>
     <div class="col-sm-7 text-left">
         <div class='col-7 text-center'>
-            <h1 style="font-size: 70px; margin-left:100px;text-decoration: underline;">My diary</h1>
+            <h1 style="font-size: 70px; margin-left:100px; margin-bottom: 3%; text-decoration: underline;">My diary</h1>
         </div>
         <div class='container-fluid'>  
               <div class="table-responsive-md table-responsive-sm">
@@ -157,29 +150,29 @@
                       </tr>
                       <tr>
                         <td>    
-                            <button type='submit' class='btn btn-danger' onclick="location.href = '\diary_home';">Go back</button>
+                          <button type='submit' onclick="location.href = '\diary_home';" class='submit'>Go back</button>
                         </td>
                       </tr>
                   </table>
               </div>
         </div>
-    </div>
-    <div class="col-sm-3 sidenav">
-      <div class="well">
-        <h3>Explanation</h3>
-        <h4>Body</h4>
-        <div style="background-color:#D7D6D6">
-            <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
-        </div>
-        <h4>Heart</h4>
-        <div style="background-color:#D7D6D6">
-            <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
-        </div>
-        <h4>Intelligence</h4>
-        <div style="background-color:#D7D6D6">
-            <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
-        </div>
-    </div>
+      </div>
+        <div class="col-sm-3 sidenav">
+          <div class="well">
+            <h3>Explanation</h3>
+            <h4>Body</h4>
+            <div style="background-color:#D7D6D6">
+              <p class='explanation'>In a few words (at least 10 characters), describe how you contributed to your physical development today?<br><br>For example: I worked hard on my running speed and abs during the morning exercise.</p>
+            </div>
+            <h4>Heart</h4>
+            <div style="background-color:#D7D6D6">
+              <p class='explanation'>In a few words (minimum 10 characters), describe how you contributed to your emotional development today?<br><br>For example: I spoke well at the reflection and several people thanked me for my reflection.</p>
+            </div>
+            <h4>Intelligence</h4>
+            <div style="background-color:#D7D6D6">
+              <p class='explanation'>In a few words (minimum 10 characters), describe what contribution you made to your intellectual development today?<br><br>For example: I was active in the lecture, asked a lot of questions and learned new information.</p>
+          </div>
+      </div>
   </div>
 </div>
 

@@ -4,6 +4,7 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../static/responce2.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -20,15 +21,7 @@
     /* Set gray background color and 100% height */
     .sidenav {
       padding-top: 20px;
-      background-color: #f1f1f1;
       height: auto;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
     }
     
     /* On small screens, set height to 'auto' for sidenav and grid */
@@ -42,6 +35,11 @@
 
     .row.content{
         height: auto;
+    }
+
+    .table>tbody>tr>td{
+      border: none;
+      width: 50%;
     }
 
   </style>
@@ -84,34 +82,34 @@
         <div class='col-7 text-center'>
             <h1 style="font-size: 70px; margin-left:100px;text-decoration: underline;">My diary</h1>
         </div>
-        <div class='container-fluid'>
-          <form method='POST' action='/write_csv'>  
+        <div class='container-fluid' style=''>
+          <form class = 'form-container' method='POST' action='/write_csv'>  
               <div class="table-responsive-md table-responsive-sm">
                   <table class='table'>
                       <tr>
                           <td style='width:auto;'>
                               <label for='module' class='form-label'>Module</label><br>
-                              <input type='text' id='module' name='module' class='form-control' required><br>
+                              <input class='input' type='text' id='module' name='module' class='form-control' placeholder='Enter your data' required><br>
                           </td>
                           <td style='width:auto;'>
                               <label for='value' class='form-label'>Value</label><br>
-                              <input type='number' id='value' name='value' class='form-control' required><br>
+                              <input class='input' type='number' id='value' name='value' class='form-control' placeholder='Enter your data' required><br>
                           </td>
                       </tr>
                       <tr>
                           <td>
                               <label for='body' class='form-label'>Body</label><br>
-                              <input type='text' id='body' name='body' class='form-control' required><br>
+                              <input class='input' type='text' id='body' name='body' class='form-control' placeholder='Enter your data' required><br>
                           </td>
                           <td>
                               <label for='km' class='form-label'>Km</label><br>
-                              <input type='number' id='km' name='km' class='form-control' required><br>
+                              <input class='input' type='number' id='km' name='km' class='form-control' placeholder='Enter your data' required><br>
                           </td>
                       </tr>
                       <tr>
                           <td>
                               <label for='heart' class='form-label'>Heart</label><br>
-                              <input type='text' id='heart' name='heart' class='form-control' required><br>
+                              <input class='input' type='text' id='heart' name='heart' class='form-control' placeholder='Enter your data' required><br>
                           </td>
                           <td>
                               <label for='emotion' class='form-label'>Emotion</label><br>
@@ -125,15 +123,13 @@
                       <tr>
                           <td>
                               <label for='intelegance' class='form-label'>Intelegance</label><br>
-                              <input type='text' id='intelegance' name='intelegance' class='form-control' required><br>
+                              <input class='input' type='text' id='intelegance' name='intelegance' class='form-control' placeholder='Enter your data' required><br>
                           </td>
                           <td>
                               <label for='action' class='form-label'>Action</label><br>
-                              <input type='text' id='action' name='action' class='form-control' required><br>
+                              <input class='input' type='text' id='action' name='action' class='form-control' placeholder='Enter your data' required><br>
                           </td>
                       </tr>
-                    </table>
-                    <table class='table'>
                       <tr>
                           <td>
                               <h3>Analysis of the day's actions by value</h3>
@@ -141,28 +137,33 @@
                       </tr>
                       <tr>
                           <td>
-                              <input type='text' id='good' name='good' placeholder='What was good?' class='form-control'><br>
+                              <label for='good' class='form-label'>What was good?</label><br>
+                              <input class='input' type='text' id='good' name='good' placeholder='Enter your data' class='form-control'><br>
                           </td>
                           <td>
-                              <input type='text' id='bad' name='bad' placeholder='What was bad?' class='form-control'><br>
+                              <label for='bad' class='form-label'>What was bad?</label><br>
+                              <input class='input' type='text' id='bad' name='bad' placeholder='Enter your data' class='form-control'><br>
                           </td>
                       </tr>
                       <tr>
                           <td>
-                              <input type='text' id='day' name='day' placeholder='Rival of the day' class='form-control'><br>
+                             <label for='rival' class='form-label'>Rival of the day</label><br>
+                              <input class='input' type='text' id='rival' name='rival' placeholder='Enter your data' class='form-control'><br>
                           </td>
                           <td>
-                              <input type='text' id='rival' name='rival' placeholder='Victory of the day' class='form-control'><br>
+                              <label for='victory' class='form-label'>Victory of the day</label><br>
+                              <input class='input' type='text' id='victory' name='victory' placeholder='Enter your data' class='form-control'><br>
                           </td>
                       </tr>
                       <tr>
                         <td>
-                          <input type='text' id='improve' name='improve' placeholder='What to improve?' class='form-control'><br>
+                          <label for='improve' class='form-label'>What to improve?</label><br>
+                          <input class='input' type='text' id='improve' name='improve' placeholder='Enter your data' class='form-control'><br>
                         </td>
                       </tr>
                       <tr>
                           <td>    
-                              <button type='submit' class='btn btn-danger'>Submit</button>
+                              <button type='submit' class='submit'>Submit</button>
                           </td>
                       </tr>
                   </table>
@@ -173,17 +174,17 @@
       <div class="col-sm-3 sidenav">
         <div class="well">
           <h3>Explanation</h3>
-          <h4 style='margin: 20px;'>Body</h4>
+          <h4>Body</h4>
           <div style="background-color:#D7D6D6">
-              <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+            <p class='explanation'>In a few words (at least 10 characters), describe how you contributed to your physical development today?<br><br>For example: I worked hard on my running speed and abs during the morning exercise.</p>
           </div>
-          <h4 style='margin: 20px;'>Heart</h4>
+          <h4>Heart</h4>
           <div style="background-color:#D7D6D6">
-              <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+            <p class='explanation'>In a few words (minimum 10 characters), describe how you contributed to your emotional development today?<br><br>For example: I spoke well at the reflection and several people thanked me for my reflection.</p>
           </div>
-          <h4 style='margin: 20px;'>Intelligence</h4>
+          <h4>Intelligence</h4>
           <div style="background-color:#D7D6D6">
-              <p style='padding:15px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse imperdiet volutpat enim a volutpat. Morbi laoreet quis augue bibendum condimentum. Quisque nec ultrices nisi. Ut placerat sapien lectus, nec tempus enim mattis sed. Donec et dapibus neque. Mauris metus libero, pretium at maximus ac, efficitur vel magna. Vestibulum tellus elit, hendrerit sed iaculis eget, interdum sed libero. Vestibulum commodo aliquet leo, ac ullamcorper diam gravida sit amet. Curabitur molestie justo eu tellus lacinia, sed laoreet lacus ultrices.</p>
+            <p class='explanation'>In a few words (minimum 10 characters), describe what contribution you made to your intellectual development today?<br><br>For example: I was active in the lecture, asked a lot of questions and learned new information.</p>
           </div>
       </div>
   </div>

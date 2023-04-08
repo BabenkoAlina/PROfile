@@ -1,4 +1,4 @@
-user_id,date,module,value,body,km,heart,emotion,intelligence,action,good,bad,improve,day,rival
+user_id,date,module,value,body,km,heart,emotion,intelligence,action,good,bad,improve,rival,victory
 
 1ETrmGTiEXSmdfTAA7qTI2jltur1,2023-03-23,one,,,,,happy,,,,,,,
 1ETrmGTiEXSmdfTAA7qTI2jltur1,2023-03-26,one,7,we,23,"m,kljnm",happy,"jhdbsa,",jwekndejke,,,,,
@@ -18,3 +18,6 @@ btDfqL0AoJWDwtZzdPxgCmbbhnD3,2023-04-01,one,4,jygtj,45,"m,kljnm",happy,"jhdbsa,"
 1ETrmGTiEXSmdfTAA7qTI2jltur1,2023-04-06,one,4,we,45,"m,kljnm",normal,"jhdbsa,",jwekndejke,one,word,a,day,always
 1ETrmGTiEXSmdfTAA7qTI2jltur1,2023-04-06,one,4,we,45,2hkjh,happy,"jhdbsa,",jwekndejke,one,,,,
 1ETrmGTiEXSmdfTAA7qTI2jltur1,2023-04-06,one,4,we,45,"m,kljnm",happy,"jhdbsa,",jwekndejke,one,,a,,
+1ETrmGTiEXSmdfTAA7qTI2jltur1,2023-04-07,one,4,jygtj,45,"m,kljnm",happy,"jhdbsa,",jwekndejke,,,,,
+1ETrmGTiEXSmdfTAA7qTI2jltur1,2023-04-08,one,4,we,45,"m,kljnm",sad,"jhdbsa,",jwekndejke,good,bad,improve,rival,victory
+1ETrmGTiEXSmdfTAA7qTI2jltur1,2023-04-08,one,4,we,45,"m,kljnm",happy,"jhdbsa,",jwekndejke,one,word,a,always,victory
