@@ -1,9 +1,12 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Goals for {{list_name}} list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../static/style_goals.css">
     <script type="text/javascript" src="../static/goals_custom.js"></script>
     </head>
@@ -22,7 +25,7 @@
                 <ul class="nav navbar-nav">
                   <li><a href="/diary_home">Diary</a></li>
                   <li><a href="/goals">Goals</a></li>
-                  <li><a href="#">Habits</a></li>
+                  <li><a href="/habits">Habits</a></li>
                   <li><a href="/about">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -43,53 +46,67 @@
                 {% endif %}
             {% endwith %}
         </div>
-        
-        <h1 style="font-size: 70px; margin-left:100px;text-decoration: underline;">Goals for {{list_name}} list</h1>
-        <h3>Completed goals</h3>
-        <ul class="goalsList">
-            {% for goal in goals %}
-                {% if goal.status == 'completed' %}
-                    <li class="goal">
-                        <div class="description">{{ goal.description }}</div>
-                        <button class="delete" data-goal-id="{{goal.goal_id}}">Delete</button>
-                    </li>
+
+        <div class="header">
+            <h1 style="font-size: 70px; border-bottom: 5px solid black;">Goals for {{list_name}} list</h1>
+            <p style="text-align: left; font-size: 25px;">Want to see a different list of goals? <a href='/goals' style="color: #D81A1A;">Go to all lists</a></p>
+        </div>
+        {% if not goals %}
+            <p style="margin: auto; padding: 10px;color: white; font-size: 20px; text-align: center; width: 300px; height: 100px; background-color: #D81A1A; border-radius: 25% 10%; display: block; padding: 20px 0;">You haven't created, nor did you complete any of your goals yet!</p>
+        {% endif %}
+        <div class="goalsWrapper">
+            <div class="columns completed">
+                <h2 class="goals">Completed goals</h2>
+                {% if goals %}
+                  <ul class="goalsList">
+                      {% for goal in goals %}
+                          {% if goal.status == 'completed' %}
+                              <li class="goal">
+                                  <div class="description">{{ goal.description }}</div>
+                                  <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
+                              </li>
+                          {% endif %}
+                      {% endfor %}
+                  </ul>
                 {% endif %}
-            {% endfor %}
-        </ul>
-        
-        <h3>Your goals in progress</h3>
-        
-        <ul class="goalsList">
-            {% for goal in goals %}
-                {% if goal.status != 'completed' %}
-                    <li class="goal">
-                        <button class="update" data-goal-id="{{goal.goal_id}}">Complete</button>
-                        <div class="description">{{ goal.description }}</div>
-                        <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
-                    </li>
+            </div>
+
+            <div class="columns">
+                <h2 class="goals">Your goals in progress</h2>
+                {% if goals %}
+                    <ul class="goalsList">
+                      {% for goal in goals %}
+                          {% if goal.status != 'completed' %}
+                              <li class="goal">
+                                  <button class="update" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-check"></i></button>
+                                  <div class="description">{{ goal.description }}</div>
+                                  <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
+                              </li>
+                          {% endif %}
+                      {% endfor %}
+                    </ul>
                 {% endif %}
-            {% endfor %}
-        </ul>
+            </div>
+        </div>
 
         <div class="buttonContainer">
-          <div class="round-button">
-            <div class="round-button-circle">
-              <div id="createFormOpenButton" class="button"><i class="fa-regular fa-plus"></i></div>
+            <div class="round-button">
+                  <div class="round-button-circle">
+                        <div id="createFormOpenButton" class="button"><i class="fa-regular fa-plus"></i></div>
+                  </div>
             </div>
-          </div>
         </div>
 
         <div class="form-popup" id="createForm">
-          <form action="/goals/goal" class="form-container" method="post">
-            <h1>Create new goal</h1>
-            <label for="list"><b>Type in the description for your goal.</b></label>
-            <input type="text" name="goal">
-            <input type="hidden" value="{{list_name}}" name="list_name">
+            <form action="/goals/goal" class="form-container" method="post">
+                  <h1>Create new goal</h1>
+                  <label for="goal"><b>Type in the description for your goal.</b></label>
+                  <input type="text" name="goal" id="goal">
+                  <input type="hidden" value="{{list_name}}" name="list_name">
 
-            <input type="submit" value="Create new goal">
-            <button id="createFormCloseButton" type="button" class="btn cancel">Close</button>
-          </form>
+                <input type="submit" value="Create new goal">
+                <button id="createFormCloseButton" type="button" class="btn cancel">Close</button>
+            </form>
         </div>
     </body>
 </html>
-    

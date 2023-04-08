@@ -43,11 +43,7 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(-45deg, #5e5e5e, #868686, #c9c9c9, #ffffff);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-    height: 100vh;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 p {
@@ -58,12 +54,16 @@ h2 {
     text-align: center;
 }
 
+.goals{
+    text-align: left;
+}
+
 .progress{
     text-align: center;
 }
 
 button {
-    background-color: #555555;
+    background-color: #8a8a8a;
     color: white;
     height: 60px;
     width: 140px;
@@ -133,12 +133,6 @@ input[type=text]{
     height: 100%;
 }
 
-/* Set black background color, white text and some padding */
-footer {
-    background-color: #555;
-    color: white;
-    padding: 15px;
-}
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
@@ -174,7 +168,7 @@ footer {
     background:#555555;
 }
 .round-button .button i {
-    color: #FFF;
+    color: #D81A1A;
 }
 .round-button .button {
     display: flex;
@@ -237,6 +231,7 @@ footer {
 .form-container .cancel {
     background-color: #D81A1A;
 }
+
 .delete i {
     color: #FFF;  
     text-align: center;  
@@ -247,8 +242,39 @@ footer {
     flex-wrap: wrap;
 }
 
-.goal {
+.header {
+    margin: 70px;
+}
+
+.goalsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 70px;
+}
+
+.columns {
+    flex: 0 0 67%;
+}
+
+.columns p {
+    text-align: left;
+}
+
+.columns.completed {
     flex: 0 0 33%;
+}
+
+.goal {
+    flex: 0 0 50%;
+}
+
+.completed .goal {
+    flex: 0 0 100%;
+}
+
+.completed .goal .description {
+    background-color: #0C7817;
+    color: #FFF;
 }
 
 .lists {
@@ -259,7 +285,8 @@ footer {
 .list {
     flex: 0 0 33%;
 }
-.delete_list{
+
+.delete {
     background-color: #555555;
     color: white;
     height: 24px;
@@ -273,4 +300,33 @@ footer {
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 50%;
+}
+
+.update {
+    background-color: #555555;
+    color: white;
+    height: 24px;
+    width: 24px;
+    border: none;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.description {
+    background-color: #acacac;
+    font-size: 25px;
+    border-radius: 5%;
+    margin: 4px 2px;
+    padding: 7px;
+    display: inline-block;
+    max-width: 50%;
+    min-width: 25%;
+    color: white;
+    text-align: center;
 }

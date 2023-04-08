@@ -1,0 +1,140 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+#current-date {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.day-button {
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  color: #333;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.day-button.active {
+  background-color: red;
+  color: white;
+}
+
+/* Styles for large screens */
+div.fixed {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+} 
+
+.btn-group .button {
+  background-color: #e7e7e7; 
+  border: 1px solid black;
+  color: black;
+  width: auto;
+  padding: 0px 100px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.btn-group .button:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+input[type=checkbox]:checked + label:before {
+  content: "\2713";
+  display: block;
+  text-align: center;
+  color: green;
+}
+
+
+/* Center the habits list */
+#habits-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Style each habit rectangle */
+.habit-rectangle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 100px;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {height: 450px}
+
+/* Set gray background color and 100% height */
+.sidenav {
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  height: auto;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  .row.content {height:auto;} 
+}
+
+.row.content{
+    height: auto;
+}

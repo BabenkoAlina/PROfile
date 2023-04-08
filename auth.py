@@ -2,6 +2,7 @@ from flask import Flask, session, render_template, request, redirect
 import pyrebase
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret'
 
 firebaseConfig = {
     'apiKey': "AIzaSyAXoO8gg9C8_osWeI3YgUoOZ5Y3_QndNiI",
@@ -23,6 +24,7 @@ def main():
     if "email" not in session:
         return redirect('/login')
     else:
+        # Тут треба зарендити свій основний шаблон
         return render_template('main.html')
     
 @app.route('/login', methods=['GET', 'POST'])
@@ -47,19 +49,16 @@ def signup():
     if request.method == 'POST':
         email = request.json["email"]
         password = request.json["password"]
-
         try:
             user = auth.create_user_with_email_and_password(email, password)
             session['email'] = email
-            write_csv(user['localId'], email)
+            # session['localId'] - це і є токен
+            session['localId'] = user['localId']
             return "", 302
         except Exception as e:
             return '{"error": "Failed to login"}', 200  
     return render_template('signup.html')
 
-def write_csv(localId, email):
-    with open('users.csv', 'a') as f:
-        f.write(localId + ',' + email +'\n')
 @app.route('/logout')
 def logout():
     session.pop('email', None)

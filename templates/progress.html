@@ -62,7 +62,7 @@
         <ul class="nav navbar-nav">
             <li><a href="/diary_home">Diary</a></li>
             <li><a href="/goals">Goals</a></li>
-            <li><a href="#">Habits</a></li>
+            <li><a href="/habits">Habits</a></li>
             <li><a href="/about">About</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -71,39 +71,46 @@
         </div>
     </div>
     </nav>
-          
-    <div class="wrapper">
-        <div class="content">
-            <div class="diagram_header">
-                <h1 class="pagename">Your progress</h1>
-            </div>
-            <div class="table">
-                <div class="column">
-                    <div class="row">
-                        <div class="annotation">Km</div>
-                        <div class="data">{{ last_month_km }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="annotation">Emotion</div>
-                        <div class="data">{{ last_month_emotion }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="annotation">Action</div>
-                        <div class="data">{{ last_month_action }}</div>
+    
+    <div class="wrapper_special">
+        <div class="content_special">
+            <div class="content_header">
+                <h1 class="pagename_special">Your progress</h1>
+                <div class="email_info">
+                    <p class="email_special">{{ session["email"] }}</p>
+                    <div class="row_special">
+                        <div class="annotation_special">Days in diary</div>
+                        <div class="data_special">{{ days }}</div>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="row">
-                        <div class="annotation">Km</div>
-                        <div class="data">{{ last_week_km }}</div>
+            </div>
+            <div class="table_special">
+                <div class="column_special">
+                    <div class="row_special">
+                        <div class="annotation_special">Km last month</div>
+                        <div class="data_special">{{ last_month_km }}</div>
                     </div>
-                    <div class="row">
-                        <div class="annotation">Emotion</div>
-                        <div class="data">{{ last_week_emotion }}</div>
+                    <div class="row_special">
+                        <div class="annotation_special">Emotion last month</div>
+                        <div class="data_special">{{ last_month_emotion }}</div>
                     </div>
-                    <div class="row">
-                        <div class="annotation">Action</div>
-                        <div class="data">{{ last_week_action }}</div>
+                    <div class="row_special">
+                        <div class="annotation_special">Action last month</div>
+                        <div class="data_special">{{ last_month_action }}</div>
+                    </div>
+                </div>
+                <div class="column_special">
+                    <div class="row_special">
+                        <div class="annotation_special">Km last week</div>
+                        <div class="data_special">{{ last_week_km }}</div>
+                    </div>
+                    <div class="row_special">
+                        <div class="annotation_special">Emotion last week</div>
+                        <div class="data_special">{{ last_week_emotion }}</div>
+                    </div>
+                    <div class="row_special">
+                        <div class="annotation_special">Action last week</div>
+                        <div class="data_special">{{ last_week_action }}</div>
                     </div>
                 </div>
             </div>
