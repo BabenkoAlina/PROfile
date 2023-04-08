@@ -55,35 +55,27 @@
     {{ habit_form.csrf_token }}
     <ul>
       {% for habit in habit_form.habits %}
-      <li><label for="completed-{{ habit.habitid }}">{{ habit.name }}</label> 
-      <input type="checkbox" id="completed-{{ habit.habitid }}" name="completed-{{ habit.habitid }}" value="{{ habit.name }}"></li>
+      <li>
+        <label>{{ habit.name }}</label>
+        <input type="checkbox" class='check' id="completed-{{ habit.habitid }}" name="completed-{{ habit.habitid }}" value="{{ habit.name }}" {% if habit.completed %}checked{% endif %}>
+      </li>
       {% endfor %}
-      
     </ul>
     <input type="submit" name="update" value="Update Habits">
   </form>
-
   
   <script>
-    // Get current date and format it as a string
-    var today = new Date();
-    var currentDate = today.toLocaleDateString();
-
-    // Set date in HTML element
-    document.getElementById("current-date").innerHTML = currentDate;
-
-document.addEventListener("DOMContentLoaded", function() {
-var checkboxes = document.querySelectorAll(".check");
-document.getElementById("update").addEventListener("click", updateCheck)
-
-function updateCheck(e) {
-for (var i = 0; i < checkboxes.length; i++) {
-  if (checkboxes[i].children[0].checked) {
-    checkboxes[i].children[0].style.display = "none"
-  }
-}
-}
-})
-</script>  
+    const checkboxes = document.querySelectorAll('.check');
+    const updateButton = document.querySelector('input[name="update"]');
+  
+    updateButton.addEventListener('click', () => {
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          checkbox.style.display = 'none';
+        }
+      });
+    });
+  </script>
+  
 </body>
 </html>

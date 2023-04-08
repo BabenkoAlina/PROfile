@@ -318,7 +318,7 @@ def write_new_habit(habitName):
         return habitid
 
 
-@app.route('/habits', methods=['GET', 'POST'])
+@app.route('/habits_add', methods=['GET', 'POST'])
 def index_habit():
     habits = read_habits()
     task_form = TaskForm()
