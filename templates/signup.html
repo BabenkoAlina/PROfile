@@ -8,16 +8,26 @@
     </head>
     <body>
         <div class="container">
-            <h1>Sign <span>Up<span/></h1>
-            <div class="form-container">
-                <form id="form" action = '/signup' method = "POST">
-                <input class="input" type ='text' name='email' placeholder = 'Email' ><br>
-                <input class="input" type ='password' minlength="8" name='password' placeholder ='Password'>
-                <input type ='submit' class = 'submit' placeholder = 'Send'>
-                <p class='account'>Already have an account? <a href = '/login'>Log in</a></p>
-                </form>             
-            </div>
-            <div class="error-message"></div>
+            <div class="row">
+              <div class="col">
+                <section>
+                        <h1><p>About <span>PRO</span>file</p></h1>
+                        <p>Introducing "PROfile" - a web application designed to help you set and achieve your personal goals, develop positive habits, and track your progress towards your desired outcomes. With PROfile, you can create personalized goals and set specific targets, such as completing a project, losing weight, reading a book, or learning a new skill. You can also see all the completed goals to keep track of what you have already achieved!</p>
+                    </section>
+              </div>
+              <div class="col-6">
+                <h1>Sign <span>Up<span/></h1>
+                    <div class="form-container">
+                        <form id="form" action = '/signup' method = "POST">
+                        <input class="input" type ='text' name='email' placeholder = 'Email' ><br>
+                        <input class="input" type ='password' minlength="8" name='password' placeholder ='Password'>
+                        <input type ='submit' class = 'submit' placeholder = 'Send'>
+                        <p class='account'>Already have an account? <a href = '/login'>Log in</a></p>
+                        </form>             
+                    </div>
+                    <div class="error-message"></div>
+              </div>
+            </div>     
         </div>
     </body>
 </html>
