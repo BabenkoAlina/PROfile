@@ -33,80 +33,81 @@
                 </ul>
               </div>
             </div>
-          </nav>
-
-        <div class="messages">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                <ul class=flashes>
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-                {% endfor %}
-                </ul>
-                {% endif %}
-            {% endwith %}
-        </div>
-
-        <div class="header">
-            <h1 style="font-size: 70px; border-bottom: 5px solid black;">Goals for {{list_name}} list</h1>
-            <p style="text-align: left; font-size: 25px;">Want to see a different list of goals? <a href='/goals' style="color: #D81A1A;">Go to all lists</a></p>
-        </div>
-        {% if not goals %}
-            <p style="margin: auto; padding: 10px;color: white; font-size: 20px; text-align: center; width: 300px; height: 100px; background-color: #D81A1A; border-radius: 25% 10%; display: block; padding: 20px 0;">You haven't created, nor did you complete any of your goals yet!</p>
-        {% endif %}
-        <div class="goalsWrapper">
-            <div class="columns completed">
-                <h2 class="goals">Completed goals</h2>
-                {% if goals %}
-                  <ul class="goalsList">
-                      {% for goal in goals %}
-                          {% if goal.status == 'completed' %}
-                              <li class="goal">
-                                  <div class="description">{{ goal.description }}</div>
-                                  <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
-                              </li>
-                          {% endif %}
-                      {% endfor %}
-                  </ul>
-                {% endif %}
-            </div>
-
-            <div class="columns">
-                <h2 class="goals">Your goals in progress</h2>
-                {% if goals %}
-                    <ul class="goalsList">
-                      {% for goal in goals %}
-                          {% if goal.status != 'completed' %}
-                              <li class="goal">
-                                  <button class="update" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-check"></i></button>
-                                  <div class="description">{{ goal.description }}</div>
-                                  <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
-                              </li>
-                          {% endif %}
-                      {% endfor %}
+        </nav>
+        <div id="goalsList">
+            <div class="messages">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <ul class=flashes>
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
                     </ul>
-                {% endif %}
+                    {% endif %}
+                {% endwith %}
             </div>
-        </div>
 
-        <div class="buttonContainer">
-            <div class="round-button">
-                  <div class="round-button-circle">
-                        <div id="createFormOpenButton" class="button"><i class="fa-regular fa-plus"></i></div>
-                  </div>
+            <div class="header">
+                <h1 style="font-size: 70px; border-bottom: 5px solid black;">Goals for {{list_name}} list</h1>
+                <p style="text-align: left; font-size: 25px;">Want to see a different list of goals? <a href='/goals' style="color: #D81A1A;">Go to all lists</a></p>
             </div>
-        </div>
+            {% if not goals %}
+                <p style="margin: auto; padding: 10px;color: white; font-size: 20px; text-align: center; width: 300px; height: 100px; background-color: #D81A1A; border-radius: 25% 10%; display: block; padding: 20px 0;">You haven't created, nor did you complete any of your goals yet!</p>
+            {% endif %}
+            <div class="goalsWrapper">
+                <div class="columns completed">
+                    <h2 class="goals">Completed goals</h2>
+                    {% if goals %}
+                    <ul class="goalsList">
+                        {% for goal in goals %}
+                            {% if goal.status == 'completed' %}
+                                <li class="goal">
+                                    <span class="description">{{ goal.description }}</span>
+                                    <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
 
-        <div class="form-popup" id="createForm">
-            <form action="/goals/goal" class="form-container" method="post">
-                  <h1>Create new goal</h1>
-                  <label for="goal"><b>Type in the description for your goal.</b></label>
-                  <input type="text" name="goal" id="goal">
-                  <input type="hidden" value="{{list_name}}" name="list_name">
+                <div class="columns">
+                    <h2 class="goals">Your goals in progress</h2>
+                    {% if goals %}
+                        <ul class="goalsList">
+                        {% for goal in goals %}
+                            {% if goal.status != 'completed' %}
+                                <li class="goal">
+                                    <button class="update" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-check"></i></button>
+                                    <span class="description">{{ goal.description }}</span>
+                                    <button class="delete" data-goal-id="{{goal.goal_id}}"><i class="fa-solid fa-xmark"></i></button>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
 
-                <input type="submit" value="Create new goal">
-                <button id="createFormCloseButton" type="button" class="btn cancel">Close</button>
-            </form>
+            <div class="buttonContainer">
+                <div class="round-button">
+                    <div class="round-button-circle">
+                            <div id="createFormOpenButton" class="button"><i class="fa-regular fa-plus"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-popup" id="createForm">
+                <form action="/goals/goal" class="form-container" method="post">
+                    <h1>Create new goal</h1>
+                    <label for="goal"><b>Type in the description for your goal.</b></label>
+                    <input type="text" name="goal" id="goal">
+                    <input type="hidden" value="{{list_name}}" name="list_name">
+
+                    <input type="submit" value="Create new goal">
+                    <button id="createFormCloseButton" type="button" class="btn cancel">Close</button>
+                </form>
+            </div>
         </div>
     </body>
 </html>

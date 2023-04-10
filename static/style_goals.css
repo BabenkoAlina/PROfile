@@ -236,6 +236,43 @@ input[type=text]{
     text-align: center;  
 }
 
+@media screen and (max-width: 767px) {
+    #goalsHome .goalsWrapper .columns {
+        flex: 0 0 100%;
+    }
+
+    #goalsHome .goalsWrapper .polaroid {
+        margin-top: 20px;
+        flex: 0 0 100%;
+    }
+
+    #goalsHome .goalsWrapper .columns .list {
+        flex: 0 0 100%;
+        display: flex;
+    }
+
+    #goalsHome .goalsWrapper .columns .list a {
+        width: 100%;
+    }
+
+    #goalsHome .goalsWrapper .columns .list a .description {
+        width: 100%;
+    }
+
+    #goalsList .goalsWrapper .columns .list {
+        flex: 0 0 100%;
+        display: flex;
+    }
+
+    #goalsList .goalsWrapper .columns .list a {
+        width: 100%;
+    }
+
+    #goalsList .goalsWrapper .columns .list a .description {
+        width: 100%;
+    }
+}
+
 .goalsList {
     display: flex;
     flex-wrap: wrap;
@@ -265,10 +302,16 @@ input[type=text]{
 
 .goal {
     flex: 0 0 50%;
+    display: flex;
 }
 
 .completed .goal {
     flex: 0 0 100%;
+    display: flex;
+}
+
+.goal a, .goal span {
+    display: inline-block;
 }
 
 .completed .goal .description {
@@ -283,6 +326,11 @@ input[type=text]{
 
 .list {
     flex: 0 0 33%;
+    display: flex;
+}
+
+.list a, .list span {
+    display: inline-block;
 }
 
 .delete {
@@ -296,7 +344,8 @@ input[type=text]{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin-left: -15px;
+    margin-top: 0;
     cursor: pointer;
     border-radius: 50%;
 }
@@ -312,7 +361,7 @@ input[type=text]{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 15px 5px 0 0;
     cursor: pointer;
     border-radius: 50%;
 }
@@ -324,8 +373,25 @@ input[type=text]{
     margin: 4px 2px;
     padding: 7px;
     display: inline-block;
-    max-width: 50%;
     min-width: 25%;
+    width: 200px;
     color: white;
     text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.polaroid {
+    flex: 0 0 33%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+  
+.polaroid img {width: 100%}
+  
+.polaroid h2 {
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 30px;
 }
