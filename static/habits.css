@@ -78,10 +78,6 @@ ul {
   padding: 0;
 }
 
-li {
-  margin: 10px 0;
-}
-
 input[type="checkbox"] {
   margin-right: 10px;
 }
@@ -114,6 +110,7 @@ input[type=checkbox]:checked + label:before {
   font-size: 20px;
 }
 
+/* Remove the navbar's default margin-bottom and rounded borders */ 
 .navbar {
   margin-bottom: 0;
   border-radius: 0;
@@ -124,11 +121,8 @@ input[type=checkbox]:checked + label:before {
 
 /* Set gray background color and 100% height */
 .sidenav {
-  padding-top: 20px;
-  background-color: #f1f1f1;
-  height: auto;
+  height: 100%;
 }
-
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
