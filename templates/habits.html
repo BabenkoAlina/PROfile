@@ -34,8 +34,9 @@
           </div>
       </div>
     </nav>
-
-    <h1>Habits</h1>
+  
+  <div class="header">
+    <h1 style="font-size: 70px; border-bottom: 5px solid black;">Habits</h1>
     <p><span id="current-date"></span></p>
     <div class="button-container">
       <button class="day-button {{ 'active' if datetime.today().weekday() == 0 else '' }}">M</button>
@@ -77,6 +78,6 @@
         });
       });
     </script>
-    
+  </div>
   </body>
 </html>

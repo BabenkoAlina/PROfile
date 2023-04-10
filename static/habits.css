@@ -136,3 +136,7 @@ input[type=checkbox]:checked + label:before {
 .row.content{
     height: auto;
 }
+
+.header {
+  margin: 70px;
+}
