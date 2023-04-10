@@ -57,6 +57,7 @@ input[type="text"] {
   font-size: 16px;
   cursor: pointer;
 }
+
 input[type="submit"] {
   margin-top: 20px;
   padding: 10px;
@@ -67,19 +68,24 @@ input[type="submit"] {
   font-size: 16px;
   cursor: pointer;
 }
+
 input[type="text"] {
   width: 300px;
 }
+
 ul {
   list-style: none;
   padding: 0;
 }
+
 li {
   margin: 10px 0;
 }
+
 input[type="checkbox"] {
   margin-right: 10px;
 }
+
 input[type=checkbox]:checked + label:before {
   content: "\2713";
   display: block;
@@ -94,6 +100,7 @@ input[type=checkbox]:checked + label:before {
   flex-direction: column;
   align-items: center;
 }
+
 /* Style each habit rectangle */
 .habit-rectangle {
   display: flex;
@@ -106,6 +113,7 @@ input[type=checkbox]:checked + label:before {
   margin-bottom: 20px;
   font-size: 20px;
 }
+
 .navbar {
   margin-bottom: 0;
   border-radius: 0;

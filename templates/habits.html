@@ -1,81 +1,83 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Habits</title>
-  <link rel="stylesheet" type="text/css" href="../static/habits.css">
-  <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>                        
-        </button>
-        <a class="navbar-brand" href="/progress">Your progress</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-            <li><a href="/diary_home">Diary</a></li>
-            <li><a href="/goals">Goals</a></li>
-            <li><a href="/habits">Habits</a></li>
-            <li><a href="/about">About</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-        </ul>
-        </div>
+  <head>
+    <title>Habits</title>
+    <link rel="stylesheet" type="text/css" href="../static/habits.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+          <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+          </button>
+          <a class="navbar-brand" href="/progress">Your progress</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+              <li><a href="/diary_home">Diary</a></li>
+              <li><a href="/goals">Goals</a></li>
+              <li><a href="/habits">Habits</a></li>
+              <li><a href="/about">About</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+          </ul>
+          </div>
+      </div>
+    </nav>
+
+    <h1>Habits</h1>
+    <p><span id="current-date"></span></p>
+    <div class="button-container">
+      <button class="day-button {{ 'active' if datetime.today().weekday() == 0 else '' }}">M</button>
+      <button class="day-button {{ 'active' if datetime.today().weekday() == 1 else '' }}">T</button>
+      <button class="day-button {{ 'active' if datetime.today().weekday() == 2 else '' }}">W</button>
+      <button class="day-button {{ 'active' if datetime.today().weekday() == 3 else '' }}">T</button>
+      <button class="day-button {{ 'active' if datetime.today().weekday() == 4 else '' }}">F</button>
+      <button class="day-button {{ 'active' if datetime.today().weekday() == 5 else '' }}">S</button>
+      <button class="day-button {{ 'active' if datetime.today().weekday() == 6 else '' }}">S</button>
     </div>
-  </nav>
-  <h1>Habits</h1>
-  <p><span id="current-date"></span></p>
-  <div class="button-container">
-    <button class="day-button {{ 'active' if datetime.today().weekday() == 0 else '' }}">M</button>
-    <button class="day-button {{ 'active' if datetime.today().weekday() == 1 else '' }}">T</button>
-    <button class="day-button {{ 'active' if datetime.today().weekday() == 2 else '' }}">W</button>
-    <button class="day-button {{ 'active' if datetime.today().weekday() == 3 else '' }}">T</button>
-    <button class="day-button {{ 'active' if datetime.today().weekday() == 4 else '' }}">F</button>
-    <button class="day-button {{ 'active' if datetime.today().weekday() == 5 else '' }}">S</button>
-    <button class="day-button {{ 'active' if datetime.today().weekday() == 6 else '' }}">S</button>
-  </div>
-  
-  <form method="POST" action="{{ url_for('index_habit') }}">
-    {{ task_form.csrf_token }}
-    {{ task_form.task.label }} {{ task_form.task(size=30) }}
-    {{ task_form.submit }}
-  </form>
-  <form method="POST" action="{{ url_for('index_habit') }}">
-    {{ habit_form.csrf_token }}
-    <ul>
-      {% for habit in habit_form.habits %}
-      <li>
-        <label>{{ habit.name }}</label>
-        <input type="checkbox" class='check' id="completed-{{ habit.habitid }}" name="completed-{{ habit.habitid }}" value="{{ habit.name }}" {% if habit.completed %}checked{% endif %}>
-      </li>
-      {% endfor %}
-    </ul>
-    <input type="submit" name="update" value="Update Habits">
-  </form>
-  
-  <script>
-    const checkboxes = document.querySelectorAll('.check');
-    const updateButton = document.querySelector('input[name="update"]');
-  
-    updateButton.addEventListener('click', () => {
-      checkboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-          checkbox.style.display = 'none';
-        }
+    
+    <form method="POST" action="{{ url_for('index_habit') }}">
+      {{ task_form.csrf_token }}
+      {{ task_form.task.label }} {{ task_form.task(size=30) }}
+      {{ task_form.submit }}
+    </form>
+    <form method="POST" action="{{ url_for('index_habit') }}">
+      {{ habit_form.csrf_token }}
+      <ul>
+        {% for habit in habit_form.habits %}
+        <li>
+          <label>{{ habit.name }}</label>
+          <input type="checkbox" class='check' id="completed-{{ habit.habitid }}" name="completed-{{ habit.habitid }}" value="{{ habit.name }}" {% if habit.completed %}checked{% endif %}>
+        </li>
+        {% endfor %}
+      </ul>
+      <input type="submit" name="update" value="Update Habits">
+    </form>
+    
+    <script>
+      const checkboxes = document.querySelectorAll('.check');
+      const updateButton = document.querySelector('input[name="update"]');
+    
+      updateButton.addEventListener('click', () => {
+        checkboxes.forEach(checkbox => {
+          if (checkbox.checked) {
+            checkbox.style.display = 'none';
+          }
+        });
       });
-    });
-  </script>
-  
-</body>
+    </script>
+    
+  </body>
 </html>
