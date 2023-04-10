@@ -223,7 +223,7 @@ def progress():
     df = df[df.user_id == session['localId']]
     df = df[['date', 'km' ,'emotion', 'action']]
     if not df.empty:
-        df.date = np.vectorize(datetime.datetime.date.fromisoformat)(df.date)
+        df.date = np.vectorize(datetime.date.fromisoformat)(df.date)
     days = len(set(df.date))
     today = datetime.date.today()
     last_month_df = df[df.date > today - datetime.timedelta(30)]
