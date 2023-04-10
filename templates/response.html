@@ -30,11 +30,59 @@
             border: none;
         }
 
-        .row{
+        @media screen and (max-width: 992px) {
+          .bigform .table > tbody > tr > td.option {
+              display: block;
+              box-sizing: border-box;
+              clear: both;
+              width: 100%;
+          }
+        }
+
+        .mobileContent {
+          display: none;
+        }
+
+        .desktopContent {
+          display: block;
+        }
+
+        @media screen and (max-width: 767px) {
+          .mobileContent {
+            display: block;
+          }
+
+          .mobileContent > td.row {
+            padding: 8px;
+            display: block;
+            box-sizing: border-box;
+            clear: both;
+            width: 100%;
+            margin: 0 auto;
+          }
+
+          .mobileContent td.option {
+            display: block;
+            box-sizing: border-box;
+            clear: both;
+            width: 100%;
+            margin: 0 auto;
+          }
+
+          .mobileContent .polaroid {
+            width: unset;
+          }
+
+          .desktopContent {
+            display: none;
+          }
+        }
+
+        .row {
             width: 50%;
         }
 
-        #bigform{
+        .bigform{
             padding-right: 10%;
             padding-top: 15%;
             text-align: center;
@@ -86,18 +134,19 @@
     <div class='continer-fluid'>
         <div class='card'>
             <table class='table'>
-                <tr>
+                <tr class="desktopContent">
                     <td class='row'>
-                        <div>
-                            <img class ='img-fluid rounded-start' src='static/images/diary.avif'>
+                        <div class="polaroid">
+                          <img src='static/images/diary.avif'>
+                          <h2>Diary</h2>
                         </div>
                     </td>
-                    <td class='row' id='bigform'>
+                    <td class='row' class='bigform'>
                         <div>
                             <h1 style="font-size: 70px; margin-bottom:100px;border-bottom: 5px solid black;">My diary</h1>
                             <table class='table'>  
                                 <tr>
-                                    <td class='row'>
+                                    <td class='row option'>
                                         <h1>Put in a date to look for</h1>
                                         <div class="form-container col">
                                             <form id='form' action = '/diary_info' method = "POST">
@@ -115,7 +164,7 @@
                                         </div>
                                     </td>
 
-                                    <td class='row'>
+                                    <td class='row option'>
                                         <h1>Add info about today</h1>
                                         <div class="form-container">
                                             <form id='form' action = '/diary' method = "POST">
@@ -127,6 +176,49 @@
                             </table>
                         </div>
                     </td>
+                <tr>
+                <tr class="mobileContent">
+                  <td class='row' class='bigform'>
+                      <div>
+                          <h1 style="font-size: 70px; margin-bottom:100px;border-bottom: 5px solid black;">My diary</h1>
+                          <table class='table'>  
+                              <tr>
+                                  <td class='row option'>
+                                      <h1>Put in a date to look for</h1>
+                                      <div class="form-container col">
+                                          <form id='form' action = '/diary_info' method = "POST">
+                                              <table class='table'>
+                                                  <tr class='row'>
+                                                      <td>
+                                                          <input class="input" type ='text' id='date' name='date' placeholder = '2023-03-28' ><br>
+                                                      </td>
+                                                      <td>
+                                                          <input type ='submit' class = 'submit' id='submit' placeholder = 'Send'>
+                                                      </td>
+                                                  </tr>
+                                              </table>
+                                          </form>             
+                                      </div>
+                                  </td>
+
+                                  <td class='row option'>
+                                      <h1>Add info about today</h1>
+                                      <div class="form-container">
+                                          <form id='form' action = '/diary' method = "POST">
+                                              <input type ='submit' class = 'submit' id='submit' placeholder = 'Add info'>
+                                          </form>             
+                                      </div>
+                                  </td>
+                              </tr>
+                          </table>
+                      </div>
+                  </td>
+                  <td class='row'>
+                      <div class="polaroid">
+                        <img src='static/images/diary.avif'>
+                        <h2>Diary</h2>
+                      </div>
+                  </td>
                 <tr>
             </div>
         </div>
