@@ -181,7 +181,7 @@ def write_csv():
         request.form['body'], request.form['km'], request.form['heart'], \
         request.form['emotion'], request.form['intelegance'], \
         request.form['action'], request.form['good'], request.form['bad'], \
-        request.form['improve'], request.form['day'], request.form['rival']]
+        request.form['improve'], request.form['victory'], request.form['rival']]
     with open('user_info.csv', 'a', encoding='utf-8') as file:
         writer_object = writer(file)
         writer_object.writerow(day_info)

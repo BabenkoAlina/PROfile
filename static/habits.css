@@ -33,7 +33,7 @@ h1 {
   cursor: pointer;
 }
 .day-button.active {
-  background-color: red;
+  background-color: #D81A1A;
   color: white;
 }
 form {
@@ -56,7 +56,7 @@ input[type="submit"] {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: red;
+  background-color: #D81A1A;
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -115,12 +115,6 @@ input[type=checkbox]:checked + label:before {
   height: auto;
 }
 
-/* Set black background color, white text and some padding */
-footer {
-  background-color: #555;
-  color: white;
-  padding: 15px;
-}
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
