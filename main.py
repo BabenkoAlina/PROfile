@@ -358,5 +358,5 @@ def index_habit():
     return render_template('habits.html', task_form=task_form, habit_form=habit_form, habits=habits, today_str=today_str, **context)
 
 
-if __name__ == '__main__':
-    app.run(port=1111, debug=True)
+#if __name__ == '__main__':
+#    app.run(port=1111, debug=True)
